@@ -1,0 +1,36 @@
+.member-item {
+    position: relative;
+    margin: 5px;
+    float: left;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.member-item:hover {
+    background-color: #dedede;
+}
+
+.member-item img {
+    margin: 3px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+}
+
+.member-item .cancel {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    cursor: pointer;
+}
+
+.member-item .cancel i {
+    font-size: 20px;
+    color: #7d7d7d;
+}
+
+.member-item .cancel i:hover {
+    color: #f00;
+}

@@ -34,4 +34,11 @@ export default {
             method: "get",
         });
     },
+    // 获取用户信息
+    getUserInfo(user_id) {
+        return request({
+            url: `/user/user/user_info/${user_id}`,
+            method: "get",
+        });
+    },
 }
