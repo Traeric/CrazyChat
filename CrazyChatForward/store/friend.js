@@ -3,6 +3,7 @@ export const state = () => ({
     currentAvatar: "",
     currentId: 0,
     chatRecord: [],
+    addFriendDialog: false,
 });
 
 
@@ -23,21 +24,28 @@ export const mutations = {
     setCurrentId(state, id) {
         state.currentId = id;
     },
+    // 设置加好友弹窗
+    setaddFriendDialog(state, flag) {
+        state.addFriendDialog = flag;
+    },
 };
 
 
 export const actions = {
-    setCurrentNick({ commit }, nick) {
+    setCurrentNick({commit}, nick) {
         commit('setCurrentNick', nick);
     },
-    setCurrentAvatar({ commit }, avatar) {
+    setCurrentAvatar({commit}, avatar) {
         commit('setCurrentAvatar', avatar)
     },
-    setChatRecord({ commit }, chatRecord) {
+    setChatRecord({commit}, chatRecord) {
         commit("setChatRecord", chatRecord);
     },
-    setCurrentId({ commit }, id) {
+    setCurrentId({commit}, id) {
         commit("setCurrentId", id);
+    },
+    setaddFriendDialog({commit}, flag) {
+         commit("setaddFriendDialog", flag);
     },
 };
 

@@ -7,8 +7,8 @@
                 </div>
                 <ul class="left-list">
                     <li><i class="iconfont icon-xiaoxi"></i></li>
-                    <li><i class="iconfont icon-solid-person"></i></li>
                     <li><i class="iconfont icon-youjian1"></i></li>
+                    <li title="个人信息" @click="personnalInfo"><i class="iconfont icon-solid-person"></i></li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
             </div>
@@ -21,18 +21,22 @@
                         <i class="iconfont icon-jiahaoyou"></i> 添加
                         <div class="add">
                             <ul class="add-list clear-float">
-                                <li @click="addFriendDialog = true">
+                                <li @click="addFriend">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     加好友
                                 </li>
-                                <li @click="addGroupDialog = true">
+                                <li @click="addGroup">
                                     <i class="glyphicon glyphicon-home"></i>
                                     加群
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="con"><i class="iconfont icon-qunzu2"></i> 建群</li>
+                    <li class="con">
+                        <nuxt-link to="/home_page/build_group" style="text-decoration: none; color: #575757; display: block;">
+                            <i class="iconfont icon-qunzu2"></i> 建群
+                        </nuxt-link>
+                    </li>
                     <li class="con"><i class="iconfont icon-shezhi-tianchong"></i> 设置</li>
                     <li class="img"><img :src="userAvatar" alt="NO IMG" :title="userName"></li>
                     <li style="clear: both; display: none;"></li>
@@ -49,7 +53,7 @@
                         </div>
                     </div>
                     <div class="nick">{{ userName }}</div>
-                    <div class="sign">沉思往事立残阳，当时只道是寻常，看得见开始，猜不到结局</div>
+                    <div class="sign">{{ userInfo.sign }}</div>
                 </div>
                 <div class="friend">
                     <div class="topic">
@@ -185,96 +189,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- 背景 -->
         <div class="bg"></div>
+
         <!-- 加好友弹框 -->
-        <el-dialog title="添加好友" width="30%" :visible.sync="addFriendDialog">
-            <el-form label-position="right" label-width="80px" :inline="true">
-                <el-form-item label="搜索用户">
-                    <el-input v-model="addFriendName" autocomplete="off" style="width: 376px;"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" icon="el-icon-search" circle @click="searchFriend"></el-button>
-                </el-form-item>
-            </el-form>
-
-            <div class="user-list" v-show="searchUser.length">
-                <div class="title">
-                    搜索结果
-                </div>
-                <div class="user-item" v-for="(item, index) in searchUser" :key="index">
-                    <div class="user-img"><img :src="item.avatar" alt="NO IMG"></div>
-                    <div class="info">
-                        <div class="nick">{{ item.name }}</div>
-                        {{ item.sign }}
-                    </div>
-                    <div class="add-btn">
-                        <el-button type="success" @click="addFriend(item.id)">添加好友</el-button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="add-friend" v-show="addFriendFlag">
-                <el-form ref="form" label-width="120px">
-                    <el-form-item label="请填写验证信息">
-                        <el-input v-model="addFriendMap.confirmInfo"></el-input>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                        <el-input v-model="addFriendMap.todo"></el-input>
-                    </el-form-item>
-                    <el-form-item label="分组">
-                        <el-select v-model="addFriendMap.group">
-                            <el-option v-for="(item, index) in groupArray" :key="index"
-                                       :label="item.name" :value="item.id"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item size="large">
-                        <el-button type="primary" @click="confirmAddFriend(addFriendId)">确认添加</el-button>
-                        <el-button @click="cancelAddFriend">取消</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </el-dialog>
-
+        <AddFriend />
         <!-- 加群 -->
-        <el-dialog title="添加群聊" width="30%" :visible.sync="addGroupDialog">
-            <el-form label-position="right" label-width="90px" :inline="true">
-                <el-form-item label="搜索群名称">
-                    <el-input v-model="addGroupName" autocomplete="off" style="width: 376px;"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button icon="el-icon-search" circle @click="searchGroup"></el-button>
-                </el-form-item>
-            </el-form>
-
-            <!-- 展示群聊搜索结果 -->
-            <div class="user-list" v-show="searchGroupList.length">
-                <div class="title">
-                    搜索结果
-                </div>
-                <div class="user-item" v-for="(item, index) in searchGroupList" :key="index">
-                    <div class="user-img"><img :src="item.avatar" alt="NO IMG"></div>
-                    <div class="info">
-                        <div class="nick">{{ item.name }}</div>
-                    </div>
-                    <div class="add-btn">
-                        <el-button type="success" @click="addGroup(item.id)">申请加群</el-button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 显示添加群聊信息 -->
-            <div class="add-friend" v-show="addGroupFlag">
-                <el-form ref="form" label-width="120px">
-                    <el-form-item label="请填写验证信息">
-                        <el-input v-model="confirmInfo"></el-input>
-                    </el-form-item>
-                    <el-form-item size="large">
-                        <el-button type="primary" @click="confirmAddGroup">确认申请</el-button>
-                        <el-button @click="cancelAddGroup">取消</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </el-dialog>
+        <AddGroup />
+        <!-- 个人信息 -->
+        <PersonnalInfo />
     </div>
 </template>
 
@@ -285,11 +209,12 @@
     import GroupList from "@/components/groupList/groupList";
     import CurrentChat from "@/components/currentChat/currentChat";
     import RelationChat from "@/components/relationChat/relationChat";
+    import AddFriend from "@/components/addFriend/addFriend";
+    import AddGroup from "@/components/addGroup/addGroup";
+    import PersonnalInfo from "@/components/personnalInfo/personnalInfo";
     import {getUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
     import userApi from "../../api/user";
-    import friendApi from "../../api/friend";
-    import groupApi from "../../api/group";
     import axios from "axios";
 
     export default {
@@ -301,25 +226,6 @@
                 userName: getUser().nick,
                 isChating: false,
                 editor: null,
-                // 添加朋友
-                addFriendDialog: false,
-                addFriendName: "",
-                searchUser: [],
-                addFriendMap: {
-                    confirmInfo: "",
-                    todo: "",
-                    group: 0,
-                },
-                addFriendFlag: false,
-                groupArray: [],
-                addFriendId: 0,
-                // 添加群聊
-                addGroupDialog: false,
-                addGroupName: "",
-                searchGroupList: [],
-                addGroupFlag: false,
-                confirmInfo: "大家好，我是" + getUser().nick,
-                addGroupId: 0,
             };
         },
         mounted() {
@@ -341,7 +247,7 @@
                         ],           // 配置工具栏的参数，  "/"表示换行   "|"表示分割符
                         width: '100%',       // 文本框宽度(可以百分比或像素)
                         height: '150px',     // 文本框高度(只能像素)
-                        htmlTags: {"img": []},
+                        htmlTags: {"img": ["src",]},
                     }
                 );
             });
@@ -354,11 +260,22 @@
                 chatApi.getUserList("friend_list", userId),
                 chatApi.getUserList("group_list", userId),
                 chatApi.getUserList("relation_chat", userId),
-            ]).then(axios.spread(function (friendList, groupList, relationChatList) {
+                userApi.getUserInfo(getUser().id),
+            ]).then(axios.spread(function (friendList, groupList, relationChatList, userInfo) {
+                /**
+                 * 处理userInfo信息
+                 */
+                let data = userInfo.data.data;
+                // 计算年纪
+                let now = Date.parse(new Date());
+                let birth = Date.parse(data.birthday);
+                data["age"] = Math.floor(parseFloat((now - birth) / (1000 * 60 * 60 * 24 * 365)));
+
                 return {
                     friendListData: friendList.data.data,
                     groupListData: groupList.data.data,
                     relationChatListData: relationChatList.data.data,
+                    userInfo: data,
                 };
             }));
         },
@@ -475,135 +392,20 @@
                     return false;
                 }
             },
-            /**
-             * 添加好友
-             */
-            // 搜索用户
-            searchFriend() {
-                if (this.addFriendName.trim() === "") {
-                    this.$message({
-                        message: '用户名不能为空',
-                        type: 'info'
-                    });
-                    return;
-                }
-                // 进行搜索
-                userApi.searchUser(this.addFriendName).then((response) => {
-                    if (response.data.flag || response.data.data.length === 0) {
-                        this.searchUser = response.data.data;
-                        this.addFriendFlag = false;
-                    } else {
-                        this.$message({
-                            message: '没有该用户',
-                            type: 'error'
-                        });
-                    }
-                });
+            // 添加朋友
+            addFriend() {
+                this.$store.dispatch("friend/setaddFriendDialog", true);
             },
-            // 添加好友
-            addFriend(friendId) {
-                this.searchUser = [];     // 隐藏用户搜索内容
-                this.addFriendFlag = true;   // 显示添加用户
-                // 设置默认备注跟默认验证信息
-                this.addFriendMap.confirmInfo = "你好，我是" + getUser().nick;
-                this.addFriendMap.todo = this.addFriendName;
-                // 获取用户的分组
-                userApi.getGroupList(getUser().id).then((response) => {
-                    this.groupArray = response.data.data;
-                    this.addFriendMap.group = response.data.data[0].id;
-                });
-                this.addFriendId = friendId;
+            // 添加群聊
+            addGroup() {
+                this.$store.dispatch("group/setaddGroupDialog", true);
             },
-            // 确认添加好友
-            confirmAddFriend(friendId) {
-                if (this.addFriendMap.todo.trim() === "") {
-                    this.$message({
-                        message: '请设置用户备注',
-                        type: 'info'
-                    });
-                    return;
-                }
-                // 进行添加
-                friendApi.addFriend(getUser().id, friendId).then((response) => {
-                    this.$notify({
-                        title: (response.data.flag ? "成功" : "失败"),
-                        message: (response.data.flag ? response.data.message + "，请等待对方同意。" : response.data.message),
-                        type: (response.data.flag ? "success" : "error"),
-                    });
-                    if (response.data.flag) {
-                        this.cancelAddFriend();
-                    }
-                });
-            },
-            // 取消添加好友
-            cancelAddFriend() {
-                this.addFriendDialog = false;
-                this.addFriendName = "";
-                this.searchUser = [];
-                this.addFriendFlag = false;
-                this.addFriendId = 0;
-            },
-            /**
-             * 添加群聊
-             */
-            // 搜索群
-            searchGroup() {
-                if (this.addGroupName.trim() === "") {
-                    this.$message({
-                        message: '群名称不能为空',
-                        type: 'info'
-                    });
-                    return;
-                }
-                // 搜索群聊
-                groupApi.searchGroupByName(this.addGroupName).then((response) => {
-                    if (response.data.flag || response.data.data.length === 0) {
-                        this.searchGroupList = response.data.data;
-                        this.addGroupFlag = false;
-                    } else {
-                        this.$message({
-                            message: '没有该群聊',
-                            type: 'error'
-                        });
-                    }
-                });
-            },
-            // 添加群
-            addGroup(groupId) {
-                this.searchGroupList = [];     // 隐藏群聊搜索内容
-                this.addGroupFlag = true;   // 显示添加群组
-                this.addGroupId = groupId;
-            },
-            // 填写完信息，确认添加群
-            confirmAddGroup() {
-                if (this.confirmInfo.trim() === "") {
-                    this.$message({
-                        message: '请填写验证信息',
-                        type: 'info'
-                    });
-                    return;
-                }
-                // 进行添加
-                groupApi.addGroup(getUser().id, this.addGroupId, this.confirmInfo).then((response) => {
-                    this.$notify({
-                        title: (response.data.flag ? "成功" : "失败"),
-                        message: (response.data.flag ? "添加成功，请等待审核通过。" : response.data.message),
-                        type: (response.data.flag ? "success" : "error"),
-                    });
-                    if (response.data.flag) {
-                        this.cancelAddGroup();
-                    }
-                });
-            },
-            // 取消添加群
-            cancelAddGroup() {
-                this.addGroupDialog = false;
-                this.addGroupName =  "";
-                this.searchGroupList = [];
-                this.addGroupFlag = false;
-                this.confirmInfo = "大家好，我是" + getUser().nick;
-                this.addGroupId = 0;
-            },
+            // 展示个人信息
+            personnalInfo() {
+                this.$store.dispatch("user/setpersonnalInfoDialog", true);
+                // 设置给store
+                this.$store.dispatch("user/setUserInfo", this.userInfo);
+            }
         },
         computed: {
             "isChatingComputed": function () {
@@ -636,6 +438,9 @@
             GroupList,
             CurrentChat,
             RelationChat,
+            AddFriend,
+            AddGroup,
+            PersonnalInfo,
         },
     }
 </script>
@@ -940,53 +745,4 @@
                         color #fff
                         text-align center
 
-        .user-list
-            margin 0 auto
-            width 70%
-
-            .title
-                margin-bottom 5px
-                font-weight 700
-                font-size 20px
-
-            .user-item
-                display flex
-                margin-bottom 10px
-                padding 5px
-                cursor pointer
-                border 1px solid #dedede
-                border-radius 4px
-                box-shadow 2px 2px 6px #c8c8c8
-
-                &:hover
-                    background-color #f6f6f6
-
-            .user-img
-                flex 0 0 46px
-                width 46px
-                height 46px
-
-                img
-                    margin 3px
-                    width 40px
-                    height 40px
-                    border-radius 12px
-
-            .info
-                flex 1
-                padding 0 10px
-                width 0
-                white-space nowrap
-                text-overflow ellipsis
-                overflow hidden
-
-            .add-btn
-                flex 0 0 60px
-                margin-top 3px
-
-        .add-friend
-            padding 10px 20px
-            border-radius 8px
-            box-shadow 2px 2px 6px #c8c8c8
-            border 1px solid #dedede
 </style>

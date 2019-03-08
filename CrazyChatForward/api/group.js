@@ -18,5 +18,13 @@ export default {
             },
         });
     },
+    // 创建群聊
+    createGroup(groupMap) {
+        return request({
+            url: "/group/group/create_group",
+            method: "post",
+            data: groupMap,
+        });
+    },
 }
 

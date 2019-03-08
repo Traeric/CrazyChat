@@ -5,13 +5,17 @@
              @click="startChat(item.id, item.name, item.picture, item.data)">
             <div class="img"><img :src="item.picture" alt="NO IMG"></div>
             <div class="info" v-if="item.data.type === 0">
-                <div class="nick">{{ item.name }}</div>
+                <div class="nick">
+                    <div>{{ item.name }}</div>
+                </div>
                 {{ item.lastMsg }}
             </div>
             <div class="info" v-if="item.data.type === 1">
                 <div class="nick">{{ item.name }}</div>
                 {{ item.data.user }}：{{ item.lastMsg }}
             </div>
+            <!-- 新消息提示 -->
+            <span class="msg-tips">5</span>
         </div>
     </div>
 </template>
@@ -56,6 +60,7 @@
 
 <style scoped lang="stylus">
     .chat-item
+        position relative
         display flex
         padding-left 10px
 
@@ -88,4 +93,17 @@
 
             .nick
                 line-height 25px
+
+
+        .msg-tips
+            position absolute
+            top 8px
+            right 10px
+            padding 0 4px
+            cursor default
+            line-height 16px
+            border-radius 50%
+            background-color #f00
+            color #fff
+            font-size 12px
 </style>
