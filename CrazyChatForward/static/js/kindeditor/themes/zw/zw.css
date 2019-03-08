@@ -1,0 +1,29 @@
+.ke-container-zw {
+    display: block;
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+}
+.ke-container-zw .ke-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #dedede;
+    padding: 5px 10px;
+    overflow: hidden;
+}
+
+ .ke-statusbar {
+    height: 0;
+}
+
+.ke-container-zw .ke-outline {
+    border: none;
+}
+
+.ke-container-zw .ke-toolbar-icon {
+    padding: 5px;
+}
+
+.ke-container-zw .ke-toolbar-icon:hover {
+    background-color: #eee;
+}
