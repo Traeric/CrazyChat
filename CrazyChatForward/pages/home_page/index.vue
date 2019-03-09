@@ -33,11 +33,16 @@
                         </div>
                     </li>
                     <li class="con">
-                        <nuxt-link to="/home_page/build_group" style="text-decoration: none; color: #575757; display: block;">
+                        <nuxt-link to="/home_page/build_group"
+                                   style="text-decoration: none; color: #575757; display: block;">
                             <i class="iconfont icon-qunzu2"></i> 建群
                         </nuxt-link>
                     </li>
-                    <li class="con"><i class="iconfont icon-shezhi-tianchong"></i> 设置</li>
+                    <li class="con">
+                        <nuxt-link to="/settings" style="text-decoration: none; color: #575757; display: block;">
+                            <i class="iconfont icon-shezhi-tianchong"></i> 设置
+                        </nuxt-link>
+                    </li>
                     <li class="img"><img :src="userAvatar" alt="NO IMG" :title="userName"></li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
@@ -194,11 +199,11 @@
         <div class="bg"></div>
 
         <!-- 加好友弹框 -->
-        <AddFriend />
+        <AddFriend/>
         <!-- 加群 -->
-        <AddGroup />
+        <AddGroup/>
         <!-- 个人信息 -->
-        <PersonnalInfo />
+        <PersonnalInfo/>
     </div>
 </template>
 
@@ -222,11 +227,17 @@
             return {
                 isEnter: false,
                 isFriend: true,
-                userAvatar: getUser().avatar,
-                userName: getUser().nick,
+                userAvatar: "",
+                userName: "",
                 isChating: false,
                 editor: null,
+                userInfo: {},
             };
+        },
+        created() {
+            // 初始化用户头像
+            this.userAvatar = getUser().avatar;
+            this.userName = getUser().nick;
         },
         mounted() {
             // 设置下面的div的高度
@@ -260,22 +271,11 @@
                 chatApi.getUserList("friend_list", userId),
                 chatApi.getUserList("group_list", userId),
                 chatApi.getUserList("relation_chat", userId),
-                userApi.getUserInfo(getUser().id),
-            ]).then(axios.spread(function (friendList, groupList, relationChatList, userInfo) {
-                /**
-                 * 处理userInfo信息
-                 */
-                let data = userInfo.data.data;
-                // 计算年纪
-                let now = Date.parse(new Date());
-                let birth = Date.parse(data.birthday);
-                data["age"] = Math.floor(parseFloat((now - birth) / (1000 * 60 * 60 * 24 * 365)));
-
+            ]).then(axios.spread(function (friendList, groupList, relationChatList) {
                 return {
                     friendListData: friendList.data.data,
                     groupListData: groupList.data.data,
                     relationChatListData: relationChatList.data.data,
-                    userInfo: data,
                 };
             }));
         },
@@ -402,9 +402,17 @@
             },
             // 展示个人信息
             personnalInfo() {
-                this.$store.dispatch("user/setpersonnalInfoDialog", true);
-                // 设置给store
-                this.$store.dispatch("user/setUserInfo", this.userInfo);
+                userApi.getUserInfo(getUser().id).then((response) => {
+                    let data = response.data.data;
+                    // 计算年纪
+                    let now = Date.parse(new Date());
+                    let birth = Date.parse(data.birthday);
+                    data["age"] = Math.floor(parseFloat((now - birth) / (1000 * 60 * 60 * 24 * 365)));
+                    this.userInfo = data;
+                    this.$store.dispatch("user/setpersonnalInfoDialog", true);
+                    // 设置给store
+                    this.$store.dispatch("user/setUserInfo", this.userInfo);
+                });
             }
         },
         computed: {

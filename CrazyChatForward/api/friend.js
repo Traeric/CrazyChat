@@ -9,6 +9,13 @@ export default {
             data: addFriendMap,
         });
     },
+    // 删除好友
+    deleteFriend(user_id, friend_id) {
+        return request({
+            url: `/friend/friend/delete_friend/${user_id}/${friend_id}`,
+            method: "delete",
+        });
+    },
 };
 
 

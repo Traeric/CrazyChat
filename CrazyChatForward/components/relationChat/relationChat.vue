@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="chat-item" v-for="(item, index) in relationChatListData"
+             @contextmenu.prevent="menuPanel($event, item.id)"
              :key="index"
              @click="startChat(item.id, item.name, item.picture, item.data)">
             <div class="img"><img :src="item.picture" alt="NO IMG"></div>
@@ -17,12 +18,33 @@
             <!-- 新消息提示 -->
             <span class="msg-tips">5</span>
         </div>
+
+        <!-- 右键面板 -->
+        <div class="cover" @contextmenu.prevent="" ref="coverHook" @click="closePanel"></div>
+        <div class="right-click-panel" ref="clickPanel">
+            <ul class="panel-list">
+                <li @click="readMsg">
+                    <i class="el-icon-success"></i>
+                    标为已读
+                </li>
+                <li @click="noneReadMsg">
+                    <i class="el-icon-info"></i>
+                    标为未读
+                </li>
+                <li @click="deleteRelationChat">
+                    <i class="el-icon-remove"></i>
+                    从最近联系人中移除
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
     import {getUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
+    import relationChatApi from "../../api/relation_chat";
+    import "../../assets/css/msg-tips.css"
 
     export default {
         props: {
@@ -30,6 +52,12 @@
                 type: Array,
                 default: [],
             },
+        },
+        data() {
+            return {
+                currentId: 0,
+                currentDom: null,
+            };
         },
         methods: {
             startChat(currentId, nick, avatar, data) {
@@ -53,6 +81,53 @@
                         this.$store.dispatch("friend/setChatRecord", response.data.data);
                     });
                 }
+            },
+            // 显示右侧面盘
+            menuPanel(event, currentId) {
+                // 获取鼠标的坐标
+                let top = event.clientY;
+                let left = event.clientX;
+                let panelDom = this.$refs.clickPanel;
+                panelDom.style.top = `${top}px`;
+                panelDom.style.left = `${left}px`;
+                panelDom.style.display = "block";
+                this.$refs.coverHook.style.display = "block";
+                // 设置当前操作的好友id
+                this.currentId = currentId;
+                this.currentDom = event.currentTarget;
+            },
+            // 关闭右键面板
+            closePanel() {
+                this.$refs.clickPanel.style.display = "none";
+                this.$refs.coverHook.style.display = "none";
+            },
+            // 消息已读
+            readMsg() {
+                this.closePanel();
+                $(this.currentDom).children(".msg-tips").remove();
+            },
+            // 标为未读
+            noneReadMsg() {
+                this.closePanel();
+                if ($(this.currentDom).children(".msg-tips").length === 0) {
+                    let tipsStr = '<span class="msg-tips">1</span>';
+                    $(this.currentDom).append(tipsStr);
+                }
+            },
+            // 删除最近联系人
+            deleteRelationChat() {
+                this.closePanel();
+                relationChatApi.deleteRelationChat(this.currentId).then((response) => {
+                    this.$notify({
+                        title: (response.data.flag ? "成功" : "失败"),
+                        message: response.data.message,
+                        type: (response.data.flag ? "success" : "error"),
+                    });
+                    if (response.data.flag) {
+                        // 删除当前的聊天
+                        $(this.currentDom).remove();
+                    }
+                });
             },
         },
     }
@@ -94,16 +169,40 @@
             .nick
                 line-height 25px
 
+    .cover
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        display none
+        z-index 100
 
-        .msg-tips
-            position absolute
-            top 8px
-            right 10px
-            padding 0 4px
-            cursor default
-            line-height 16px
-            border-radius 50%
-            background-color #f00
-            color #fff
-            font-size 12px
+    .right-click-panel
+        position fixed
+        z-index 1000
+        border-radius 4px
+        overflow hidden
+        width 160px
+        margin-right 0 !important
+        border 1px solid #dedede
+        box-shadow 2px 2px 6px #a3a3a3
+        display none
+
+        .panel-list
+            margin-bottom 0 !important
+
+            li
+                padding-left 10px
+                background-color #fff
+                height 35px
+                line-height 35px
+                border-bottom 1px solid #e2e2e2
+                cursor pointer
+
+                &:hover
+                    background-color #f1f1f1
+
+                &:last-child
+                    color #f00
 </style>

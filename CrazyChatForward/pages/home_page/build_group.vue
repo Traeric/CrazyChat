@@ -200,6 +200,13 @@
                     return;
                 }
                 this.groupMap.createTime = new Date();
+                // 展示加载动画
+                const loading = this.$loading({
+                    lock: true,
+                    text: '正在创建群聊。。。',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(255, 255, 255, 0.8)'
+                });
                 // 发送请求，开始创建
                 groupApi.createGroup(this.groupMap).then((response) => {
                     this.$notify({
@@ -207,6 +214,7 @@
                         message: response.data.message,
                         type: (response.data.flag ? "success" : "error"),
                     });
+                    loading.close();
                     if (response.data.flag) {
                         this.$router.push("/home_page");
                     }

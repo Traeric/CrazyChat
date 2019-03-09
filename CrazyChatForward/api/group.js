@@ -26,5 +26,33 @@ export default {
             data: groupMap,
         });
     },
+    // 查询群聊信息
+    getGroupInfo(group_id) {
+        return request({
+            url: `/group/group/group_info/${group_id}`,
+            method: "get"
+        });
+    },
+    // 获取群成员
+    getGroupMembers(group_id) {
+        return request({
+            url: `/group/group/get_members/${group_id}`,
+            method: "get",
+        });
+    },
+    // 移除群成员
+    removeGroupMember(group_id, member_id) {
+        return request({
+            url: `/group/group/delete_member/${group_id}/${member_id}`,
+            method: "delete",
+        });
+    },
+    // 解散群聊
+    deleteGroup(group_id) {
+        return request({
+            url: `/group/group/delete_group/${group_id}`,
+            method: "delete",
+        });
+    },
 }
 

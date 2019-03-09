@@ -41,4 +41,40 @@ export default {
             method: "get",
         });
     },
+    // 修改用户昵称
+    profileNick(user_id, nick) {
+        return request({
+            url: `/user/user/profile_nick/${user_id}`,
+            method: "put",
+            data: {
+                "nick": nick,
+            },
+        });
+    },
+    // 修改用户邮箱
+    profileEmail(user_id, new_email) {
+        return request({
+            url: `/user/user/profile_email/${user_id}`,
+            method: "put",
+            data: {
+                "email": new_email,
+            },
+        });
+    },
+    // 修改用户其他设置
+    profileInfo(user_id, info) {
+        return request({
+            url: `/user/user/profile_info/${user_id}`,
+            method: "put",
+            data: info,
+        });
+    },
+    // 修改用户头像
+    profileAvatar(user_id, dict) {
+        return request({
+            url: `/user/user/profile_avatar/${user_id}`,
+            method: "put",
+            data: dict,
+        });
+    }
 }

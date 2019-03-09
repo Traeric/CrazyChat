@@ -1,26 +1,45 @@
 <template>
-    <ul class="friend-list">
-        <li v-for="(item, key, index) in friendList" :key="index">
-            <div class="title" @click="showFriend($event)">
-                <div class="zw-arrow">
-                    <i class="iconfont icon-jiantou"></i>
+    <div>
+        <ul class="friend-list">
+            <li v-for="(item, key, index) in friendList" :key="index">
+                <div class="title" @click="showFriend($event)">
+                    <div class="zw-arrow">
+                        <i class="iconfont icon-jiantou"></i>
+                    </div>
+                    <div class="msg">{{ key }}</div>
                 </div>
-                <div class="msg">{{ key }}</div>
-            </div>
-            <div class="friend-area">
-                <div class="friend-item" v-for="(friend, index) in item" :key="index"
-                     @click="startChat(friend.id, friend.todo, friend.avatar)">
-                    <div class="img"><img :src="friend.avatar" alt="NO IMG"></div>
-                    <div class="name">{{ friend.todo }}</div>
+                <div class="friend-area">
+                    <div class="friend-item" v-for="(friend, index) in item" :key="index"
+                         @click="startChat(friend.id, friend.todo, friend.avatar)"
+                         @contextmenu.prevent="menuPanel($event, friend.id)">
+                        <div class="img"><img :src="friend.avatar" alt="NO IMG"></div>
+                        <div class="name">{{ friend.todo }}</div>
+                    </div>
                 </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+        <!-- 右键面板 -->
+        <div class="cover" @contextmenu.prevent="" ref="coverHook" @click="closePanel"></div>
+        <div class="right-click-panel" ref="clickPanel">
+            <ul class="panel-list">
+                <li @click="showFriendInfo">
+                    <i class="iconfont icon-solid-person"></i>
+                    好友信息
+                </li>
+                <li @click="deleteFriend">
+                    <i class="el-icon-remove"></i>
+                    删除好友
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
     import {getUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
+    import userApi from "../../api/user";
+    import friendApi from "../../api/friend";
 
     export default {
         props: {
@@ -30,7 +49,9 @@
             },
         },
         data() {
-            return {};
+            return {
+                currentFriendId: 0,
+            };
         },
         methods: {
             showFriend(event) {
@@ -62,7 +83,67 @@
                 });
 
                 // 回到浏览器顶部
-            }
+            },
+            // 右键菜单面板
+            menuPanel(event, friendId) {
+                // 获取鼠标的坐标
+                let top = event.clientY;
+                let left = event.clientX;
+                let panelDom = this.$refs.clickPanel;
+                panelDom.style.top = `${top}px`;
+                panelDom.style.left = `${left}px`;
+                panelDom.style.display = "block";
+                this.$refs.coverHook.style.display = "block";
+                // 设置当前操作的好友id
+                this.currentFriendId = friendId;
+            },
+            // 展示好友信息
+            showFriendInfo() {
+                this.closePanel();
+                // 查询好友信息
+                userApi.getUserInfo(this.currentFriendId).then((response) => {
+                    let data = response.data.data;
+                    // 计算年纪
+                    let now = Date.parse(new Date());
+                    let birth = Date.parse(data.birthday);
+                    data["age"] = Math.floor(parseFloat((now - birth) / (1000 * 60 * 60 * 24 * 365)));
+                    this.$store.dispatch("user/setpersonnalInfoDialog", true);
+                    // 设置给store
+                    this.$store.dispatch("user/setUserInfo", data);
+                });
+            },
+            // 删除好友
+            deleteFriend() {
+                this.closePanel();
+                // 确认删除
+                this.$confirm('此操作将永久删除该好友, 是否继续?', '删除好友', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'error'
+                }).then(() => {
+                    friendApi.deleteFriend(getUser().id, this.currentFriendId).then((response) => {
+                        this.$notify({
+                            title: (response.data.flag ? "成功" : "失败"),
+                            message: response.data.message,
+                            type: (response.data.flag ? "success" : "error"),
+                        });
+                        if (response.data.flag) {
+                            // 删除成功，刷新页面
+                            location.reload();
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            // 关闭右键面板
+            closePanel() {
+                this.$refs.clickPanel.style.display = "none";
+                this.$refs.coverHook.style.display = "none";
+            },
         },
     }
 </script>
@@ -131,4 +212,40 @@
                 .zw-arrow
                     transform rotate(90deg) !important
 
+    .cover
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        display none
+        z-index 100
+
+    .right-click-panel
+        position fixed
+        z-index 1000
+        border-radius 4px
+        overflow hidden
+        width 160px
+        margin-right 0 !important
+        border 1px solid #dedede
+        box-shadow 2px 2px 6px #a3a3a3
+        display none
+
+        .panel-list
+            margin-bottom 0 !important
+
+            li
+                padding-left 10px
+                background-color #fff
+                height 35px
+                line-height 35px
+                border-bottom 1px solid #e2e2e2
+                cursor pointer
+
+                &:hover
+                    background-color #f1f1f1
+
+                &:last-child
+                    color #f00
 </style>
