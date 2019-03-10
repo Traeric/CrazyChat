@@ -80,9 +80,9 @@
                         // 登录成功
                         let data = response.data.data;
                         // 将用户数据存入cookie
-                        setUser(data.id, data.token, data.nick, data.avatar)
+                        setUser(data.id, data.token, data.nick, data.avatar);
                         // 跳转到首页
-
+                        this.$router.push("/home_page");
                     } else {
                         // 登录失败
                         this.$notify.error({

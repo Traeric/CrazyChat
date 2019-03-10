@@ -85,7 +85,7 @@
             </div>
         </el-dialog>
         <!-- 群成员 -->
-        <el-dialog title="群聊信息" width="20%" :visible.sync="groupMemberDialog">
+        <el-dialog title="群聊成员" width="20%" :visible.sync="groupMemberDialog">
             <div class="member clear-float" v-for="(item, index) in groupMembers" :key="index">
                 <div class="img"><img :src="item.avatar" alt="NO IMG"></div>
                 <div class="name">
@@ -217,11 +217,6 @@
                             $(buttonDom).parent().parent().remove();
                         }
                     });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消移除'
-                    });
                 });
             },
             // 退出群聊
@@ -244,11 +239,6 @@
                             $(this.currentGroupDom).remove();
                         }
                     });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消退出'
-                    });
                 });
             },
             // 解散群聊
@@ -270,11 +260,6 @@
                         if (response.data.flag) {
                             $(this.currentGroupDom).remove();
                         }
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消解散'
                     });
                 });
             },

@@ -2,7 +2,7 @@ import request from '../utils/request';
 
 
 export default {
-    // 获取用户的好友列表，群组列表，最近俩天的列表
+    // 获取用户的好友列表，群组列表，最近聊天的列表
     getUserList(type, user_id) {
         return request({
             url: `/chat/chat/${type}/${user_id}`,

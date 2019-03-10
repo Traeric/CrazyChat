@@ -11,7 +11,7 @@
                 <div class="friend-area">
                     <div class="friend-item" v-for="(friend, index) in item" :key="index"
                          @click="startChat(friend.id, friend.todo, friend.avatar)"
-                         @contextmenu.prevent="menuPanel($event, friend.id)">
+                         @contextmenu.prevent="menuPanel($event, friend.id, key)">
                         <div class="img"><img :src="friend.avatar" alt="NO IMG"></div>
                         <div class="name">{{ friend.todo }}</div>
                     </div>
@@ -26,12 +26,33 @@
                     <i class="iconfont icon-solid-person"></i>
                     好友信息
                 </li>
+                <li @click="setGroup">
+                    <i class="glyphicon glyphicon-tags"></i>
+                    设置分组
+                </li>
+                <li @click="showFriendInfo">
+                    <i class="glyphicon glyphicon-leaf"></i>
+                    修改备注
+                </li>
                 <li @click="deleteFriend">
                     <i class="el-icon-remove"></i>
                     删除好友
                 </li>
             </ul>
         </div>
+
+        <!-- 分组 -->
+        <el-dialog title="修改分组" :visible.sync="changeGroupDialog" width="20%">
+            <div class="group-title">请选择要将该好友移动到以下哪个分组下</div>
+            <el-select class="select" v-model="currentGroupName">
+                <el-option :label="item.name" :value="item.id"
+                           v-for="(item, index) in $store.state.user.userGroup" :key="index"></el-option>
+            </el-select>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="changeGroupDialog = false">取 消</el-button>
+                <el-button type="primary" @click="changeGroup">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -51,6 +72,9 @@
         data() {
             return {
                 currentFriendId: 0,
+                currentFriendDom: null,
+                changeGroupDialog: false,
+                currentGroupName: "",
             };
         },
         methods: {
@@ -85,7 +109,7 @@
                 // 回到浏览器顶部
             },
             // 右键菜单面板
-            menuPanel(event, friendId) {
+            menuPanel(event, friendId, groupName) {
                 // 获取鼠标的坐标
                 let top = event.clientY;
                 let left = event.clientX;
@@ -96,6 +120,8 @@
                 this.$refs.coverHook.style.display = "block";
                 // 设置当前操作的好友id
                 this.currentFriendId = friendId;
+                this.currentFriendDom = event.currentTarget;
+                this.currentGroupName = groupName;
             },
             // 展示好友信息
             showFriendInfo() {
@@ -128,14 +154,9 @@
                             type: (response.data.flag ? "success" : "error"),
                         });
                         if (response.data.flag) {
-                            // 删除成功，刷新页面
-                            location.reload();
+                            // 删除成功，移除该好友
+                            $(this.currentFriendDom).remove();
                         }
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
                     });
                 });
             },
@@ -143,6 +164,19 @@
             closePanel() {
                 this.$refs.clickPanel.style.display = "none";
                 this.$refs.coverHook.style.display = "none";
+            },
+            // 设置好友分组
+            setGroup() {
+                this.closePanel();
+                this.changeGroupDialog = true;
+                // 查询全部分组
+                userApi.getGroupList(getUser().id).then((response) => {
+                    this.$store.dispatch("user/setUserGroup", response.data.data);
+                });
+            },
+            // 修改分组
+            changeGroup() {
+                alert(this.currentGroupName);
             },
         },
     }
@@ -248,4 +282,16 @@
 
                 &:last-child
                     color #f00
+
+    .group-title
+        margin-bottom 20px
+        height 30px
+        line-height 30px
+        font-weight 700
+        font-size 18px
+        text-align center
+
+    .select
+        margin-left 10px
+
 </style>

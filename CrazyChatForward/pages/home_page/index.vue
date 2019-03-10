@@ -55,6 +55,10 @@
                     <div class="img">
                         <div class="box">
                             <img :src="userAvatar" alt="NO IMG">
+                            <div class="group">
+                                <div class="trangle"></div>
+                                <div class="text" @click="manageGroup"><i class="glyphicon glyphicon-tags"></i> 管理分组</div>
+                            </div>
                         </div>
                     </div>
                     <div class="nick">{{ userName }}</div>
@@ -204,6 +208,8 @@
         <AddGroup/>
         <!-- 个人信息 -->
         <PersonnalInfo/>
+        <!-- 分组管理 -->
+        <UserGroup />
     </div>
 </template>
 
@@ -217,6 +223,7 @@
     import AddFriend from "@/components/addFriend/addFriend";
     import AddGroup from "@/components/addGroup/addGroup";
     import PersonnalInfo from "@/components/personnalInfo/personnalInfo";
+    import UserGroup from "@/components/userGroup/userGroup";
     import {getUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
     import userApi from "../../api/user";
@@ -238,6 +245,10 @@
             // 初始化用户头像
             this.userAvatar = getUser().avatar;
             this.userName = getUser().nick;
+            // 初始化签名
+            userApi.getUserInfo(getUser().id).then((response) => {
+                this.userInfo = response.data.data;
+            });
         },
         mounted() {
             // 设置下面的div的高度
@@ -413,7 +424,16 @@
                     // 设置给store
                     this.$store.dispatch("user/setUserInfo", this.userInfo);
                 });
-            }
+            },
+            // 管理分组
+            manageGroup() {
+                // 展示分组面板
+                this.$store.dispatch("user/setUserGroupDialog", true);
+                // 查询用户分组
+                userApi.getGroupList(getUser().id).then((response) => {
+                    this.$store.dispatch("user/setUserGroup", response.data.data);
+                });
+            },
         },
         computed: {
             "isChatingComputed": function () {
@@ -449,6 +469,7 @@
             AddFriend,
             AddGroup,
             PersonnalInfo,
+            UserGroup,
         },
     }
 </script>
@@ -617,14 +638,53 @@
                         height 70px
 
                         .box
+                            position relative
                             margin 0 auto
                             width 70px
                             height 70px
+                            cursor pointer
+                            &:hover
+                                .group
+                                    visibility visible
 
                             img
                                 width 100%
                                 height 100%
                                 border-radius 50%
+                            .group
+                                position absolute
+                                z-index 99
+                                top 16px
+                                right -128px
+                                display flex
+                                cursor pointer
+                                visibility hidden
+                                &:hover
+                                    .trangle
+                                        border-color transparent #ebebeb transparent transparent
+                                    .text
+                                        background-color #ebebeb
+                                .trangle
+                                    flex 0 0 16px
+                                    margin 10px -1px 0 0
+                                    z-index 100
+                                    width 0
+                                    height 0
+                                    border-width 8px
+                                    border-style solid
+                                    border-color transparent #fff transparent transparent
+                                .text
+                                    flex 1
+                                    width 120px
+                                    height 40px
+                                    line-height 40px
+                                    text-align center
+                                    border-radius 4px
+                                    border 1px solid #dedede
+                                    background-color #fff
+                                    box-shadow 2px 2px 6px #363636
+                                    i
+                                        margin-right 5px
 
                     .nick
                         color #fff

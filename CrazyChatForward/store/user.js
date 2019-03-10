@@ -1,6 +1,8 @@
 export const state = () => ({
     personnalInfoDialog: false,
     userInfo: {},
+    userGroupDialog: false,
+    userGroup: [],
 });
 
 
@@ -11,6 +13,12 @@ export const mutations = {
     setUserInfo(state, info) {
         state.userInfo = info;
     },
+    setUserGroupDialog(state, flag) {
+        state.userGroupDialog = flag;
+    },
+    setUserGroup(state, group) {
+        state.userGroup = group;
+    },
 };
 
 
@@ -20,6 +28,12 @@ export const actions = {
     },
     setUserInfo({commit}, info) {
         commit("setUserInfo", info);
+    },
+    setUserGroupDialog({commit}, flag) {
+        commit("setUserGroupDialog", flag);
+    },
+    setUserGroup({commit}, group) {
+        commit("setUserGroup", group);
     },
 };
 

@@ -76,5 +76,31 @@ export default {
             method: "put",
             data: dict,
         });
-    }
+    },
+    // 查询分组是否为空
+    groupIsEmpty(group_id) {
+        return request({
+            url: `/user/user/is_empty/${group_id}`,
+            method: "get",
+        });
+    },
+    // 删除用户分组
+    deleteGroup(group_id) {
+        return request({
+            url: `/user/user/delete_group/${group_id}`,
+            method: "delete",
+        });
+    },
+    // 新增分组
+    addUserGroup(user_id, group_name) {
+        return request({
+            url: `/user/user/add_group/${user_id}`,
+            method: "post",
+            data: {
+                "name": group_name,
+            },
+        });
+    },
+    // 修改好友分组
+
 }
