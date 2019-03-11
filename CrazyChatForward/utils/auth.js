@@ -6,10 +6,10 @@ const nickKey = "userNick";
 const avatarKey = "userAvatar";
 
 export function setUser(id, token, nick, avatar) {
-    Cookies.set(idKey, id);
-    Cookies.set(tokenKey, token);
-    Cookies.set(nickKey, nick);
-    Cookies.set(avatarKey, avatar);
+    Cookies.set(idKey, id, {expires: 30});
+    Cookies.set(tokenKey, token, {expires: 30});
+    Cookies.set(nickKey, nick, {expires: 30});
+    Cookies.set(avatarKey, avatar, {expires: 30});
 }
 
 export function getUser() {

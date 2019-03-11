@@ -115,6 +115,13 @@
                 };
             });
         },
+        created() {
+            // 判断登录
+            if (!getUser().id) {
+                // 未登录
+                this.$router.push("/login");
+            }
+        },
         methods: {
             cancel() {
                 window.history.back();

@@ -16,6 +16,16 @@ export default {
             method: "delete",
         });
     },
+    // 修改备注
+    changeTod(user_id, friend_id, todo) {
+        return request({
+            url: `/friend/friend/change_todo/${user_id}/${friend_id}`,
+            method: "put",
+            data: {
+                todo,
+            },
+        });
+    },
 };
 
 

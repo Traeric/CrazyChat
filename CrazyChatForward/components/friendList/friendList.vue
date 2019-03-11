@@ -30,7 +30,7 @@
                     <i class="glyphicon glyphicon-tags"></i>
                     设置分组
                 </li>
-                <li @click="showFriendInfo">
+                <li @click="changeTodo">
                     <i class="glyphicon glyphicon-leaf"></i>
                     修改备注
                 </li>
@@ -75,6 +75,7 @@
                 currentFriendDom: null,
                 changeGroupDialog: false,
                 currentGroupName: "",
+                oldGroupId: 0,
             };
         },
         methods: {
@@ -172,11 +173,49 @@
                 // 查询全部分组
                 userApi.getGroupList(getUser().id).then((response) => {
                     this.$store.dispatch("user/setUserGroup", response.data.data);
+                    this.$store.state.user.userGroup.forEach((item) => {
+                        if (this.currentGroupName === item.name) {
+                            this.oldGroupId = item.id;
+                        }
+                    });
                 });
             },
             // 修改分组
             changeGroup() {
-                alert(this.currentGroupName);
+                userApi.changeUserGroup(getUser().id, this.oldGroupId, this.currentGroupName).then((response) => {
+                    this.resultHandler(response.data.flag, response.data.message, () => {
+                        location.reload();
+                    });
+                });
+            },
+            // 修改备注
+            changeTodo() {
+                this.closePanel();
+                let currentDom = this.currentFriendDom;
+                this.$prompt('请输入新备注', '修改备注', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/,
+                    inputErrorMessage: '备注格式不正确',
+                }).then(({ value }) => {
+                    // 修改备注
+                    friendApi.changeTod(getUser().id, this.currentFriendId, value).then((response) => {
+                        this.resultHandler(response.data.flag, response.data.message, () => {
+                            $(currentDom).children(".name").html(value);
+                        });
+                    });
+                });
+            },
+            // 结果处理
+            resultHandler(flag, message, callback) {
+                this.$notify({
+                    title: (flag ? "成功" : "失败"),
+                    message: message,
+                    type: (flag ? "success" : "error"),
+                });
+                if (flag) {
+                    callback();
+                }
             },
         },
     }

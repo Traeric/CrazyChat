@@ -102,5 +102,10 @@ export default {
         });
     },
     // 修改好友分组
-
+    changeUserGroup(user_id, old_group_id, new_group_id) {
+        return request({
+            url: `/user/user/change_group/${user_id}/${old_group_id}/${new_group_id}`,
+            method: "put",
+        });
+    },
 }

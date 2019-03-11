@@ -43,7 +43,9 @@
                             <i class="iconfont icon-shezhi-tianchong"></i> 设置
                         </nuxt-link>
                     </li>
-                    <li class="img"><img :src="userAvatar" alt="NO IMG" :title="userName"></li>
+                    <li class="logout">
+                        <el-button @click="logout" size="small" type="danger">登出</el-button>
+                    </li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
             </div>
@@ -224,9 +226,10 @@
     import AddGroup from "@/components/addGroup/addGroup";
     import PersonnalInfo from "@/components/personnalInfo/personnalInfo";
     import UserGroup from "@/components/userGroup/userGroup";
-    import {getUser} from "../../utils/auth";
+    import {getUser, removeUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
     import userApi from "../../api/user";
+    import relationChatApi from "../../api/relation_chat";
     import axios from "axios";
 
     export default {
@@ -242,6 +245,12 @@
             };
         },
         created() {
+            // 判断登录
+            if (!getUser().id) {
+                // 未登录
+                this.$router.push("/login");
+                return;
+            }
             // 初始化用户头像
             this.userAvatar = getUser().avatar;
             this.userName = getUser().nick;
@@ -383,6 +392,16 @@
                     if (response.data.flag) {
                         // 发送成功，移除等待标志
                         statusDom.remove();
+                        // 将聊天对象添加到最近联系人
+                        relationChatApi.deleteRelationChat(sendId).then((response) => {
+                            relationChatApi.addRelationChat(getUser().id, sendId).then((response) => {
+                                if (response.data.flag) {
+                                    chatApi.getUserList("relation_chat", getUser().id).then((response) => {
+                                        this.relationChatListData = response.data.data;
+                                    });
+                                }
+                            });
+                        });
                     } else {
                         this.$message({
                             message: '发送失败，请重试',
@@ -433,6 +452,11 @@
                 userApi.getGroupList(getUser().id).then((response) => {
                     this.$store.dispatch("user/setUserGroup", response.data.data);
                 });
+            },
+            // 登出
+            logout() {
+                removeUser();
+                this.$router.push("/login");
             },
         },
         computed: {
@@ -612,17 +636,10 @@
                             font-size 22px
                             vertical-align middle
 
-                    .img
+                    .logout
                         float right
                         margin 5px 0
-                        width 50px
-                        height 50px
-                        border-radius 50%
-                        overflow: hidden
-
-                        img
-                            height 100%
-                            width 100%
+                        padding-top 6px
 
         .body
             .left

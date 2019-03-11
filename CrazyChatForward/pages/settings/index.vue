@@ -108,6 +108,12 @@
             };
         },
         created() {
+            // 判断登录
+            if (!getUser().id) {
+                // 未登录
+                this.$router.push("/login");
+                return;
+            }
             userApi.getUserInfo(getUser().id).then((response) => {
                 let data = response.data.data;
                 this.userInfoObj.sign = data.sign;

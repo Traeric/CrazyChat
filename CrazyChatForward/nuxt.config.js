@@ -10,7 +10,7 @@ module.exports = {
             {hid: 'description', name: 'description', content: 'Nuxt.js project'}
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+            {rel: 'icon', type: 'image/x-icon', href: '/icon.ico'},
             {rel: 'stylesheet', href: 'http://at.alicdn.com/t/font_1069362_h4wym2id4gs.css'},
         ],
         script: [
