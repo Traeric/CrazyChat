@@ -27,7 +27,7 @@
                 <div class="input-wrap">
                     <div class="trangle trangle-username" v-show="userNameInfo"></div>
                     <div class="err-info err-username" v-show="userNameInfo">{{ userNameInfo }}</div>
-                    <input type="text" class="text" placeholder="User Name" v-model="userName">
+                    <input type="text" class="text" placeholder="Email" v-model="email">
                 </div>
 
                 <div class="key input-wrap">
@@ -53,7 +53,7 @@
     export default {
         data() {
             return {
-                userName: "",
+                email: "",
                 password: "",
                 userNameInfo: "",
                 passwordInfo: "",
@@ -65,8 +65,8 @@
                 // 重置错误信息
                 this.userNameInfo = "";
                 this.passwordInfo = "";
-                // 检查用户名跟密码不能为空
-                if (this.userName === "") {
+                // 检查邮箱跟密码不能为空
+                if (this.email === "") {
                     this.userNameInfo = "用户名不能为空！";
                     return;
                 }
@@ -75,7 +75,7 @@
                     return;
                 }
                 // 通过验证，发送请求登录
-                userApi.login(this.userName, this.password).then((response) => {
+                userApi.login(this.email, this.password).then((response) => {
                     if (response.data.flag) {
                         // 登录成功
                         let data = response.data.data;

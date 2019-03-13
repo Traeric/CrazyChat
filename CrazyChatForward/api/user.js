@@ -2,12 +2,12 @@ import request from '../utils/request';
 
 export default {
     // 登录
-    login(username, password) {
+    login(email, password) {
         return request({
             url: "/user/user/login",
             method: "post",
             data: {
-                username,
+                email,
                 password,
             },
         });
@@ -106,6 +106,16 @@ export default {
         return request({
             url: `/user/user/change_group/${user_id}/${old_group_id}/${new_group_id}`,
             method: "put",
+        });
+    },
+    // 获取验证码
+    getConfirmCode(email) {
+        return request({
+            url: `/user/user/send_email`,
+            method: "post",
+            data: {
+                email,
+            },
         });
     },
 }

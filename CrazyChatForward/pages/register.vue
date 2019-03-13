@@ -42,7 +42,7 @@
                         <input type="text" maxlength="4" class="form-control" id="exampleInputcode"
                                v-model="confirmCode"
                                placeholder="code">
-                        <button type="button" class="btn btn-primary">获取验证码</button>
+                        <button type="button" class="btn btn-primary" @click="getConfirmCode">获取验证码</button>
                     </div>
                     <div style="margin-top: 20px;">
                         <button type="button" @click="register" class="btn btn-success btn-block">注册</button>
@@ -118,6 +118,24 @@
                             type: 'error'
                         });
                     }
+                });
+            },
+            // 获取注册码
+            getConfirmCode() {
+                // 获取邮箱
+                let reg = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/gi;
+                if (!reg.test(this.registerData.email)) {
+                    // 邮箱不正确
+                    this.errMsg = "邮箱格式不正确";
+                    return;
+                }
+                // 获取验证码
+                userApi.getConfirmCode(this.registerData.email).then((response) => {
+                    this.$notify({
+                        title: (response.data.flag ? "成功" : "失败"),
+                        message: response.data.message,
+                        type: (response.data.flag ? "success" : "error"),
+                    });
                 });
             },
             toLogin() {

@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/parent" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/parent/chat" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/parent/common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent/user" charset="UTF-8" />
   </component>
 </project>
