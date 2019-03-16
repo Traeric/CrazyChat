@@ -25,17 +25,6 @@ public class FriendGroup implements Serializable {
     @JoinColumn(name = "userId")
     private UserProfile userProfile;
 
-    /**
-     * 多对多
-     */
-    @ManyToMany
-    @JoinTable(name = "userprofile_friendgroup",    // 中间表
-            // 指定当前表在中间表的外键名称，和当前标的主键
-            joinColumns = {@JoinColumn(name = "friendgroup_id", referencedColumnName = "id")},
-            // 另一张表的主外键关联关系
-            inverseJoinColumns = {@JoinColumn(name = "userprofile_id", referencedColumnName = "id")}
-    )
-    private Set<UserProfile> friends;
 
     @Override
     public String toString() {

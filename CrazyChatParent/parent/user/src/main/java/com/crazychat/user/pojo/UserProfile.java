@@ -19,8 +19,6 @@ public class UserProfile implements Serializable {
 
     private String name;
 
-    private String password;
-
     private String email;
 
     private String sign;
@@ -29,9 +27,11 @@ public class UserProfile implements Serializable {
 
     private String gender;
 
-    private String describe;
+    private String userdescribe;
 
     private String avatar;
+
+    private String password;
 
     // 一对多配置
     @OneToMany(mappedBy = "userProfile")
@@ -46,8 +46,9 @@ public class UserProfile implements Serializable {
                 ", sign='" + sign + '\'' +
                 ", birthday=" + birthday +
                 ", gender='" + gender + '\'' +
-                ", describe='" + describe + '\'' +
+                ", userdescribe='" + userdescribe + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

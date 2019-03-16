@@ -1,11 +1,26 @@
 import request from '../utils/request';
+import user from "./user";
 
 
 export default {
-    // 获取用户的好友列表，群组列表，最近聊天的列表
-    getUserList(type, user_id) {
+    // 获取用户的群组列表，最近聊天的列表
+    getRelationChatList(user_id) {
         return request({
-            url: `/chat/chat/${type}/${user_id}`,
+            url: `/relationchat/relationchat/relation_chat/${user_id}`,
+            method: "get",
+        });
+    },
+    // 获取用户的好友列表
+    getUserFriendList(user_id) {
+        return request({
+            url: `/user/user/friend_list/${user_id}`,
+            method: "get",
+        });
+    },
+    // 获取用户的群组列表
+    getUserGroupList(user_id) {
+        return request({
+            url: `/group/group/group_list/${user_id}`,
             method: "get",
         });
     },

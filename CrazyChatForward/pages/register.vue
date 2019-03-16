@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="exampleInputUsername">用户名</label>
                         <input type="text" class="form-control" id="exampleInputUsername"
-                               v-model="registerData.username"
+                               v-model="registerData.name"
                                placeholder="username">
                     </div>
                     <div class="form-group">
@@ -70,7 +70,7 @@
         data() {
             return {
                 registerData: {
-                    username: "",
+                    name: "",
                     email: "",
                     password: "",
                 },
@@ -84,7 +84,7 @@
             register() {
                 this.errMsg = "";
                 // 验证数据是否为空
-                if (this.registerData.username === "") {
+                if (this.registerData.name === "") {
                     this.errMsg = "必须填写用户名~~";
                     return;
                 }

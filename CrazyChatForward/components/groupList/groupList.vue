@@ -8,7 +8,6 @@
                 <div class="img"><img :src="item.picture" alt="NO IMG"></div>
                 <div class="text">
                     <div class="name">{{ item.name }}</div>
-                    {{ item.lastMsg.user }}：{{ item.lastMsg.msg }}
                 </div>
             </li>
             <li class="i-created">我创建的群</li>
@@ -19,7 +18,6 @@
                 <div class="img"><img :src="item.picture" alt="NO IMG"></div>
                 <div class="text">
                     <div class="name">{{ item.name }}</div>
-                    {{ item.lastMsg.user }}：{{ item.lastMsg.msg }}
                 </div>
             </li>
         </ul>

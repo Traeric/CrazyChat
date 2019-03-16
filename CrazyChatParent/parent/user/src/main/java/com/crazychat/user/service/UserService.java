@@ -1,7 +1,12 @@
 package com.crazychat.user.service;
 
+import com.crazychat.common.utils.IdWorker;
+import com.crazychat.user.dao.FriendDao;
+import com.crazychat.user.dao.FriendGroupDao;
 import com.crazychat.user.dao.UserProfileDao;
+import com.crazychat.user.pojo.Friend;
 import com.crazychat.user.pojo.UserProfile;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -12,9 +17,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Transactional
 public class UserService {
     @Resource
     private UserProfileDao userProfileDao;
@@ -27,6 +35,12 @@ public class UserService {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource(name = "idWorker")
+    private IdWorker idCreater;
+
+    @Resource
+    private FriendDao friendDao;
 
     @Value("${spring.mail.username}")
     private String email_from;
@@ -59,12 +73,8 @@ public class UserService {
         // 参数一：MimeMessage
         // 参数二：是否发送文件
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false);
-        // 生成验证码
-        int i1 = (int) (Math.random() * 10);
-        int i2 = (int) (Math.random() * 10);
-        char c1 = (char) ((int) (Math.random() * 25 + 97));  // 97  122   0-1  0 + 97
-        char c2 = (char) ((int) (Math.random() * 25 + 97));
-        String code = String.valueOf(i1) + i2 + c1 + c2;
+        // 生成6位随机验证码
+        String code = RandomStringUtils.randomNumeric(4);
         // 存入缓存，15分钟超时
         redisTemplate.opsForValue().set(email + "_confirm_code", code, 15, TimeUnit.MINUTES);
         // 设置邮件信息
@@ -77,5 +87,82 @@ public class UserService {
         helper.setFrom(email_from);
         // 发送
         javaMailSender.send(mimeMessage);
+    }
+
+    /**
+     * 用户注册
+     * @param user
+     * @param code
+     */
+    public void register(UserProfile user, String code) {
+        // 获取验证码
+        String confirmCode = (String) redisTemplate.opsForValue().get(user.getEmail() + "_confirm_code");
+        if (code.equals(confirmCode)) {
+            // 进行保存
+            // 生成id
+            user.setId(String.valueOf(idCreater.nextId()));
+            // 密码加密
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            System.out.println(user);
+            userProfileDao.save(user);   // 保存
+        } else {
+            String msg;
+            if (confirmCode != null) {
+                msg = "验证码错误";
+            } else {
+                msg = "验证码已过期";
+            }
+            throw new RuntimeException(msg);
+        }
+    }
+
+    /**
+     * 获取用户的好友列表
+     * @param user_id
+     * @return
+     */
+    public Map<String, Object> getFriendList(String user_id) {
+        // 查询出用户的全部分组
+        UserProfile user = userProfileDao.findById(user_id).orElse(null);
+        if (null == user) {
+            throw new RuntimeException("用户不存在");
+        }
+        // 准备返回的对象
+        Map<String, Object> data = new HashMap<>();
+        user.getFriendGroups().parallelStream().forEach((group) -> {
+            // 获取当前分组下的所有好友
+            List<Friend> friends = friendDao.findAllByFriendgroupId(group.getId());
+            // 一个分组的所有好友
+            List<Map<String, String>> list = new LinkedList<>();
+            friends.parallelStream().forEach((friend) -> {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", friend.getId());
+                map.put("todo", friend.getTodo());
+                // 查询好友头像
+                String avatar = userProfileDao.getAvatar(friend.getFriendId());
+                map.put("avatar", avatar);
+                list.add(map);
+            });
+            data.put(group.getName(), list);
+        });
+        return data;
+    }
+
+    /**
+     * 根据id获取用户名
+     * @param userId
+     * @return
+     */
+    public UserProfile getNameById(String userId) {
+        return userProfileDao.findById(userId).orElse(null);
+    }
+
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
+    public UserProfile getUserInfo(String userId) {
+        return userProfileDao.findById(userId).orElse(null);
     }
 }

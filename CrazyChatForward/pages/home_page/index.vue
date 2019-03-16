@@ -245,6 +245,7 @@
             };
         },
         created() {
+            console.log(this.test);
             // 判断登录
             if (!getUser().id) {
                 // 未登录
@@ -285,14 +286,16 @@
 
         },
         asyncData() {
-            let userId = getUser().id;
+            // 获取不到
+            let userId = '1105717074090532864';
             // 初始化数据
             return axios.all([
-                chatApi.getUserList("friend_list", userId),
-                chatApi.getUserList("group_list", userId),
-                chatApi.getUserList("relation_chat", userId),
+                chatApi.getUserFriendList(userId),
+                chatApi.getUserGroupList(userId),
+                chatApi.getRelationChatList(userId),
             ]).then(axios.spread(function (friendList, groupList, relationChatList) {
                 return {
+                    test: friendList,
                     friendListData: friendList.data.data,
                     groupListData: groupList.data.data,
                     relationChatListData: relationChatList.data.data,
