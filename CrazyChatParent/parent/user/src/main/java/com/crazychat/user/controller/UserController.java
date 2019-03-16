@@ -86,6 +86,11 @@ public class UserController {
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
     @GetMapping("/user_info/{user_id}")
     public Result userInfo(@PathVariable("user_id") String userId) {
         UserProfile user = userService.getUserInfo(userId);
@@ -101,6 +106,29 @@ public class UserController {
         data.put("gender", user.getGender());
         data.put("birthday", user.getBirthday());
         data.put("describe", user.getUserdescribe());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+    /**
+     * 获取用户聊天数据
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @GetMapping("/chat_record/{user_id}/{friend_id}")
+    public Result getChatRecord(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        List<Map<String, String>> data = userService.getChatRecord(userId, friendId);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+    /**
+     * 查询用户分组
+     * @param userId
+     * @return
+     */
+    @GetMapping("/get_group_list/{user_id}")
+    public Result getGroupList(@PathVariable("user_id") String userId) {
+        List<Map<String, String>> data = userService.getGroupList(userId);
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 

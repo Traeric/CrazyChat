@@ -4,6 +4,8 @@ import com.crazychat.chat.service.ChatRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -23,5 +25,17 @@ public class ChatRecordController {
     public String lastMsgUser2User(@PathVariable("user_id") String userId,
                                                 @PathVariable("friend_id") String friendId) {
         return chatRecordService.getLastMsg(userId, friendId);
+    }
+
+    /**
+     * 获取用户之间的id
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @GetMapping("/chat_record/{user_id}/{friend_id}")
+    public List<Map<String, String>> getChatRecord(@PathVariable("user_id") String userId,
+                                                   @PathVariable("friend_id") String friendId) {
+        return chatRecordService.getChatRecord(userId, friendId);
     }
 }

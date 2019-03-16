@@ -1,10 +1,12 @@
 package com.crazychat.user.service;
 
 import com.crazychat.common.utils.IdWorker;
+import com.crazychat.user.client.ChatClient;
 import com.crazychat.user.dao.FriendDao;
 import com.crazychat.user.dao.FriendGroupDao;
 import com.crazychat.user.dao.UserProfileDao;
 import com.crazychat.user.pojo.Friend;
+import com.crazychat.user.pojo.FriendGroup;
 import com.crazychat.user.pojo.UserProfile;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +46,9 @@ public class UserService {
 
     @Value("${spring.mail.username}")
     private String email_from;
+
+    @Resource
+    private ChatClient chatClient;
 
     /**
      * 登录验证
@@ -136,7 +141,7 @@ public class UserService {
             List<Map<String, String>> list = new LinkedList<>();
             friends.parallelStream().forEach((friend) -> {
                 Map<String, String> map = new HashMap<>();
-                map.put("id", friend.getId());
+                map.put("id", friend.getFriendId());
                 map.put("todo", friend.getTodo());
                 // 查询好友头像
                 String avatar = userProfileDao.getAvatar(friend.getFriendId());
@@ -164,5 +169,36 @@ public class UserService {
      */
     public UserProfile getUserInfo(String userId) {
         return userProfileDao.findById(userId).orElse(null);
+    }
+
+    /**
+     * 查询用户聊天记录
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    public List<Map<String, String>> getChatRecord(String userId, String friendId) {
+        return chatClient.getChatRecord(userId, friendId);
+    }
+
+    /**
+     * 获取用户分组
+     * @param userId
+     * @return
+     */
+    public List<Map<String, String>> getGroupList(String userId) {
+        UserProfile user = userProfileDao.findById(userId).orElse(null);
+        if (null == user) {
+            throw new RuntimeException("用户不存在");
+        }
+        List<FriendGroup> groups = user.getFriendGroups();
+        List<Map<String, String>> data = new ArrayList<>();
+        groups.parallelStream().forEach((group) -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", group.getId());
+            map.put("name", group.getName());
+            data.add(map);
+        });
+        return data;
     }
 }

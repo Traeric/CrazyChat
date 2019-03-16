@@ -59,7 +59,8 @@
                             <img :src="userAvatar" alt="NO IMG">
                             <div class="group">
                                 <div class="trangle"></div>
-                                <div class="text" @click="manageGroup"><i class="glyphicon glyphicon-tags"></i> 管理分组</div>
+                                <div class="text" @click="manageGroup"><i class="glyphicon glyphicon-tags"></i> 管理分组
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -211,7 +212,7 @@
         <!-- 个人信息 -->
         <PersonnalInfo/>
         <!-- 分组管理 -->
-        <UserGroup />
+        <UserGroup/>
     </div>
 </template>
 
@@ -242,16 +243,19 @@
                 isChating: false,
                 editor: null,
                 userInfo: {},
+                friendListData: {},
+                groupListData: [],
+                relationChatListData: [],
             };
         },
         created() {
-            console.log(this.test);
             // 判断登录
             if (!getUser().id) {
                 // 未登录
                 this.$router.push("/login");
                 return;
             }
+
             // 初始化用户头像
             this.userAvatar = getUser().avatar;
             this.userName = getUser().nick;
@@ -259,48 +263,43 @@
             userApi.getUserInfo(getUser().id).then((response) => {
                 this.userInfo = response.data.data;
             });
+
+            /**
+             * 加载页面数据
+             */
+                // 获取用户id
+            let userId = getUser().id;
+            // 初始化数据
+            axios.all([
+                chatApi.getUserFriendList(userId),
+                chatApi.getUserGroupList(userId),
+                chatApi.getRelationChatList(userId),
+            ]).then(axios.spread((friendList, groupList, relationChatList) => {
+                this.friendListData = friendList.data.data;
+                this.groupListData = groupList.data.data;
+                this.relationChatListData = relationChatList.data.data;
+            }));
         },
         mounted() {
             // 设置下面的div的高度
             let height = window.innerHeight - 60;
             this.$refs.leftHook.style.minHeight = height + "px";
             this.$refs.rightHook.style.minHeight = height + "px";
-
             // 加载富文本框
-            KindEditor.ready((K) => {
-                this.editor = K.create(
-                    '#editor_id',
-                    {
-                        themeType: 'zw',
-                        resizeType: 0, // 是否可以拖拽文本框的大小 0：不能  1： 只能上下  2：上下左右均可
-                        allowPreviewEmoticons: true,    // 为true时，鼠标放到表情上可以预览
-                        items: [
-                            "emoticons", 'image', "insertfile",
-                        ],           // 配置工具栏的参数，  "/"表示换行   "|"表示分割符
-                        width: '100%',       // 文本框宽度(可以百分比或像素)
-                        height: '150px',     // 文本框高度(只能像素)
-                        htmlTags: {"img": ["src",]},
-                    }
-                );
-            });
-
-        },
-        asyncData() {
-            // 获取不到
-            let userId = '1105717074090532864';
-            // 初始化数据
-            return axios.all([
-                chatApi.getUserFriendList(userId),
-                chatApi.getUserGroupList(userId),
-                chatApi.getRelationChatList(userId),
-            ]).then(axios.spread(function (friendList, groupList, relationChatList) {
-                return {
-                    test: friendList,
-                    friendListData: friendList.data.data,
-                    groupListData: groupList.data.data,
-                    relationChatListData: relationChatList.data.data,
-                };
-            }));
+            this.editor = KindEditor.create(
+                '#editor_id',
+                {
+                    themeType: 'zw',
+                    resizeType: 0, // 是否可以拖拽文本框的大小 0：不能  1： 只能上下  2：上下左右均可
+                    allowPreviewEmoticons: true,    // 为true时，鼠标放到表情上可以预览
+                    items: [
+                        "emoticons", 'image', "insertfile",
+                    ],           // 配置工具栏的参数，  "/"表示换行   "|"表示分割符
+                    width: '100%',       // 文本框宽度(可以百分比或像素)
+                    height: '150px',     // 文本框高度(只能像素)
+                    htmlTags: {"img": ["src",]},
+                }
+            );
         },
         methods: {
             friendList() {
@@ -663,6 +662,7 @@
                             width 70px
                             height 70px
                             cursor pointer
+
                             &:hover
                                 .group
                                     visibility visible
@@ -671,6 +671,7 @@
                                 width 100%
                                 height 100%
                                 border-radius 50%
+
                             .group
                                 position absolute
                                 z-index 99
@@ -679,11 +680,14 @@
                                 display flex
                                 cursor pointer
                                 visibility hidden
+
                                 &:hover
                                     .trangle
                                         border-color transparent #ebebeb transparent transparent
+
                                     .text
                                         background-color #ebebeb
+
                                 .trangle
                                     flex 0 0 16px
                                     margin 10px -1px 0 0
@@ -693,6 +697,7 @@
                                     border-width 8px
                                     border-style solid
                                     border-color transparent #fff transparent transparent
+
                                 .text
                                     flex 1
                                     width 120px
@@ -703,6 +708,7 @@
                                     border 1px solid #dedede
                                     background-color #fff
                                     box-shadow 2px 2px 6px #363636
+
                                     i
                                         margin-right 5px
 

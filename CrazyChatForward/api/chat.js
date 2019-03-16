@@ -27,7 +27,7 @@ export default {
     // 查询与用户的聊天记录
     getChatRecord(user_id, friend_id) {
         return request({
-            url: `/chat/chat/chat_record/${user_id}/${friend_id}`,
+            url: `/user/user/chat_record/${user_id}/${friend_id}`,
             method: "get",
         });
     },

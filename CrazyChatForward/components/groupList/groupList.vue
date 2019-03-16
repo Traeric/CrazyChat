@@ -7,7 +7,7 @@
                 v-if="item.type === '0'">
                 <div class="img"><img :src="item.picture" alt="NO IMG"></div>
                 <div class="text">
-                    <div class="name">{{ item.name }}</div>
+                    {{ item.name }}
                 </div>
             </li>
             <li class="i-created">我创建的群</li>
@@ -17,7 +17,7 @@
                 v-if="item.type === '1'">
                 <div class="img"><img :src="item.picture" alt="NO IMG"></div>
                 <div class="text">
-                    <div class="name">{{ item.name }}</div>
+                    {{ item.name }}
                 </div>
             </li>
         </ul>
@@ -297,16 +297,13 @@
             .text
                 flex 1
                 width 0
+                line-height 46px !important
                 text-overflow ellipsis
                 overflow hidden
                 white-space nowrap
                 padding-left 10px
-                line-height 23px
                 color #666
                 border-bottom 1px solid #dedede
-
-                .name
-                    color #000
 
         .i-created
             height 45px

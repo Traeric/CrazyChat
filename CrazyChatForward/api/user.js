@@ -30,7 +30,7 @@ export default {
     // 搜索用户的分组列表
     getGroupList(user_id) {
         return request({
-            url: `/friend/friend/get_group_list/${user_id}`,
+            url: `/user/user/get_group_list/${user_id}`,
             method: "get",
         });
     },
