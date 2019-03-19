@@ -182,7 +182,7 @@
             },
             // 修改分组
             changeGroup() {
-                userApi.changeUserGroup(getUser().id, this.oldGroupId, this.currentGroupName).then((response) => {
+                userApi.changeUserGroup(this.currentFriendId, this.oldGroupId, this.currentGroupName).then((response) => {
                     this.resultHandler(response.data.flag, response.data.message, () => {
                         location.reload();
                     });
@@ -199,7 +199,7 @@
                     inputErrorMessage: '备注格式不正确',
                 }).then(({ value }) => {
                     // 修改备注
-                    friendApi.changeTod(getUser().id, this.currentFriendId, value).then((response) => {
+                    friendApi.changeTodo(getUser().id, this.currentFriendId, value).then((response) => {
                         this.resultHandler(response.data.flag, response.data.message, () => {
                             $(currentDom).children(".name").html(value);
                         });
@@ -240,6 +240,7 @@
                     background-color #5ec7e6
 
                 .zw-arrow
+                    transition all .3s ease
                     display inline-block
                     width 20px
 

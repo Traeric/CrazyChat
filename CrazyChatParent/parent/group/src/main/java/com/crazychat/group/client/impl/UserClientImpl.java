@@ -10,4 +10,9 @@ public class UserClientImpl implements UserClient {
     public String getUserNameById(String userId) {
         return "Not Avaliable";
     }
+
+    @Override
+    public String getUserAvatarById(String userId) {
+        return "Not Avaliable";
+    }
 }

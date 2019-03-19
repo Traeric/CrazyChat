@@ -15,15 +15,7 @@ public class FriendGroup implements Serializable {
 
     private String name;
 
-    @Transient
     private String userId;
-
-    /**
-     * 多对一
-     */
-    @ManyToOne(targetEntity = UserProfile.class)
-    @JoinColumn(name = "userId")
-    private UserProfile userProfile;
 
 
     @Override

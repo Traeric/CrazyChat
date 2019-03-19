@@ -91,7 +91,7 @@
                 </div>
                 <div class="del-button" v-if="currentGroupType === '1'">
                     <el-button type="danger" size="small" icon="el-icon-remove" style="float: right;"
-                               @click="removeMember($event, item.id)">移出群聊
+                               @click="removeMember($event, item.id)" v-if="item.type === '0'">移出群聊
                     </el-button>
                 </div>
             </div>

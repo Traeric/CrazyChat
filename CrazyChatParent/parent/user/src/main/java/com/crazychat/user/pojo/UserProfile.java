@@ -33,10 +33,6 @@ public class UserProfile implements Serializable {
 
     private String password;
 
-    // 一对多配置
-    @OneToMany(mappedBy = "userProfile")
-    private List<FriendGroup> friendGroups;
-
     @Override
     public String toString() {
         return "UserProfile{" +

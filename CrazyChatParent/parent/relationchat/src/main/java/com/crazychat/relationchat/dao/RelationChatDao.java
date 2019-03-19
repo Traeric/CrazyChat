@@ -12,4 +12,6 @@ public interface RelationChatDao extends MongoRepository<RelationChat, String> {
      * @return
      */
     List<RelationChat> findAllByUserId(String userId);
+
+    RelationChat findByUserIdAndOtherId(String userId, String otherId);
 }

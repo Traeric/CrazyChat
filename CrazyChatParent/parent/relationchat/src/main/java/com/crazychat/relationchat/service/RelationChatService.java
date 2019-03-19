@@ -1,5 +1,6 @@
 package com.crazychat.relationchat.service;
 
+import com.crazychat.common.utils.IdWorker;
 import com.crazychat.relationchat.client.ChatClient;
 import com.crazychat.relationchat.client.GroupClient;
 import com.crazychat.relationchat.client.UserClient;
@@ -28,6 +29,9 @@ public class RelationChatService {
 
     @Resource
     private ChatClient chatClient;
+
+    @Resource(name = "idWorker")
+    private IdWorker idCreater;
 
     /**
      * 获取最近聊天的列表
@@ -72,5 +76,32 @@ public class RelationChatService {
             data.add(map);
         });
         return data;
+    }
+
+    /**
+     * 添加最近联系人
+     * @param userId
+     * @param otherId
+     * @param type
+     */
+    public void addRelationChat(String userId, String otherId, String type) {
+        RelationChat relationChat = new RelationChat();
+        relationChat.set_id(String.valueOf(idCreater.nextId()));
+        relationChat.setUserId(userId);
+        relationChat.setOtherId(otherId);
+        relationChat.setType(type);
+        relationChatDao.save(relationChat);
+    }
+
+    /**
+     * 删除最近联系人
+     * @param userId
+     * @param otherId
+     */
+    public void deleteRelationChat(String userId, String otherId) {
+        RelationChat relationChat = relationChatDao.findByUserIdAndOtherId(userId, otherId);
+        if (null != relationChat) {
+            relationChatDao.delete(relationChat);
+        }
     }
 }

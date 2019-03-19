@@ -25,7 +25,7 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="生日">
-                <el-date-picker type="date" v-model="$store.state.user.userInfo.birthday" disabled="true"></el-date-picker>
+                <el-date-picker type="date" v-model="$store.state.user.userInfo.birthday" :disabled="true"></el-date-picker>
             </el-form-item>
             <el-form-item label="年龄">
                 <el-input autocomplete="off" v-model="$store.state.user.userInfo.age"></el-input>

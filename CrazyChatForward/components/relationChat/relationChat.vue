@@ -5,13 +5,13 @@
              :key="index"
              @click="startChat(item.id, item.name, item.picture, item.data)">
             <div class="img"><img :src="item.picture" alt="NO IMG"></div>
-            <div class="info" v-if="item.data.type === 0">
+            <div class="info" v-if="item.data.type === '0'">
                 <div class="nick">
                     <div>{{ item.name }}</div>
                 </div>
                 {{ item.lastMsg }}
             </div>
-            <div class="info" v-if="item.data.type === 1">
+            <div class="info" v-if="item.data.type === '1'">
                 <div class="nick">{{ item.name }}</div>
                 {{ item.data.user }}：{{ item.lastMsg }}
             </div>
@@ -117,7 +117,7 @@
             // 删除最近联系人
             deleteRelationChat() {
                 this.closePanel();
-                relationChatApi.deleteRelationChat(this.currentId).then((response) => {
+                relationChatApi.deleteRelationChat(getUser().id, this.currentId).then((response) => {
                     this.$notify({
                         title: (response.data.flag ? "成功" : "失败"),
                         message: response.data.message,

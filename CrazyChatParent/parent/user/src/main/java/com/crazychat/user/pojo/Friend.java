@@ -19,4 +19,6 @@ public class Friend implements Serializable {
     private String friendId;
 
     private String todo;
+
+    private String userId;
 }

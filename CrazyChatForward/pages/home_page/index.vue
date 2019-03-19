@@ -246,6 +246,7 @@
                 friendListData: {},
                 groupListData: [],
                 relationChatListData: [],
+                ws: null,
             };
         },
         created() {
@@ -281,7 +282,7 @@
             }));
         },
         mounted() {
-            // 设置下面的div的高度
+            // 设置两侧的div的高度
             let height = window.innerHeight - 60;
             this.$refs.leftHook.style.minHeight = height + "px";
             this.$refs.rightHook.style.minHeight = height + "px";
@@ -300,6 +301,15 @@
                     htmlTags: {"img": ["src",]},
                 }
             );
+
+            /**
+             * websocket相关操作
+             */
+            // 建立socket连接
+            this.ws = new WebSocket("ws://127.0.0.1:9001/chat_user_to_user/" + getUser().id);
+            this.ws.onmessage = (event) => {
+
+            }
         },
         methods: {
             friendList() {
@@ -388,17 +398,18 @@
                 // 刷新div到底部显示
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
                 this.editor.html('');
-                let sendStr = sendType === 0 ? "send_msg_personnal" : "send_msg_group";
+                let sendStr = sendType === 0 ? "send_msgpersonnal" : "send_msggroup";
                 chatApi.sendMessage(sendStr, getUser().id, sendId, msg).then((response) => {
                     let statusDom = msgDom.children(".user-wrap").children(".body").children(".send-status");
                     if (response.data.flag) {
                         // 发送成功，移除等待标志
                         statusDom.remove();
                         // 将聊天对象添加到最近联系人
-                        relationChatApi.deleteRelationChat(sendId).then((response) => {
-                            relationChatApi.addRelationChat(getUser().id, sendId).then((response) => {
+                        relationChatApi.deleteRelationChat(getUser().id, sendId).then((response) => {
+                            relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
                                 if (response.data.flag) {
-                                    chatApi.getUserList("relation_chat", getUser().id).then((response) => {
+                                    alert(1);
+                                    chatApi.getRelationChatList(getUser().id).then((response) => {
                                         this.relationChatListData = response.data.data;
                                     });
                                 }

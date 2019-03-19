@@ -44,7 +44,7 @@ export default {
     // 获取群聊天记录
     getGroupChatRecord(group_id) {
         return request({
-            url: `/chat/chat/group_recore/${group_id}`,
+            url: `/chat/chat/group_record/${group_id}`,
             method: "get"
         });
     },

@@ -8,4 +8,10 @@ import java.util.List;
 
 public interface GroupUserDao extends JpaRepository<GroupUser, String>, JpaSpecificationExecutor<GroupUser> {
     List<GroupUser> findAllByUserId(String userId);
+
+    GroupUser findByGroupIdAndType(String groupId, String type);
+
+    List<GroupUser> findAllByGroupId(String groupId);
+
+    GroupUser findByGroupIdAndUserId(String groupId, String userId);
 }

@@ -9,6 +9,6 @@ public class SpringBootTest {
 
     @Test
     public void test() {
-        System.out.println(Math.random());
+        System.out.println("2019-03-12T16:00:00.000Z".substring(0, 10));
     }
 }

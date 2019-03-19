@@ -10,4 +10,7 @@ public interface UserClient {
 
     @GetMapping("/user/name/{user_id}")
     String getUserNameById(@PathVariable("user_id") String userId);
+
+    @GetMapping("/user/user_id/{user_id}")
+    String getUserAvatarById(@PathVariable("user_id") String userId);
 }

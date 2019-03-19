@@ -92,6 +92,7 @@
     import {getUser} from "../../utils/auth";
     import "../../assets/css/bootstrap.min.css"
     import userApi from "../../api/user";
+    import Cookie from "js-cookie";
 
     export default {
         data() {
@@ -146,6 +147,7 @@
                         });
                         if (response.data.flag) {
                             this.nick = value;
+                            Cookie.set("userNick", value);
                         }
                     });
                 });
@@ -158,6 +160,13 @@
                     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
                     inputErrorMessage: '邮箱格式不正确'
                 }).then(({value}) => {
+                    if (value === this.email) {
+                        this.$message({
+                            message: "不能使用同样的邮箱",
+                            type: "error",
+                        });
+                        return;
+                    }
                     // 确定输入
                     userApi.profileEmail(getUser().id, value).then((response) => {
                         this.$notify({
@@ -185,6 +194,28 @@
                     // 上传图片
                     let dict = new FormData();
                     dict.append("avatar", this.$refs.inputHook.files[0]);
+                    /**
+                     * 检查上传文件是否是图片
+                     */
+                    let name = this.$refs.inputHook.files[0].name.split(".")[1];
+                    let size = this.$refs.inputHook.files[0].size;
+                    // 检查大小
+                    if (size > 1024 * 1024 * 10) {   // 不能超过10MB
+                        this.$message({
+                            message: "图片大小不能超过10MB",
+                            type: "error",
+                        });
+                        return;
+                    }
+                    // 检查文件名
+                    let nameList = ["jpg", "jpeg", "png", "gif"];
+                    if (nameList.indexOf(name) === -1) {
+                        this.$message({
+                            message: "上传文件不是图片",
+                            type: "error",
+                        });
+                        return;
+                    }
                     userApi.profileAvatar(getUser().id, dict).then((response) => {
                         this.$notify({
                             title: (response.data.flag ? "成功" : "失败"),
@@ -195,6 +226,8 @@
                         if (response.data.flag) {
                             this.$refs.imgHook.src = window.URL.createObjectURL(this.$refs.inputHook.files[0]);
                         }
+                        // 修改cookie里面的avatar
+                        Cookie.set("userAvatar", response.data.data);
                     });
                 }
             },

@@ -91,29 +91,15 @@
                 groupMap: {
                     groupName: "",
                     createTime: null,
-                    createrId: 0,
+                    createrId: "",
                 },
                 groupMembers: [],
                 // 用户好友列表
                 dialogVisible: false,
+                friendObj: {},
+                friendList: [],
+                userInfo: {},
             };
-        },
-        // 请求用户的好友列表
-        asyncData() {
-            return chatApi.getUserList("friend_list", getUser().id).then((response) => {
-                // 将所有的好友移动到一个列表中
-                let friendList = {};
-                for (let friend in response.data.data) {
-                    response.data.data[friend + ''].forEach((item) => {
-                        friendList[item.id] = item;
-                    });
-                }
-                return {
-                    friendObj: response.data.data,
-                    friendList,
-                    userInfo: getUser(),
-                };
-            });
         },
         created() {
             // 判断登录
@@ -121,6 +107,20 @@
                 // 未登录
                 this.$router.push("/login");
             }
+
+            // 请求用户好友列表
+            chatApi.getUserFriendList(getUser().id).then((response) => {
+                // 将所有的好友移动到一个列表中
+                let friendList = {};
+                for (let friend in response.data.data) {
+                    response.data.data[friend + ''].forEach((item) => {
+                        friendList[item.id] = item;
+                    });
+                }
+                this.friendObj = response.data.data;
+                this.friendList = friendList;
+                this.userInfo = getUser();
+            });
         },
         methods: {
             cancel() {
@@ -207,6 +207,8 @@
                     return;
                 }
                 this.groupMap.createTime = new Date();
+                this.groupMap.groupMembers = this.groupMembers;
+                this.groupMap.createrId = getUser().id;
                 // 展示加载动画
                 const loading = this.$loading({
                     lock: true,
@@ -217,7 +219,7 @@
                 // 发送请求，开始创建
                 groupApi.createGroup(this.groupMap).then((response) => {
                     this.$notify({
-                        title: "成功",
+                        title: (response.data.flag ? "成功" : "失败"),
                         message: response.data.message,
                         type: (response.data.flag ? "success" : "error"),
                     });

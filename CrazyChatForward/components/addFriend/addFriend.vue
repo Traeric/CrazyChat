@@ -11,7 +11,7 @@
             </el-form-item>
         </el-form>
 
-        <div class="user-list" v-show="searchUser.length">
+        <div class="user-list" v-show="searchUser.length !== 0">
             <div class="title">
                 搜索结果
             </div>
@@ -63,7 +63,7 @@
                 addFriendMap: {
                     confirmInfo: "",
                     todo: "",
-                    group: 0,
+                    group: "",
                 },
                 addFriendFlag: false,
                 groupArray: [],
@@ -82,7 +82,7 @@
                 }
                 // 进行搜索
                 userApi.searchUser(this.addFriendName).then((response) => {
-                    if (response.data.flag || response.data.data.length === 0) {
+                    if (response.data.flag && response.data.data.length !== 0) {
                         this.searchUser = response.data.data;
                         this.addFriendFlag = false;
                     } else {
@@ -118,7 +118,7 @@
                     return;
                 }
                 // 进行添加
-                friendApi.addFriend(getUser().id, friendId).then((response) => {
+                friendApi.addFriend(getUser().id, friendId, this.addFriendMap).then((response) => {
                     this.$notify({
                         title: (response.data.flag ? "成功" : "失败"),
                         message: (response.data.flag ? response.data.message + "，请等待对方同意。" : response.data.message),
@@ -189,6 +189,7 @@
         .add-btn
             flex 0 0 60px
             margin-top 3px
+
 
     .add-friend
         padding 10px 20px

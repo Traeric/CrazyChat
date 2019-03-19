@@ -68,7 +68,7 @@
                 }
                 // 搜索群聊
                 groupApi.searchGroupByName(this.addGroupName).then((response) => {
-                    if (response.data.flag || response.data.data.length === 0) {
+                    if (response.data.flag && response.data.data.length !== 0) {
                         this.searchGroupList = response.data.data;
                         this.addGroupFlag = false;
                     } else {

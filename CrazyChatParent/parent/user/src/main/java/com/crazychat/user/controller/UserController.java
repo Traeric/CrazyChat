@@ -6,12 +6,13 @@ import com.crazychat.common.utils.JwtUtils;
 import com.crazychat.user.pojo.UserProfile;
 import com.crazychat.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -19,6 +20,7 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService userService;
+
     @Resource
     private JwtUtils jwtUtils;
 
@@ -130,6 +132,182 @@ public class UserController {
     public Result getGroupList(@PathVariable("user_id") String userId) {
         List<Map<String, String>> data = userService.getGroupList(userId);
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+    /**
+     * 修改分组
+     * @param friendId
+     * @param oldGroup
+     * @param newGroup
+     * @return
+     */
+    @PutMapping("/change_group/{user_id}/{old_group_id}/{new_group_id}")
+    public Result changeGroup(@PathVariable("user_id") String friendId, @PathVariable("old_group_id") String oldGroup,
+                              @PathVariable("new_group_id") String newGroup) {
+        userService.changeGroup(friendId, oldGroup, newGroup);
+        return new Result(true, StatusCode.OK.getCode(), "修改分组成功");
+    }
+
+    /**
+     * 修改好友备注
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @PutMapping("/change_todo/{user_id}/{friend_id}")
+    public Result changeTodo(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId,
+                             @RequestBody Map<String, String> map) {
+        String todo = map.get("todo");
+        userService.changeTodo(userId, friendId, todo);
+        return new Result(true, StatusCode.OK.getCode(), "修改备注成功");
+    }
+
+    /**
+     * 搜索用户
+     * @param userName
+     * @return
+     */
+    @GetMapping("/search_friend/{user_name}")
+    public Result searchUser(@PathVariable("user_name") String userName) {
+        List<Map<String, String>> data = userService.searchUser(userName);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+    /**
+     * 添加好友
+     * @param userId
+     * @param friendId
+     * @param map
+     * @return
+     */
+    @PostMapping("/add_friend/{user_id}/{friend_id}")
+    public Result addFriend(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId,
+                            @RequestBody Map<String, String> map) {
+        String confirmInfo = map.get("confirmInfo");
+        String todo = map.get("todo");
+        String groupId = map.get("group");
+        return new Result(true, StatusCode.OK.getCode(), "发送成功");
+    }
+
+    /**
+     * 删除好友
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @DeleteMapping("/delete_friend/{user_id}/{friend_id}")
+    public Result deleteFriend(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        userService.deleteFriend(userId, friendId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
+
+    /**
+     * 修改昵称
+     * @param userId
+     * @return
+     */
+    @PutMapping("/profile_nick/{user_id}")
+    public Result profileNick(@PathVariable("user_id") String userId, @RequestBody Map<String, String> map) {
+        String nick = map.get("nick");
+        userService.profileNick(userId, nick);
+        return new Result(true, StatusCode.OK.getCode(), "修改成功");
+    }
+
+    /**
+     * 修改用户其他设置信息
+     * @param userId
+     * @param map
+     * @return
+     */
+    @PutMapping("/profile_info/{user_id}")
+    public Result profileInfo(@PathVariable("user_id") String userId, @RequestBody Map<String, String> map) {
+        String sign = map.get("sign");
+        String gender = map.get("gender");
+        String birthday = map.get("birthday");
+        String describe = map.get("describe");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date birth = null;
+        try {
+            birth = format.parse(birthday.substring(0, 11));
+            Calendar cl = Calendar.getInstance();
+            cl.setTime(birth);
+            cl.add(Calendar.DAY_OF_YEAR, 2);   // 日期加一天
+            birth = cl.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        userService.profileInfo(userId, sign, gender, birth, describe);
+        return new Result(true, StatusCode.OK.getCode(), "修改成功");
+    }
+
+    /**
+     * 新增分组
+     * @param userId
+     * @param map
+     * @return
+     */
+    @PostMapping("/add_group/{user_id}")
+    public Result addGroup(@PathVariable("user_id") String userId, @RequestBody Map<String, String> map) {
+        String groupName = map.get("name");
+        userService.addGroup(userId, groupName);
+        return new Result(true, StatusCode.OK.getCode(), "新增分组成功");
+    }
+
+    /**
+     * 查询当前分组下是否还有好友
+     * @param groupId
+     * @return
+     */
+    @GetMapping("/is_empty/{group_id}")
+    public Result groupIsEmpty(@PathVariable("group_id") String groupId) {
+        boolean data = userService.groupIsEmpty(groupId);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+    /**
+     * 删除分组
+     * @param groupId
+     * @return
+     */
+    @DeleteMapping("/delete_group/{group_id}")
+    public Result deleteGroup(@PathVariable("group_id") String groupId) {
+        userService.deleteGroup(groupId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
+
+    /**
+     * 修改邮箱
+     * @param userId
+     * @return
+     */
+    @PutMapping("/profile_email/{user_id}")
+    public Result profileEmail(@PathVariable("user_id") String userId, @RequestBody Map map) throws MessagingException {
+        String newEmail = (String) map.get("email");
+        userService.profileEmail(userId, newEmail);
+        return new Result(true, StatusCode.OK.getCode(), "修改成功，请在15分钟内前往新的邮箱进行验证");
+    }
+
+    /**
+     * 确定修改邮箱
+     * @param email
+     * @param userId
+     * @param authKey
+     * @return
+     */
+    @GetMapping("/auth_email")
+    public String confirmProfileEmail(String email, String userId, String authKey) {
+        return userService.comfirmProfileEmail(email, userId, authKey);
+    }
+
+    /**
+     * 修改用户头像
+     * @param userId
+     * @return
+     */
+    @PutMapping("/profile_avatar/{user_id}")
+    public Result profileAvatar(@PathVariable("user_id") String userId, MultipartFile avatar) {
+        String data = userService.profileAvatar(userId, avatar);
+        return new Result(true, StatusCode.OK.getCode(), "修改成功", data);
     }
 
     /**

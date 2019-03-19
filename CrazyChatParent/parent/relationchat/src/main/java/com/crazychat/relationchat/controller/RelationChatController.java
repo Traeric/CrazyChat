@@ -26,4 +26,30 @@ public class RelationChatController {
         List<Map<String, Object>> data = relationChatService.getRelatioChatList(userId);
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
+
+    /**
+     * 添加最近联系人
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @PostMapping("/add_chat/{user_id}/{chat_id}")
+    public Result addRelationChat(@PathVariable("user_id") String userId, @PathVariable("chat_id") String otherId,
+                                  @RequestBody Map map) {
+        String type = (String) map.get("type");
+        relationChatService.addRelationChat(userId, otherId, type);
+        return new Result(true, StatusCode.OK.getCode(), "添加成功");
+    }
+
+    /**
+     * 删除最近联系人
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @DeleteMapping("/delete_chat/{user_id}/{chat_id}")
+    public Result deleteRelationChat(@PathVariable("user_id") String userId, @PathVariable("chat_id") String otherId) {
+        relationChatService.deleteRelationChat(userId, otherId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
 }
