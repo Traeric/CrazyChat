@@ -2,10 +2,8 @@ package com.crazychat.group.service;
 
 import com.crazychat.common.utils.IdWorker;
 import com.crazychat.group.client.UserClient;
-import com.crazychat.group.dao.ChatRecordDao;
 import com.crazychat.group.dao.GroupDao;
 import com.crazychat.group.dao.GroupUserDao;
-import com.crazychat.group.pojo.ChatRecord;
 import com.crazychat.group.pojo.Group;
 import com.crazychat.group.pojo.GroupUser;
 import org.springframework.stereotype.Service;
@@ -22,9 +20,6 @@ public class GroupService {
 
     @Resource
     private GroupDao groupDao;
-
-    @Resource
-    private ChatRecordDao chatRecordDao;
 
     @Resource
     private UserClient userClient;
@@ -62,22 +57,6 @@ public class GroupService {
      */
     public Group getGroupById(String groupId) {
         return groupDao.findById(groupId).orElse(null);
-    }
-
-    /**
-     * 获取最后一条群聊天消息
-     * @param groupId
-     * @return
-     */
-    public Map<String, String> getLastMessage(String groupId) {
-        List<ChatRecord> records = chatRecordDao.findAllByGroupId(groupId);
-        ChatRecord record = records.get(records.size() - 1);
-        Map<String, String> map = new HashMap<>();
-        // 获取用户信息，远程调用user模块实现
-        String userName = userClient.getUserNameById(record.getUserId());
-        map.put("user", userName);
-        map.put("msg", record.getContent());
-        return map;
     }
 
     /**
@@ -132,10 +111,10 @@ public class GroupService {
             map.put("id", groupUser.getUserId());
             map.put("type", groupUser.getType());
             // 获取用户的头像以及昵称
-            String name = userClient.getUserNameById(groupUser.getUserId());
+            String name = new String(userClient.getUserNameById(groupUser.getUserId()));
             System.out.println(name);
             map.put("nick", name);
-            String avatar = userClient.getUserAvatarById(groupUser.getUserId());
+            String avatar = new String(userClient.getUserAvatarById(groupUser.getUserId()));
             map.put("avatar", avatar);
             data.add(map);
         });
@@ -198,5 +177,17 @@ public class GroupService {
             member.setType("0");
             groupUserDao.save(member);
         });
+    }
+
+    /**
+     * 获取群聊成员
+     * @param groupId
+     * @return
+     */
+    public List<String> getGroupMember(String groupId) {
+        List<GroupUser> groupUsers = groupUserDao.findAllByGroupId(groupId);
+        List<String> data = new ArrayList<>();
+        groupUsers.parallelStream().forEach((groupUser) -> data.add(groupUser.getUserId()));
+        return data;
     }
 }

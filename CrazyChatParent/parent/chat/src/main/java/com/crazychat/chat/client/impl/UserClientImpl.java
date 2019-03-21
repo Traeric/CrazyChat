@@ -4,12 +4,12 @@ import com.crazychat.chat.client.UserClient;
 
 public class UserClientImpl implements UserClient {
     @Override
-    public String getUserNameById(String userId) {
-        return "NOT AVAILABLE";
+    public byte[] getUserNameById(String userId) {
+        return "NOT AVAILABLE".getBytes();
     }
 
     @Override
-    public String getUserAvatarById(String userId) {
-        return "NOT AVAILABLE";
+    public byte[] getUserAvatarById(String userId) {
+        return "NOT AVAILABLE".getBytes();
     }
 }

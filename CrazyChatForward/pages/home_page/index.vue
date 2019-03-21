@@ -17,6 +17,12 @@
             </div>
             <div class="right col-md-3 col-lg-3 col-sm-3">
                 <ul class="right-list">
+                    <li class="logout">
+                        <el-button @click="logout" size="small" type="danger">登出</el-button>
+                    </li>
+                    <li class="con" @click="manageGroup">
+                        <i class="glyphicon glyphicon-tags"></i> 管理分组
+                    </li>
                     <li class="con">
                         <i class="iconfont icon-jiahaoyou"></i> 添加
                         <div class="add">
@@ -32,20 +38,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="con">
-                        <nuxt-link to="/home_page/build_group"
-                                   style="text-decoration: none; color: #575757; display: block;">
-                            <i class="iconfont icon-qunzu2"></i> 建群
-                        </nuxt-link>
-                    </li>
-                    <li class="con">
-                        <nuxt-link to="/settings" style="text-decoration: none; color: #575757; display: block;">
-                            <i class="iconfont icon-shezhi-tianchong"></i> 设置
-                        </nuxt-link>
-                    </li>
-                    <li class="logout">
-                        <el-button @click="logout" size="small" type="danger">登出</el-button>
-                    </li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
             </div>
@@ -57,11 +49,6 @@
                     <div class="img">
                         <div class="box">
                             <img :src="userAvatar" alt="NO IMG">
-                            <div class="group">
-                                <div class="trangle"></div>
-                                <div class="text" @click="manageGroup"><i class="glyphicon glyphicon-tags"></i> 管理分组
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="nick">{{ userName }}</div>
@@ -117,8 +104,28 @@
                 </div>
             </div>
             <div class="middle col-md-8 col-lg-8 col-sm-8">
-                <div class="banner">
-                    这里可以做一个banner图，打广告
+                <div class="link-group">
+                    <el-row>
+                        <el-button type="text">快捷连接：</el-button>
+                        <el-button type="primary">
+                            <nuxt-link to="/home_page/build_group"
+                                       style="text-decoration: none; color: #fff; display: block;">
+                                新建群聊<i class="el-icon-circle-plus el-icon--right"></i>
+                            </nuxt-link>
+                        </el-button>
+                        <el-button type="danger">
+                            <nuxt-link to="/settings"
+                                       style="text-decoration: none; color: #fff; display: block;">
+                                用户设置<i class="el-icon-setting el-icon--right"></i>
+                            </nuxt-link>
+                        </el-button>
+                        <el-button type="success">
+                            <nuxt-link to="/chat_room" style="color: #fff; text-decoration: none; display: block;">
+                                聊天室<i class="el-icon-back el-icon--right" style="transform: rotate(180deg);"></i>
+                            </nuxt-link>
+                        </el-button>
+                        <el-button type="warning">动态空间<i class="el-icon-star-on el-icon--right"></i></el-button>
+                    </el-row>
                 </div>
                 <div class="chat-pannel">
                     <div class="panel panel-success">
@@ -128,43 +135,7 @@
                                          :avatar="$store.state.friend.currentAvatar" v-show="isChating"/>
                         </div>
                         <div class="panel-body" ref="chatPanelHook">
-                            <!-- 私发 -->
-                            <div v-for="(item, index) in $store.state.friend.chatRecord" :key="index"
-                                 :class="'msg-' + item.status + ' msg clear-float'"
-                                 v-if="$store.state.chat.sendType === 0">
-                                <div class="user-wrap clear-float">
-                                    <div class="header">
-                                        <img class="user-img"
-                                             :src="item.status === 'left' ? $store.state.friend.currentAvatar : userAvatar"
-                                             alt="NO IMG">
-                                    </div>
-                                    <div class="body">
-                                        <div class="trangle user-trangle"></div>
-                                        <div class="text user-text">
-                                            {{ item.message }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 群聊 -->
-                            <div v-for="(item, index) in $store.state.friend.chatRecord" :key="index"
-                                 :class="'msg-' + item.status + ' msg clear-float'"
-                                 v-if="$store.state.chat.sendType === 1">
-                                <div class="name">{{ item.name }}</div>
-                                <div class="user-wrap clear-float">
-                                    <div class="header">
-                                        <img class="user-img"
-                                             :src="item.avatar"
-                                             alt="NO IMG">
-                                    </div>
-                                    <div class="body">
-                                        <div class="trangle user-trangle"></div>
-                                        <div class="text user-text">
-                                            {{ item.message }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- 聊天面板 -->
                         </div>
                         <div class="panel-footer">
                             <textarea name="content" id="editor_id"></textarea>
@@ -240,6 +211,7 @@
                 isFriend: true,
                 userAvatar: "",
                 userName: "",
+                userId: "",
                 isChating: false,
                 editor: null,
                 userInfo: {},
@@ -260,11 +232,11 @@
             // 初始化用户头像
             this.userAvatar = getUser().avatar;
             this.userName = getUser().nick;
+            this.userId = getUser().id;
             // 初始化签名
             userApi.getUserInfo(getUser().id).then((response) => {
                 this.userInfo = response.data.data;
             });
-
             /**
              * 加载页面数据
              */
@@ -308,7 +280,47 @@
             // 建立socket连接
             this.ws = new WebSocket("ws://127.0.0.1:9001/chat_user_to_user/" + getUser().id);
             this.ws.onmessage = (event) => {
-
+                let data = JSON.parse(event.data);
+                let msg = "";
+                if (data[0] === "0") {
+                    // 用户聊天
+                    msg = `
+                        <div class="msg-left msg clear-float">
+                            <div class="user-wrap clear-float">
+                                <div class="header">
+                                    <img class="user-img" src="${this.$store.state.friend.currentAvatar}" alt="NO IMG">
+                                </div>
+                                <div class="body">
+                                    <div class="trangle user-trangle"></div>
+                                    <div class="text user-text">
+                                        ${data[1]}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (data[0] === "1") {
+                    // 群聊聊天
+                    msg = `
+                        <div class="msg-left msg clear-float">
+                            <div class="name">${data[1]}</div>
+                            <div class="user-wrap clear-float">
+                                <div class="header">
+                                    <img class="user-img" src="${data[2]}" alt="NO IMG">
+                                </div>
+                                <div class="body">
+                                    <div class="trangle user-trangle"></div>
+                                    <div class="text user-text">
+                                        ${data[3]}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                this.$refs.chatPanelHook.innerHTML += msg;
+                // 将页面调至最下面
+                this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
             }
         },
         methods: {
@@ -349,7 +361,8 @@
                 }
                 // 准备就绪，发送消息
                 let msgStr = '';
-                if (sendType === 0) {
+                let removeFlag = new Date().getTime() + '';  // 移除等待标志
+                if (sendType === '0') {
                     // 个人对个人发送消息
                     // 将该消息发送到自己的屏幕上
                     msgStr = `
@@ -359,7 +372,7 @@
                                     <img class="user-img" src="${this.userAvatar}" alt="NO IMG">
                                 </div>
                                 <div class="body">
-                                    <div class="send-status">
+                                    <div class="send-status ${removeFlag}">
                                         <i class="el-icon-loading"></i>
                                     </div>
                                     <div class="trangle user-trangle"></div>
@@ -370,7 +383,7 @@
                             </div>
                         </div>
                     `;
-                } else if (sendType === 1) {
+                } else if (sendType === '1') {
                     // 个人对群发送消息
                     // 将该消息发送到自己的屏幕上
                     msgStr = `
@@ -381,7 +394,7 @@
                                     <img class="user-img" src="${this.userAvatar}" alt="NO IMG">
                                 </div>
                                 <div class="body">
-                                    <div class="send-status">
+                                    <div class="send-status ${removeFlag}">
                                         <i class="el-icon-loading"></i>
                                     </div>
                                     <div class="trangle user-trangle"></div>
@@ -393,22 +406,19 @@
                         </div>
                     `;
                 }
-                let msgDom = $(msgStr);
-                $(this.$refs.chatPanelHook).append(msgDom);    // 添加到聊天记录
+                this.$refs.chatPanelHook.innerHTML += msgStr;    // 添加到聊天记录
                 // 刷新div到底部显示
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
                 this.editor.html('');
-                let sendStr = sendType === 0 ? "send_msgpersonnal" : "send_msggroup";
-                chatApi.sendMessage(sendStr, getUser().id, sendId, msg).then((response) => {
-                    let statusDom = msgDom.children(".user-wrap").children(".body").children(".send-status");
+                let sendStr = sendType === '0' ? "send_msgpersonnal" : "send_msggroup";
+                chatApi.sendMessage(sendStr, getUser().id, sendId, msg, removeFlag).then((response) => {
                     if (response.data.flag) {
                         // 发送成功，移除等待标志
-                        statusDom.remove();
+                        $(`.${response.data.data}`).remove();
                         // 将聊天对象添加到最近联系人
                         relationChatApi.deleteRelationChat(getUser().id, sendId).then((response) => {
                             relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
                                 if (response.data.flag) {
-                                    alert(1);
                                     chatApi.getRelationChatList(getUser().id).then((response) => {
                                         this.relationChatListData = response.data.data;
                                     });
@@ -476,6 +486,12 @@
             "isChatingComputed": function () {
                 return this.$store.state.friend.currentNick;
             },
+            "friendChatRecord": function () {
+                return this.$store.state.friend.chatRecord;
+            },
+            "groupChatRecord": function () {
+                return this.$store.state.friend.groupChatRecord;
+            },
         },
         watch: {
             isChatingComputed: function () {
@@ -496,6 +512,62 @@
                     // 关闭
                     $txt.unbind("keydown", this.keyUpEvent);
                 }
+            },
+            // 好友聊天记录
+            friendChatRecord: function () {
+                // 清空聊天面板
+                this.$refs.chatPanelHook.innerHTML = "";
+                let msg = "";
+                this.$store.state.friend.chatRecord.forEach((item) => {
+                    let avatar = item.status === "left" ? this.$store.state.friend.currentAvatar : this.userAvatar;
+                    msg += `
+                        <div class="msg-${item.status} msg clear-float'"
+                             v-if="$store.state.chat.sendType === 0">
+                            <div class="user-wrap clear-float">
+                                <div class="header">
+                                    <img class="user-img" src="${avatar}" alt="NO IMG">
+                                </div>
+                                <div class="body">
+                                    <div class="trangle user-trangle"></div>
+                                    <div class="text user-text">
+                                        ${item.message}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                this.$refs.chatPanelHook.innerHTML += msg;
+                // 将页面调至最底端
+                this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
+            },
+            // 群聊天记录
+            groupChatRecord: function () {
+                // 清空聊天面板
+                this.$refs.chatPanelHook.innerHTML = "";
+                let msg = "";
+                this.$store.state.friend.groupChatRecord.forEach((item) => {
+                    let status = item.id === this.userId ? 'right' : 'left';
+                    msg += `
+                        <div class="msg-${status} msg clear-float">
+                            <div class="name">${item.name}</div>
+                            <div class="user-wrap clear-float">
+                                <div class="header">
+                                    <img class="user-img" src="${item.avatar}" alt="NO IMG">
+                                </div>
+                                <div class="body">
+                                    <div class="trangle user-trangle"></div>
+                                    <div class="text user-text">
+                                        ${item.message}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                this.$refs.chatPanelHook.innerHTML += msg;
+                // 将页面调至最底端
+                this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
             },
         },
         components: {
@@ -538,6 +610,7 @@
             overflow hidden
 
             .left
+                padding 0
                 .writing
                     margin 10px
                     width 40px
@@ -557,7 +630,7 @@
 
                 .left-list
                     float left
-                    margin 13px 0 0 13px
+                    margin 13px 0 0 15px
 
                     li
                         float left
@@ -593,9 +666,7 @@
                     overflow hidden
 
                     .con
-                        margin 6px 10px
-                        padding 5px 10px
-                        float left
+                        float right
                         background-color rgba(91, 188, 218, 0.19)
                         border-radius 18px
                         box-shadow 2px 2px 6px #d6d6d6
@@ -603,8 +674,10 @@
                         cursor pointer
                         color #575757
 
-                        &:nth-child(1)
+                        &:nth-child(3)
                             position relative
+                            padding 5px 10px
+                            margin 6px 10px
 
                             &:hover
                                 .add
@@ -642,6 +715,12 @@
                                             background-color #fffcf5
 
 
+                        &:nth-child(2)
+                            margin 6px 20px 0 5px
+                            padding 11px 10px
+                            i
+                                margin-right 3px
+                                font-size 16px
                         &:hover
                             background-color rgba(91, 188, 218, 0.29)
 
@@ -682,46 +761,6 @@
                                 width 100%
                                 height 100%
                                 border-radius 50%
-
-                            .group
-                                position absolute
-                                z-index 99
-                                top 16px
-                                right -128px
-                                display flex
-                                cursor pointer
-                                visibility hidden
-
-                                &:hover
-                                    .trangle
-                                        border-color transparent #ebebeb transparent transparent
-
-                                    .text
-                                        background-color #ebebeb
-
-                                .trangle
-                                    flex 0 0 16px
-                                    margin 10px -1px 0 0
-                                    z-index 100
-                                    width 0
-                                    height 0
-                                    border-width 8px
-                                    border-style solid
-                                    border-color transparent #fff transparent transparent
-
-                                .text
-                                    flex 1
-                                    width 120px
-                                    height 40px
-                                    line-height 40px
-                                    text-align center
-                                    border-radius 4px
-                                    border 1px solid #dedede
-                                    background-color #fff
-                                    box-shadow 2px 2px 6px #363636
-
-                                    i
-                                        margin-right 5px
 
                     .nick
                         color #fff
@@ -802,15 +841,8 @@
                             overflow hidden
 
             .middle
-                .banner
+                .link-group
                     margin 20px 10px
-                    height 160px
-                    color #fff
-                    font-weight 700
-                    font-size 28px
-                    text-align center
-                    line-height 160px
-                    background-color #5bc0de
 
                 .chat-pannel
                     .panel-heading

@@ -135,7 +135,7 @@
                 // 获取聊天记录
                 chatApi.getGroupChatRecord(groupId).then((response) => {
                     // 设置聊天记录
-                    this.$store.dispatch("friend/setChatRecord", response.data.data);
+                    this.$store.dispatch("friend/setGroupChatRecord", response.data.data);
                 });
             },
             // 我加入的群

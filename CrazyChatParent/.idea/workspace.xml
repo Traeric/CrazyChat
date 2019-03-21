@@ -4,48 +4,70 @@
     <list default="true" id="7fe8b064-248a-42e1-a2c6-0c657dde2e85" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/api/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/api/chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/api/friend.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/api/friend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/api/relation_chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/api/relation_chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/api/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/addFriend/addFriend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/addFriend/addFriend.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/addGroup/addGroup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/addGroup/addGroup.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/friendList/friendList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/friendList/friendList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/groupList/groupList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/groupList/groupList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/personnalInfo/personnalInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/personnalInfo/personnalInfo.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/relationChat/relationChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/relationChat/relationChat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/build_group.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/build_group.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/layouts/default.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/layouts/default.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/pages/chat_room/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/pages/chat_room/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/pages/settings/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/pages/settings/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/store/friend.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/store/friend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_6_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_3_0_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/chat/chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/chat.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/chat/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRoomController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/pojo/GroupChatRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/pojo/GroupChatRecord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/chat/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/test/java/SpringBootTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/test/java/SpringBootTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/UserClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/UserClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/UserClientImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/controller/ChatRecordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/controller/ChatRecordController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/pojo/GroupChatRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/pojo/GroupChatRecord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/socket/UserToUserSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/socket/UserToUserSocket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/UserClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/impl/UserClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/impl/UserClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/ChatRecordDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/ChatRecord.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/RelationChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/RelationChatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/client/UserClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/client/impl/UserClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/client/impl/UserClientImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/controller/GroupController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/controller/GroupController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/dao/ChatRecordDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/pojo/ChatRecord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/service/GroupService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/service/GroupService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/relationchat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/relationchat.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/ChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/GroupClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/GroupClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/ChatClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/ChatClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/GroupClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/GroupClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/UserClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/UserClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/dao/RelationChatDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/dao/RelationChatDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/UserApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/UserApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/ChatClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/GroupClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/GroupClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/UserClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/ChatClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/ChatClientImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/GroupClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/GroupClientImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/UserClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/client/impl/UserClientImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/controller/RelationChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/controller/RelationChatController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/service/RelationChatService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/service/RelationChatService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendGroupDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendGroupDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/UserProfileDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/UserProfileDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/Friend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/FriendGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/FriendGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/UserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/UserProfile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/user/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/controller/UserController.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/parent/common/target/" />
     <ignored path="$PROJECT_DIR$/parent/target/" />
@@ -64,40 +86,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java">
+        <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="281">
+              <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parent/chat/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parent/chat/src/main/resources/application.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="13" column="25" lean-forward="true" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -105,22 +100,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+            <state relative-caret-position="195">
+              <caret line="129" column="32" lean-forward="true" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1824">
-              <caret line="64" column="53" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#getLastMsg#0;class#ChatRecordService#0" />
+                <element signature="method#getChatRecord#0;class#ChatRecordService#0" />
+                <element signature="method#sendMsgToGroup#0;class#ChatRecordService#0" />
+                <element signature="method#containsKey#0;class#ChatRecordService#0" />
+                <element signature="method#sendToRedis#0;class#ChatRecordService#0" />
               </folding>
             </state>
           </provider>
@@ -149,57 +137,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/parent/web/pom.xml" />
-        <option value="$PROJECT_DIR$/parent/web/src/main/java/com/crazychat/web/WebApplication.java" />
-        <option value="$PROJECT_DIR$/parent/eureka/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/parent/web/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/ChatClient.java" />
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/GroupClient.java" />
-        <option value="$PROJECT_DIR$/parent/user/pom.xml" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/clienr/ChatClient.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/client/impl/ChatClientImpl.java" />
-        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/client/ChatClient.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/Friend.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendDao.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/UserProfileDao.java" />
         <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupDao.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/impl/UserClientImpl.java" />
         <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupUserDao.java" />
         <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/Group.java" />
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/UserClient.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/test/java/SpringBootTest.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/FriendGroup.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/UserProfile.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendGroupDao.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" />
         <option value="$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/MD5Utils.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/resources/template/profile_email.html" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/UserApplication.java" />
-        <option value="$PROJECT_DIR$/parent/user/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/FileResource.java" />
-        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" />
         <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/BaseExceptionHandler.java" />
         <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/RelationChatApplication.java" />
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java" />
         <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/dao/RelationChatDao.java" />
-        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/pojo/GroupChatRecord.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/dao/GroupChatRecordDao.java" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" />
-        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/RedisUtil.java" />
         <option value="$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/SeriableUtil.java" />
-        <option value="$PROJECT_DIR$/parent/chat/pom.xml" />
-        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java" />
+        <option value="$PROJECT_DIR$/parent/user/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/pojo/GroupChatRecord.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/GroupClient.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/GroupClientImpl.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/ChatClientImpl.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/ChatClient.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/GroupClientDao.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/GroupClient.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/UserClient.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/impl/UserClientImpl.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" />
+        <option value="$PROJECT_DIR$/parent/chat/pom.xml" />
+        <option value="$PROJECT_DIR$/parent/relationchat/pom.xml" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" />
+        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" />
+        <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/client/ChatClient.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/UserClientImpl.java" />
+        <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" />
+        <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java" />
       </list>
     </option>
   </component>
@@ -231,6 +219,15 @@
         </path>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="relationchat" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="relationchat" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="user" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
       </expand>
@@ -252,6 +249,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -302,22 +300,13 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="socket" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CrazyChatParent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="parent" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -328,7 +317,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553010840334" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553178385460" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -355,7 +344,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ChatApplication">
+  <component name="RunManager" selected="Spring Boot.GroupApplication">
     <configuration name="ChatApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="chat" />
       <extension name="coverage">
@@ -423,11 +412,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ChatApplication" />
-        <item itemvalue="Spring Boot.WebApplication" />
-        <item itemvalue="Spring Boot.GroupApplication" />
-        <item itemvalue="Spring Boot.RelationChatApplication" />
         <item itemvalue="Spring Boot.UserApplication" />
+        <item itemvalue="Spring Boot.GroupApplication" />
+        <item itemvalue="Spring Boot.ChatApplication" />
+        <item itemvalue="Spring Boot.RelationChatApplication" />
+        <item itemvalue="Spring Boot.WebApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -457,6 +446,8 @@
       <workItem from="1552885217027" duration="19332000" />
       <workItem from="1552963369727" duration="30411000" />
       <workItem from="1553008143675" duration="2638000" />
+      <workItem from="1553045221742" duration="23411000" />
+      <workItem from="1553134821758" duration="23098000" />
     </task>
     <servers />
   </component>
@@ -484,12 +475,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159574000" />
+    <option name="totallyTimeSpent" value="206083000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18072917" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18072917" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -499,7 +491,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.30517423" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.30517423" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -507,7 +499,7 @@
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32946146" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32946146" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005208" side_tool="true" weight="0.30517423" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.35902852" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
@@ -528,232 +520,79 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/ChatRoomWebSocket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
+        <state relative-caret-position="-668">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Maven/RepMaven/org/springframework/boot/spring-boot/2.1.3.RELEASE/spring-boot-2.1.3.RELEASE.jar!/org/springframework/boot/SpringApplication.class">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/dao/ChatRecordDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="770" selection-start-line="770" selection-end-line="770" />
+        <state relative-caret-position="224">
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/UserProfileDao.java">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRoomController.java" />
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/config/WebSocketConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/UserProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="39" column="34" lean-forward="true" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/FriendGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendGroupDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="224">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#344#345#0" expanded="true" />
+            <element signature="e#395#396#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/GroupUser.java">
+    <entry file="jar://E:/Maven/RepMaven/org/springframework/data/spring-data-redis/2.1.5.RELEASE/spring-data-redis-2.1.5.RELEASE.jar!/org/springframework/data/redis/core/RedisTemplate.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        <state relative-caret-position="-4001">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3298#4671#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/RedisUtil.java" />
+    <entry file="file://$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/SeriableUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="139" column="26" lean-forward="true" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
+        <state relative-caret-position="192">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Maven/RepMaven/redis/clients/jedis/3.0.1/jedis-3.0.1.jar!/redis/clients/jedis/Jedis.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1703#1704#0" expanded="true" />
+            <element signature="e#1736#1737#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/dao/FriendDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/MD5Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/resources/template/profile_email.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#em#0;n#p#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Maven/RepMaven/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE.jar!/org/springframework/web/bind/annotation/ExceptionHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/BaseExceptionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/BaseExceptionHandler.java">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/RelationChatApplication.java">
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/UserApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        <state relative-caret-position="292">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#687#688#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="51" column="55" selection-start-line="51" selection-start-column="55" selection-end-line="51" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/pojo/RelationChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/dao/RelationChatDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="15" column="69" selection-start-line="15" selection-start-column="69" selection-end-line="15" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="104" column="9" lean-forward="true" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
-          <folding>
-            <element signature="method#getRelatioChatList#0;class#RelationChatService#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="29" column="21" lean-forward="true" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="328" column="7" lean-forward="true" selection-start-line="328" selection-start-column="7" selection-end-line="328" selection-end-column="7" />
-          <folding>
-            <element signature="method#userInfo#0;class#UserController#0" />
-            <element signature="method#getChatRecord#0;class#UserController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/FileResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#847#848#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -765,27 +604,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/java/jdk/src.zip!/javax/annotation/Resource.java">
+    <entry file="jar://E:/Maven/RepMaven/org/springframework/data/spring-data-redis/2.1.5.RELEASE/spring-data-redis-2.1.5.RELEASE.jar!/org/springframework/data/redis/core/ValueOperations.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+        <state relative-caret-position="275">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/ChatRecord.java" />
     <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/pojo/GroupChatRecord.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/ChatRoomWebSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-668">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state relative-caret-position="512">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -804,131 +641,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/dao/GroupChatRecordDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        <state relative-caret-position="320">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/dao/ChatRecordDao.java">
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/GroupClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        <state relative-caret-position="643">
+          <caret line="26" column="73" selection-start-line="26" selection-start-column="73" selection-end-line="26" selection-end-column="73" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/GroupApplication.java">
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/GroupClientImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state relative-caret-position="320">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRoomController.java" />
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/config/WebSocketConfig.java">
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/ChatClientImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <caret line="10" column="66" lean-forward="true" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#344#345#0" expanded="true" />
-            <element signature="e#395#396#0" expanded="true" />
+            <element signature="e#237#238#0" expanded="true" />
+            <element signature="e#268#269#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java">
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8704">
-          <caret line="457" column="31" selection-start-line="457" selection-start-column="31" selection-end-line="457" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#login#0;class#UserService#0" />
-            <element signature="method#register#0;class#UserService#0" />
-            <element signature="method#getFriendList#0;class#UserService#0" />
-            <element signature="method#profileEmail#0;class#UserService#0" />
-            <element signature="method#sendEmail#1;class#UserService#0" />
-            <element signature="method#comfirmProfileEmail#0;class#UserService#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Maven/RepMaven/org/springframework/data/spring-data-redis/2.1.5.RELEASE/spring-data-redis-2.1.5.RELEASE.jar!/org/springframework/data/redis/core/RedisTemplate.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4001">
-          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
-          <folding>
-            <element signature="e#3298#4671#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/RedisUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#376#377#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1824">
-          <caret line="64" column="53" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="419">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parent/eureka/src/main/java/com/crazychat/eureka/EurekaApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="288">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/UserApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="21" column="15" lean-forward="true" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
-          <folding>
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#913#914#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parent/web/src/main/java/com/crazychat/web/WebApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        <state relative-caret-position="121">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#414#415#0" expanded="true" />
@@ -937,59 +704,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/common/src/main/java/com/crazychat/common/utils/SeriableUtil.java">
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/GroupApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        <state relative-caret-position="288">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/pom.xml">
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/Group.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+        <state relative-caret-position="224">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java">
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/pojo/GroupUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+        <state relative-caret-position="352">
+          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="151" column="21" lean-forward="true" selection-start-line="151" selection-start-column="21" selection-end-line="151" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/GroupClientDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/GroupClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/ChatApplication.java">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
+        <state relative-caret-position="288">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Maven/RepMaven/redis/clients/jedis/3.0.1/jedis-3.0.1.jar!/redis/clients/jedis/Jedis.class">
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
+        <state relative-caret-position="544">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding>
-            <element signature="e#1703#1704#0" expanded="true" />
-            <element signature="e#1736#1737#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/impl/UserClientImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/client/UserClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1529">
+          <caret line="116" column="91" selection-start-line="116" selection-start-column="91" selection-end-line="116" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/chat/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/pojo/RelationChat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parent/chat/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="13" column="25" lean-forward="true" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        <state relative-caret-position="448">
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="-413">
+          <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/pojo/Friend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="468" column="5" lean-forward="true" selection-start-line="468" selection-start-column="5" selection-end-line="468" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#login#0;class#UserService#0" />
+            <element signature="method#getFriendList#0;class#UserService#0" />
+            <element signature="method#profileEmail#0;class#UserService#0" />
+            <element signature="method#sendEmail#1;class#UserService#0" />
+            <element signature="method#comfirmProfileEmail#0;class#UserService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="340" column="7" lean-forward="true" selection-start-line="340" selection-start-column="7" selection-end-line="340" selection-end-column="7" />
+          <folding>
+            <element signature="method#userInfo#0;class#UserController#0" />
+            <element signature="method#getChatRecord#0;class#UserController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/client/ChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="13" column="128" selection-start-line="13" selection-start-column="128" selection-end-line="13" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/impl/UserClientImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding>
+            <element signature="e#218#219#0" expanded="true" />
+            <element signature="e#267#268#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/client/UserClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="643">
+          <caret line="59" column="44" selection-start-line="59" selection-start-column="44" selection-end-line="59" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/controller/RelationChatController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="25" column="68" selection-start-line="25" selection-start-column="68" selection-end-line="25" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="129" column="32" lean-forward="true" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getLastMsg#0;class#ChatRecordService#0" />
+            <element signature="method#getChatRecord#0;class#ChatRecordService#0" />
+            <element signature="method#sendMsgToGroup#0;class#ChatRecordService#0" />
+            <element signature="method#containsKey#0;class#ChatRecordService#0" />
+            <element signature="method#sendToRedis#0;class#ChatRecordService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/controller/ChatRecordController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

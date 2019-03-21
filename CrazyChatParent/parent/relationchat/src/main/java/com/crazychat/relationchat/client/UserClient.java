@@ -13,7 +13,7 @@ public interface UserClient {
      * @return
      */
     @GetMapping("/user/name/{user_id}")
-    String getUserNameById(@PathVariable("user_id") String userId);
+    byte[] getUserNameById(@PathVariable("user_id") String userId);
 
     /**
      * 获取用户的头像
@@ -21,5 +21,14 @@ public interface UserClient {
      * @return
      */
     @GetMapping("/user/user_id/{user_id}")
-    String getUserAvatarById(@PathVariable("user_id") String userId);
+    byte[] getUserAvatarById(@PathVariable("user_id") String userId);
+
+    /**
+     * 获取好友备注
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @GetMapping("/user/user_todo/{user_id}/{friend_id}")
+    byte[] getUserTodo(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId);
 }

@@ -15,7 +15,4 @@ public class GroupChatRecord implements Serializable {
     private String userId;
 
     private String content;
-
-    // left or right
-    private String status;
 }

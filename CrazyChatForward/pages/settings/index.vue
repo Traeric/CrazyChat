@@ -20,14 +20,14 @@
                     <div class="form">
                         <el-form ref="form" label-width="80px">
                             <el-form-item label="用户昵称">
-                                <el-input style="width: 348px;" v-model="nick"></el-input>
+                                <el-input style="width: 300px;" v-model="nick"></el-input>
                                 <button type="button" class="btn btn-link" @click="profileNick" style="outline: none;">
                                     修改
                                 </button>
                             </el-form-item>
 
                             <el-form-item label="邮箱">
-                                <el-input style="width: 348px;" v-model="email"></el-input>
+                                <el-input style="width: 300px;" v-model="email"></el-input>
                                 <button type="button" class="btn btn-link" @click="profileEmail" style="outline: none;">
                                     修改
                                 </button>

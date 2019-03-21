@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 public class UserClientImpl implements UserClient {
 
     @Override
-    public String getUserNameById(String userId) {
-        return "Not Avaliable";
+    public byte[] getUserNameById(String userId) {
+        return "Not Avaliable".getBytes();
     }
 
     @Override
-    public String getUserAvatarById(String userId) {
-        return "Not Avaliable";
+    public byte[] getUserAvatarById(String userId) {
+        return "Not Avaliable".getBytes();
     }
 }

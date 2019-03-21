@@ -457,4 +457,14 @@ public class UserService {
         // 删除
         friendDao.delete(friend);
     }
+
+    /**
+     * 获取用户备注
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    public byte[] getUserTodo(String userId, String friendId) {
+        return friendDao.findByUserIdAndFriendId(userId, friendId).getTodo().getBytes();
+    }
 }

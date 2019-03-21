@@ -4,7 +4,7 @@
                :before-close="handleClose">
         <el-form label-position="right" label-width="90px" :inline="true">
             <el-form-item label="搜索群名称">
-                <el-input v-model="addGroupName" autocomplete="off" style="width: 376px;"></el-input>
+                <el-input v-model="addGroupName" autocomplete="off" style="width: 320px;"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button icon="el-icon-search" circle @click="searchGroup"></el-button>

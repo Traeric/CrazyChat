@@ -6,6 +6,7 @@ import com.crazychat.relationchat.client.GroupClient;
 import com.crazychat.relationchat.client.UserClient;
 import com.crazychat.relationchat.dao.RelationChatDao;
 import com.crazychat.relationchat.pojo.RelationChat;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class RelationChatService {
     @Resource(name = "idWorker")
     private IdWorker idCreater;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
     /**
      * 获取最近聊天的列表
      * @param userId
@@ -48,9 +52,9 @@ public class RelationChatService {
             map.put("id", relationChat.getOtherId());
             if ("0".equals(relationChat.getType())) {
                 // 用户
-                String userName = userClient.getUserNameById(relationChat.getOtherId());
-                map.put("name", userName);
-                String avatar = userClient.getUserNameById(relationChat.getOtherId());
+                String todo = new String(userClient.getUserTodo(userId, relationChat.getOtherId()));
+                map.put("name", todo);
+                String avatar = new String(userClient.getUserAvatarById(relationChat.getOtherId()));
                 map.put("picture", avatar);
                 Map<String, String> map1 = new HashMap<>();
                 map1.put("type", relationChat.getType());
@@ -68,10 +72,18 @@ public class RelationChatService {
                 Map<String, String> map1 = new HashMap<>();
                 map1.put("type", relationChat.getType());
                 // 最后一条数据
-                Map<String, String> msg = groupClient.getLastMessage(relationChat.getOtherId());
+                Map<String, String> msg = chatClient.getLastMessage(relationChat.getOtherId());
                 map1.put("user", msg.get("user"));
                 map.put("data", map1);
                 map.put("lastMsg", msg.get("msg"));
+            }
+            // 从redis中获取未读取的聊天
+            String key = userId + "|" + relationChat.getOtherId();
+            Long unRead = (Long) redisTemplate.opsForValue().get(key);
+            if (null == unRead) {
+                map.put("unRead", "");
+            } else {
+                map.put("unRead", unRead);
             }
             data.add(map);
         });

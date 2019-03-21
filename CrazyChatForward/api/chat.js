@@ -32,12 +32,13 @@ export default {
         });
     },
     // 发送消息
-    sendMessage(type, user_id, other_id, message) {
+    sendMessage(type, user_id, other_id, message, removeFlag) {
         return request({
             url: `/chat/chat/${type}/${user_id}/${other_id}`,
             method: "post",
             data: {
                 message,
+                removeFlag,
             },
         });
     },

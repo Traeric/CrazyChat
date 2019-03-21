@@ -4,7 +4,7 @@
                :before-close="handleClose">
         <el-form label-position="right" label-width="80px" :inline="true">
             <el-form-item label="搜索用户">
-                <el-input v-model="addFriendName" autocomplete="off" style="width: 376px;"></el-input>
+                <el-input v-model="addFriendName" autocomplete="off" style="width: 320px;"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" circle @click="searchFriend"></el-button>

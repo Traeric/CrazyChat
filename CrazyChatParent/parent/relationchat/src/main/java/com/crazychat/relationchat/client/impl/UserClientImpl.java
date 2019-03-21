@@ -4,12 +4,17 @@ import com.crazychat.relationchat.client.UserClient;
 
 public class UserClientImpl implements UserClient {
     @Override
-    public String getUserNameById(String userId) {
-        return "NOT AVALIABLE";
+    public byte[] getUserNameById(String userId) {
+        return "NOT AVALIABLE".getBytes();
     }
 
     @Override
-    public String getUserAvatarById(String userId) {
-        return "NOT AVALIABLE";
+    public byte[] getUserAvatarById(String userId) {
+        return "NOT AVALIABLE".getBytes();
+    }
+
+    @Override
+    public byte[] getUserTodo(String userId, String friendId) {
+        return "NOT AVALIABLE".getBytes();
     }
 }

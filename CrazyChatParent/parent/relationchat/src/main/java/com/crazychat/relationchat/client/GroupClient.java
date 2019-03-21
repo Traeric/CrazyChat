@@ -25,12 +25,4 @@ public interface GroupClient {
      */
     @GetMapping("/group/group_picture/{group_id}")
     String getGroupPictureById(@PathVariable("group_id") String groupId);
-
-    /**
-     * 获取群聊得到最后一个人的聊天
-     * @param groupId
-     * @return
-     */
-    @GetMapping("/group/get_last_msg/{group_id}")
-    Map<String, String> getLastMessage(@PathVariable("group_id") String groupId);
 }

@@ -12,14 +12,14 @@ public interface UserClient {
      * @param userId
      * @return
      */
-    @GetMapping("/name/{user_id}")
-    String getUserNameById(@PathVariable("user_id") String userId);
+    @GetMapping("/user/name/{user_id}")
+    byte[] getUserNameById(@PathVariable("user_id") String userId);
 
     /**
      * 获取用户id
      * @param userId
      * @return
      */
-    @GetMapping("/user_id/{user_id}")
-    String getUserAvatarById(@PathVariable("user_id") String userId);
+    @GetMapping("/user/user_id/{user_id}")
+    byte[] getUserAvatarById(@PathVariable("user_id") String userId);
 }

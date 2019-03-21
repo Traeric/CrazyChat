@@ -5,10 +5,6 @@
             <div class="title">
                 <div class="title-text"></div>
             </div>
-            <div class="links">
-                <!-- 链接区 -->
-
-            </div>
             <div class="user">
                 <!-- 用户信息区 -->
                 <!-- 未登录 -->
@@ -25,6 +21,20 @@
                     <div class="avatar"><img :src="avatar" alt="NO IMG"></div>
                     <div class="nick">{{ userName }}</div>
                 </div>
+            </div>
+            <div class="links">
+                <!-- 链接区 -->
+                <el-row>
+                    <el-button type="text" style="color: #fff; font-weight: 700; cursor: default; font-size: 18px;">
+                        友情链接：
+                    </el-button>
+                    <el-button type="text">
+                        <nuxt-link to="/home_page">个人主页</nuxt-link>
+                    </el-button>
+                    <el-button type="text">
+                        <nuxt-link to="/home_page">动态空间</nuxt-link>
+                    </el-button>
+                </el-row>
             </div>
         </div>
         <div class="body">
@@ -230,6 +240,19 @@
                     background-image url("../../assets/images/title.PNG")
                     background-size 470px 36px
 
+            .links
+                float right
+                margin-right 40px
+                height 60px
+                line-height 60px
+
+                a
+                    text-decoration none
+                    color #fff
+
+                    &:hover
+                        color #e2e2e2
+
             .user
                 float right
 
@@ -255,6 +278,7 @@
                         margin 5px
                         width 50px
                         height 50px
+                        border-radius 50%
 
                 .nick
                     height 60px

@@ -16,7 +16,7 @@ spring:
   # 发送邮件
   mail:
     username: 2789519045@qq.com
-    password: dfsmismiilkydghh    # 邮箱授权码   dfsmismiilkydghh
+    password: anwqrmdhqggddghh    # 邮箱授权码
     host: smtp.qq.com
     properties:
       mail:

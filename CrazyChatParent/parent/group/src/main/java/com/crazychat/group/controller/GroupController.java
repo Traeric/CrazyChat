@@ -88,16 +88,6 @@ public class GroupController {
     }
 
     /**
-     * 获取最后一条消息
-     * @param groupId
-     * @return
-     */
-    @GetMapping("/get_last_msg/{group_id}")
-    public Map<String, String> getLastMessage(@PathVariable("group_id") String groupId) {
-        return groupService.getLastMessage(groupId);
-    }
-
-    /**
      * 删除群成员
      * @param groupId
      * @param memberId
@@ -155,5 +145,15 @@ public class GroupController {
     @GetMapping("/group_picture/{group_id}")
     public String getGroupPictureById(@PathVariable("group_id") String groupId) {
         return groupService.getGroupById(groupId).getPicture();
+    }
+
+    /**
+     * 获取群成员id
+     * @param groupId
+     * @return
+     */
+    @GetMapping("/get_group_member/{group_id}")
+    public List<String> getGroupMemberList(@PathVariable("group_id") String groupId) {
+        return groupService.getGroupMember(groupId);
     }
 }

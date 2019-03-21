@@ -103,7 +103,7 @@
                 this.$store.dispatch("chat/setSendType", 0);
                 chatApi.getChatRecord(currentUserId, friendId).then((response) => {
                     let data = response.data.data;
-                    // 传送聊天记录
+                    // 设置聊天记录
                     this.$store.dispatch("friend/setChatRecord", data);
                 });
 

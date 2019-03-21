@@ -1,9 +1,6 @@
 package com.crazychat.chat.socket;
 
-import com.crazychat.common.utils.SeriableUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -11,11 +8,14 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @ServerEndpoint(value = "/chat_user_to_user/{userId}")
 public class UserToUserSocket {
+    public static Map<String, Session> userCollect = new HashMap<>();
+    private String currentKey;
 
     /**
      * 连接时执行的方法
@@ -23,10 +23,9 @@ public class UserToUserSocket {
      */
     @OnOpen
     public void onOpen(@PathParam("userId") String userId, Session session) {
-        Jedis jedis = new Jedis("192.168.117.128", 6379);
-        jedis.connect();    // 链接
-        // 保存用户到redis
-        jedis.set(userId + "_chat", new String(SeriableUtil.toByteArray(session), StandardCharsets.UTF_8));
+        // 将数据保存进map
+        currentKey = userId + "|" + System.currentTimeMillis();
+        userCollect.put(currentKey, session);
     }
 
     /**
@@ -35,8 +34,8 @@ public class UserToUserSocket {
      */
     @OnClose
     public void onClose(@PathParam("userId") String userId, Session session) {
-        // 从redis中删除缓存
-        // redisTemplate.delete(userId + "_chat");
+        // 从map中删除
+        userCollect.remove(currentKey);
     }
 
     /**

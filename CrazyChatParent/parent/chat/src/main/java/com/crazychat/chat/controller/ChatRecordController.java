@@ -57,13 +57,41 @@ public class ChatRecordController {
      * 发送消息给好友
      * @param userId
      * @param friendId
+     * @param map
      * @return
      */
     @PostMapping("/send_msgpersonnal/{user_id}/{friend_id}")
     public Result sendMsgToUser(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId,
                                 @RequestBody Map map) {
         String message = (String) map.get("message");
+        String removeFlag = (String) map.get("removeFlag");
         chatRecordService.sendMsgToUser(userId, friendId, message);
-        return new Result(true, StatusCode.OK.getCode(), "发送成功");
+        return new Result(true, StatusCode.OK.getCode(), "发送成功", removeFlag);
+    }
+
+    /**
+     * 发送消息到群里面
+     * @param userId
+     * @param groupId
+     * @param map
+     * @return
+     */
+    @PostMapping("/send_msggroup/{user_id}/{group_id}")
+    public Result sendMsgToGroup(@PathVariable("user_id") String userId, @PathVariable("group_id") String groupId,
+                                 @RequestBody Map map) {
+        String message = (String) map.get("message");
+        String removeFlag = (String) map.get("removeFlag");
+        chatRecordService.sendMsgToGroup(userId, groupId, message);
+        return new Result(true, StatusCode.OK.getCode(), "发送成功", removeFlag);
+    }
+
+    /**
+     * 获取最后一条群聊消息
+     * @param groupId
+     * @return
+     */
+    @GetMapping("/get_last_msg/{group_id}")
+    public Map<String, String> getLastMessage(@PathVariable("group_id") String groupId) {
+        return chatRecordService.getLastMessage(groupId);
     }
 }

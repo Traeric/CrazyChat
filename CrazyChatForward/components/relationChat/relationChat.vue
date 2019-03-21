@@ -16,7 +16,7 @@
                 {{ item.data.user }}：{{ item.lastMsg }}
             </div>
             <!-- 新消息提示 -->
-            <span class="msg-tips">5</span>
+            <span class="msg-tips">{{ item.unRead }}</span>
         </div>
 
         <!-- 右键面板 -->
@@ -67,18 +67,17 @@
                 // 设置发送类型
                 this.$store.dispatch("chat/setSendType", data.type);
                 // 判断用户还是群
-                if (data.type === 0) {
+                if (data.type === '0') {
                     // 获取当前用户的id
                     let currentUserId = getUser().id;
                     chatApi.getChatRecord(currentUserId, currentId).then((response) => {
-                        let data = response.data.data;
-                        // 传送聊天记录
-                        this.$store.dispatch("friend/setChatRecord", data);
+                        // 设置聊天记录
+                        this.$store.dispatch("friend/setChatRecord", response.data.data);
                     });
                 } else {
                     chatApi.getGroupChatRecord(currentId).then((response) => {
                         // 设置聊天记录
-                        this.$store.dispatch("friend/setChatRecord", response.data.data);
+                        this.$store.dispatch("friend/setGroupChatRecord", response.data.data);
                     });
                 }
             },

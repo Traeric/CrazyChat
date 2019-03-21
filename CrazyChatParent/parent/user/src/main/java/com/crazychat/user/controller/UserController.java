@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -317,8 +318,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/name/{user_id}")
-    public String getUserNameById(@PathVariable("user_id") String userId) {
-        return userService.getNameById(userId).getName();
+    public byte[] getUserNameById(@PathVariable("user_id") String userId) {
+        return userService.getNameById(userId).getName().getBytes();
     }
 
     /**
@@ -328,7 +329,18 @@ public class UserController {
      * @return
      */
     @GetMapping("/user_id/{user_id}")
-    public String getUserAvatarById(@PathVariable("user_id") String userId) {
-        return userService.getNameById(userId).getAvatar();
+    public byte[] getUserAvatarById(@PathVariable("user_id") String userId) {
+        return userService.getNameById(userId).getAvatar().getBytes();
+    }
+
+    /**
+     * 获取好友的备注
+     * 该接口通过feign客户端远程调用
+     * @param userId
+     * @return
+     */
+    @GetMapping("/user_todo/{user_id}/{friend_id}")
+    public byte[] getUserTodo(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        return userService.getUserTodo(userId, friendId);
     }
 }

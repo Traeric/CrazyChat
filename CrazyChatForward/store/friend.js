@@ -3,6 +3,7 @@ export const state = () => ({
     currentAvatar: "",
     currentId: 0,
     chatRecord: [],
+    groupChatRecord: [],
     addFriendDialog: false,
 });
 
@@ -28,6 +29,10 @@ export const mutations = {
     setaddFriendDialog(state, flag) {
         state.addFriendDialog = flag;
     },
+    // 设置群聊聊天记录
+    setGroupChatRecord(state, record) {
+        state.groupChatRecord = record;
+    },
 };
 
 
@@ -46,6 +51,9 @@ export const actions = {
     },
     setaddFriendDialog({commit}, flag) {
          commit("setaddFriendDialog", flag);
+    },
+    setGroupChatRecord({commit}, record) {
+        commit("setGroupChatRecord", record);
     },
 };
 

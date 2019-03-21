@@ -36,7 +36,7 @@ public class RelationChatController {
     @PostMapping("/add_chat/{user_id}/{chat_id}")
     public Result addRelationChat(@PathVariable("user_id") String userId, @PathVariable("chat_id") String otherId,
                                   @RequestBody Map map) {
-        String type = (String) map.get("type");
+        String type = String.valueOf(map.get("type"));
         relationChatService.addRelationChat(userId, otherId, type);
         return new Result(true, StatusCode.OK.getCode(), "添加成功");
     }

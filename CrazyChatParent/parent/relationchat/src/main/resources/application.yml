@@ -8,6 +8,10 @@ spring:
     mongodb:
       host: 192.168.117.128
       database: relationChatDB
+  # redis配置
+  redis:
+    host: 192.168.117.128
+    port: 6379
 
 # eureka配置
 eureka:

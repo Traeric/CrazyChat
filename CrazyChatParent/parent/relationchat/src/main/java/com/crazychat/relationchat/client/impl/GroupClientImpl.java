@@ -16,12 +16,4 @@ public class GroupClientImpl implements GroupClient {
     public String getGroupPictureById(String groupId) {
         return "NOT AVALIABLE";
     }
-
-    @Override
-    public Map<String, String> getLastMessage(String groupId) {
-        Map<String, String> map = new HashMap<>();
-        map.put("user", "");
-        map.put("msg", "");
-        return map;
-    }
 }
