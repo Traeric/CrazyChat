@@ -186,8 +186,34 @@ public class UserController {
                             @RequestBody Map<String, String> map) {
         String confirmInfo = map.get("confirmInfo");
         String todo = map.get("todo");
-        String groupId = map.get("group");
+        String groupFriendId = map.get("group");
+        userService.addFriend(userId, friendId, confirmInfo, todo, groupFriendId);
         return new Result(true, StatusCode.OK.getCode(), "发送成功");
+    }
+
+    /**
+     * 从redis中移除验证信息
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @DeleteMapping("/remove_confirm_info/{user_id}/{other_id}/{type}")
+    public Result removeConfirmInfo(@PathVariable("user_id") String userId, @PathVariable("other_id") String otherId,
+                                    @PathVariable("type") String type) {
+        userService.removeConfirmInfo(userId, otherId, type);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
+
+    /**
+     * 同意好友申请
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @PostMapping("/allow_friend_apply/{user_id}/{friend_id}")
+    public Result allowFriendApply(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        userService.allowFriendApply(userId, friendId);
+        return new Result(true, StatusCode.OK.getCode(), "添加成功");
     }
 
     /**
@@ -309,6 +335,17 @@ public class UserController {
     public Result profileAvatar(@PathVariable("user_id") String userId, MultipartFile avatar) {
         String data = userService.profileAvatar(userId, avatar);
         return new Result(true, StatusCode.OK.getCode(), "修改成功", data);
+    }
+
+    /**
+     * 加载验证消息
+     * @param userId
+     * @return
+     */
+    @GetMapping("/load_verify/{user_id}")
+    public Result loadVerify(@PathVariable("user_id") String userId) {
+        List<Map<String, String>> data = userService.loadVerify(userId);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 
     /**

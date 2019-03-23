@@ -131,7 +131,7 @@ public class ChatRecordService {
             }
         });
         // 推送消息给好友, zw@#$0发消息的头信息，0表示用户和用户进行发送
-        String msg = "[\"0\", \"" + message + "\"]";
+        String msg = "[\"" + userId + "\", \"0\", \"" + message + "\"]";
         this.sendToRedis(list, msg, friendId, userId);
         // 保存消息到monogodb
         // 自己地方
@@ -168,7 +168,7 @@ public class ChatRecordService {
         groupMemberList.parallelStream().forEach((groupMember) -> {
             if (!groupMember.equals(userId)) {
                 List<Session> data = this.containsKey(groupMember);
-                String msg = "[\"1\", \"" + name + "\", \"" + avatar + "\", \"" + message + "\"]";
+                String msg = "[\"" + groupId + "\", \"1\", \"" + name + "\", \"" + avatar + "\", \"" + message + "\"]";
                 this.sendToRedis(data, msg, groupMember, groupId);
             }
         });
@@ -211,14 +211,46 @@ public class ChatRecordService {
             data.parallelStream().forEach((session) -> session.getAsyncRemote().sendText(message));
         } else {
             // 该成员不在线，保存到redis
-            String key = prefix + "|" + suffix;
-            // 查看该键是否存在
-            if (null != redisTemplate.opsForValue().get(key)) {
-                Long num = (Long) redisTemplate.opsForValue().get(key);
-                redisTemplate.opsForValue().set(key, ++num);
-            } else {
-                redisTemplate.opsForValue().set(key, 1L);
-            }
+            this.saveToRedis(prefix, suffix);
+        }
+    }
+
+    /**
+     * 更新未读消息到redis
+     * @param userId
+     * @param otherId
+     */
+    public void addUnRead(String userId, String otherId) {
+        this.saveToRedis(userId, otherId);
+    }
+
+    /**
+     * 往redis中插入数据
+     * @param prefix
+     * @param suffix
+     */
+    private void saveToRedis(String prefix, String suffix) {
+        // 该成员不在线，保存到redis
+        String key = prefix + "|" + suffix;
+        // 查看该键是否存在
+        if (null != redisTemplate.opsForValue().get(key)) {
+            Long num = (Long) redisTemplate.opsForValue().get(key);
+            redisTemplate.opsForValue().set(key, ++num);
+        } else {
+            redisTemplate.opsForValue().set(key, 1L);
+        }
+    }
+
+    /**
+     * 删除未读记录
+     * @param userId
+     * @param otherId
+     */
+    public void removeUnRead(String userId, String otherId) {
+        String unReadKey = userId + "|" + otherId;
+        // 删除key
+        if (null != redisTemplate.opsForValue().get(unReadKey)) {
+            redisTemplate.delete(unReadKey);
         }
     }
 }

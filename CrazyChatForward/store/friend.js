@@ -1,7 +1,7 @@
 export const state = () => ({
     currentNick: "",
     currentAvatar: "",
-    currentId: 0,
+    currentId: "",
     chatRecord: [],
     groupChatRecord: [],
     addFriendDialog: false,

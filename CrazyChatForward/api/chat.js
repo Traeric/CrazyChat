@@ -49,4 +49,18 @@ export default {
             method: "get"
         });
     },
+    // 向redis中添加一条未读聊天
+    addUnRead(user_id, other_id) {
+        return request({
+            url: `/chat/chat/add_unread/${user_id}/${other_id}`,
+            method: "put",
+        });
+    },
+    // 点击聊天，将redis中保存的未读记录全部删除
+    removeUnRead(user_id, other_id) {
+        return request({
+            url: `/chat/chat/remove_unread/${user_id}/${other_id}`,
+            method: "delete",
+        });
+    },
 };

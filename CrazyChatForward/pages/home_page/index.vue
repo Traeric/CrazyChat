@@ -6,7 +6,7 @@
                     <i class="iconfont icon-biji"></i>
                 </div>
                 <ul class="left-list">
-                    <li><i class="iconfont icon-xiaoxi"></i></li>
+                    <Notification />
                     <li><i class="iconfont icon-youjian1"></i></li>
                     <li title="个人信息" @click="personnalInfo"><i class="iconfont icon-solid-person"></i></li>
                     <li style="clear: both; display: none;"></li>
@@ -198,6 +198,7 @@
     import AddGroup from "@/components/addGroup/addGroup";
     import PersonnalInfo from "@/components/personnalInfo/personnalInfo";
     import UserGroup from "@/components/userGroup/userGroup";
+    import Notification from "@/components/notification/notification";
     import {getUser, removeUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
     import userApi from "../../api/user";
@@ -218,7 +219,7 @@
                 friendListData: {},
                 groupListData: [],
                 relationChatListData: [],
-                ws: null,
+                wsMsg: null,
             };
         },
         created() {
@@ -275,14 +276,30 @@
             );
 
             /**
-             * websocket相关操作
+             * websocket发送消息操作
              */
             // 建立socket连接
-            this.ws = new WebSocket("ws://127.0.0.1:9001/chat_user_to_user/" + getUser().id);
-            this.ws.onmessage = (event) => {
+            this.wsMsg = new WebSocket("ws://127.0.0.1:9001/chat_user_to_user/" + getUser().id);
+            this.wsMsg.onmessage = (event) => {
                 let data = JSON.parse(event.data);
                 let msg = "";
-                if (data[0] === "0") {
+                // 当前聊天面板的id
+                let currentChatId = this.$store.state.friend.currentId;
+                // 首先判断用户面板聊天的人是否是当前发消息的对象
+                if (currentChatId !== (data[0] + '')) {
+                    // 不是当前用户
+                    // 向redis中存入一条未读记录
+                    chatApi.addUnRead(getUser().id, data[0] + '').then((response) => {
+                        if (response.data.flag) {
+                            // 添加成功，更新最近聊天列表
+                            chatApi.getRelationChatList(getUser().id).then((response) => {
+                                this.relationChatListData = response.data.data;
+                            });
+                        }
+                    });
+                    return;
+                }
+                if (data[1] === "0") {
                     // 用户聊天
                     msg = `
                         <div class="msg-left msg clear-float">
@@ -293,25 +310,25 @@
                                 <div class="body">
                                     <div class="trangle user-trangle"></div>
                                     <div class="text user-text">
-                                        ${data[1]}
+                                        ${data[2]}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     `;
-                } else if (data[0] === "1") {
+                } else if (data[1] === "1") {
                     // 群聊聊天
                     msg = `
                         <div class="msg-left msg clear-float">
-                            <div class="name">${data[1]}</div>
+                            <div class="name">${data[2]}</div>
                             <div class="user-wrap clear-float">
                                 <div class="header">
-                                    <img class="user-img" src="${data[2]}" alt="NO IMG">
+                                    <img class="user-img" src="${data[3]}" alt="NO IMG">
                                 </div>
                                 <div class="body">
                                     <div class="trangle user-trangle"></div>
                                     <div class="text user-text">
-                                        ${data[3]}
+                                        ${data[4]}
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +338,7 @@
                 this.$refs.chatPanelHook.innerHTML += msg;
                 // 将页面调至最下面
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
-            }
+            };
         },
         methods: {
             friendList() {
@@ -362,6 +379,7 @@
                 // 准备就绪，发送消息
                 let msgStr = '';
                 let removeFlag = new Date().getTime() + '';  // 移除等待标志
+                sendType = sendType + '';
                 if (sendType === '0') {
                     // 个人对个人发送消息
                     // 将该消息发送到自己的屏幕上
@@ -438,8 +456,8 @@
             // 回车事件
             keyUpEvent(event) {
                 if (event.keyCode === 13 && !event.ctrlKey) {
-                    let sendType = this.$refs.sendBtnHook.dataset.sendtype * 1;
-                    let sendId = this.$refs.sendBtnHook.dataset.otherid * 1;
+                    let sendType = this.$refs.sendBtnHook.dataset.sendtype;
+                    let sendId = this.$refs.sendBtnHook.dataset.otherid;
                     // 发送消息
                     this.sendMsg(sendId, sendType);
                     return false;
@@ -479,7 +497,7 @@
             // 登出
             logout() {
                 removeUser();
-                this.$router.push("/login");
+                location.href = "/login";
             },
         },
         computed: {
@@ -492,6 +510,9 @@
             "groupChatRecord": function () {
                 return this.$store.state.friend.groupChatRecord;
             },
+            "refreshFriendList": function () {
+                return this.$store.state.user.refreshFriendList;
+            }
         },
         watch: {
             isChatingComputed: function () {
@@ -569,6 +590,12 @@
                 // 将页面调至最底端
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
             },
+            // 在同意好友申请之后刷新好友列表
+            refreshFriendList: function () {
+                chatApi.getUserFriendList(getUser().id).then((response) => {
+                    this.friendListData = response.data.data;
+                });
+            },
         },
         components: {
             FriendList,
@@ -579,6 +606,7 @@
             AddGroup,
             PersonnalInfo,
             UserGroup,
+            Notification,
         },
     }
 </script>

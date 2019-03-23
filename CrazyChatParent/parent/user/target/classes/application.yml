@@ -1,6 +1,7 @@
 server:
   port: 9002
 spring:
+  # 配置静态路径
   resources:
     static-locations: classpath:/META-INF/resources/, classpath:/static, classpath:/resources/, classpath:/public/, file:static/
   application:

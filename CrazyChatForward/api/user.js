@@ -118,4 +118,25 @@ export default {
             },
         });
     },
+    // 从redis中删除验证信息
+    removeConfirmInfo(user_id, other_id, type) {
+        return request({
+            url: `/user/user/remove_confirm_info/${user_id}/${other_id}/${type}`,
+            method: "delete",
+        });
+    },
+    // 同意好友加好友申请
+    allowFriendApply(user_id, friend_id) {
+        return request({
+            url: `/user/user/allow_friend_apply/${user_id}/${friend_id}`,
+            method: "post",
+        });
+    },
+    // 加载验证消息
+    loadVerify(user_id) {
+        return request({
+            url: `/user/user/load_verify/${user_id}`,
+            method: "get",
+        });
+    },
 }

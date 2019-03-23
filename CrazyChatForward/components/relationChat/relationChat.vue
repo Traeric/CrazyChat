@@ -3,20 +3,18 @@
         <div class="chat-item" v-for="(item, index) in relationChatListData"
              @contextmenu.prevent="menuPanel($event, item.id)"
              :key="index"
-             @click="startChat(item.id, item.name, item.picture, item.data)">
+             @click="startChat($event, item.id, item.name, item.picture, item.data)">
             <div class="img"><img :src="item.picture" alt="NO IMG"></div>
-            <div class="info" v-if="item.data.type === '0'">
-                <div class="nick">
-                    <div>{{ item.name }}</div>
-                </div>
-                {{ item.lastMsg }}
+            <div class="info" v-if="item.data.type === '0'"
+                 v-html="'<div class=nick><div>' + item.name + '</div></div>' + item.lastMsg">
             </div>
-            <div class="info" v-if="item.data.type === '1'">
-                <div class="nick">{{ item.name }}</div>
-                {{ item.data.user }}：{{ item.lastMsg }}
+            <div class="info" v-if="item.data.type === '1'"
+                 v-html="'<div class=nick>' + item.name + '</div>' + item.data.user + '：' + item.lastMsg">
             </div>
             <!-- 新消息提示 -->
-            <span class="msg-tips">{{ item.unRead }}</span>
+            <span class="msg-tips">
+                <el-badge :value="item.unRead" class="item"></el-badge>
+            </span>
         </div>
 
         <!-- 右键面板 -->
@@ -60,7 +58,8 @@
             };
         },
         methods: {
-            startChat(currentId, nick, avatar, data) {
+            startChat(event, currentId, nick, avatar, data) {
+                let currentDom = event.currentTarget;
                 this.$store.dispatch("friend/setCurrentNick", nick);
                 this.$store.dispatch("friend/setCurrentAvatar", avatar);
                 this.$store.dispatch("friend/setCurrentId", currentId);
@@ -80,6 +79,17 @@
                         this.$store.dispatch("friend/setGroupChatRecord", response.data.data);
                     });
                 }
+
+                /**
+                 * 删除redis上的未读记录
+                 */
+                chatApi.removeUnRead(getUser().id, currentId).then((response) => {
+                    if (response.data.flag) {
+                        // 删除消息提醒
+                        currentDom.lastChild.firstChild.firstChild.innerHTML = "";
+                        currentDom.lastChild.firstChild.firstChild.style.display = "none";
+                    }
+                });
             },
             // 显示右侧面盘
             menuPanel(event, currentId) {

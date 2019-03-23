@@ -94,4 +94,28 @@ public class ChatRecordController {
     public Map<String, String> getLastMessage(@PathVariable("group_id") String groupId) {
         return chatRecordService.getLastMessage(groupId);
     }
+
+    /**
+     * 更新未读消息
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @PutMapping("/add_unread/{user_id}/{other_id}")
+    public Result addUnRead(@PathVariable("user_id") String userId, @PathVariable("other_id") String otherId) {
+        chatRecordService.addUnRead(userId, otherId);
+        return new Result(true, StatusCode.OK.getCode(), "更新成功");
+    }
+
+    /**
+     * 删除redis上的未读记录
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @DeleteMapping("/remove_unread/{user_id}/{other_id}")
+    public Result removeUnRead(@PathVariable("user_id") String userId, @PathVariable("other_id") String otherId) {
+        chatRecordService.removeUnRead(userId, otherId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
 }

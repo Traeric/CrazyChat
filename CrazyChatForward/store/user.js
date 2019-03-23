@@ -3,6 +3,7 @@ export const state = () => ({
     userInfo: {},
     userGroupDialog: false,
     userGroup: [],
+    refreshFriendList: null,
 });
 
 
@@ -19,6 +20,9 @@ export const mutations = {
     setUserGroup(state, group) {
         state.userGroup = group;
     },
+    setRefreshFriendList(state, data) {
+        state.refreshFriendList = data;
+    },
 };
 
 
@@ -34,6 +38,9 @@ export const actions = {
     },
     setUserGroup({commit}, group) {
         commit("setUserGroup", group);
+    },
+    setRefreshFriendList({commit}, data) {
+        commit("setRefreshFriendList", data);
     },
 };
 
