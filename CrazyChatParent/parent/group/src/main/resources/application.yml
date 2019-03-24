@@ -15,6 +15,9 @@ spring:
     mongodb:
       host: 192.168.117.128
       database: groupDB
+  # redis配置
+  redis:
+    host: 192.168.117.128
 
 # eureka配置
 eureka:

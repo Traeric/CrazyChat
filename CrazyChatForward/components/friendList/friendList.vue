@@ -157,8 +157,6 @@
                         if (response.data.flag) {
                             // 删除成功，移除该好友
                             $(this.currentFriendDom).remove();
-                            // 消息提示加一
-                            this.$store.dispatch("user/incremWarnCount");
                         }
                     });
                 });

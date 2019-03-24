@@ -41,9 +41,9 @@ export default {
         });
     },
     // 移除群成员
-    removeGroupMember(group_id, member_id) {
+    removeGroupMember(group_id, member_id, type) {
         return request({
-            url: `/group/group/delete_member/${group_id}/${member_id}`,
+            url: `/group/group/delete_member/${group_id}/${member_id}/${type}`,
             method: "delete",
         });
     },
@@ -52,6 +52,13 @@ export default {
         return request({
             url: `/group/group/delete_group/${group_id}`,
             method: "delete",
+        });
+    },
+    // 同意用户添加群聊
+    confirmAddGroup(groupId, applyId, user_id) {
+        return request({
+            url: `/group/group/confirm_add_group/${groupId}/${applyId}/${user_id}`,
+            method: "post",
         });
     },
 }

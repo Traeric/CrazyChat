@@ -92,6 +92,7 @@ public class UserService {
 
     /**
      * 发送邮箱验证码
+     *
      * @param email
      * @throws MessagingException
      */
@@ -109,6 +110,7 @@ public class UserService {
 
     /**
      * 用户注册
+     *
      * @param user
      * @param code
      */
@@ -135,6 +137,7 @@ public class UserService {
 
     /**
      * 获取用户的好友列表
+     *
      * @param user_id
      * @return
      */
@@ -169,6 +172,7 @@ public class UserService {
 
     /**
      * 根据id获取用户名
+     *
      * @param userId
      * @return
      */
@@ -178,6 +182,7 @@ public class UserService {
 
     /**
      * 获取用户信息
+     *
      * @param userId
      * @return
      */
@@ -187,6 +192,7 @@ public class UserService {
 
     /**
      * 查询用户聊天记录
+     *
      * @param userId
      * @param friendId
      * @return
@@ -197,6 +203,7 @@ public class UserService {
 
     /**
      * 获取用户分组
+     *
      * @param userId
      * @return
      */
@@ -218,6 +225,7 @@ public class UserService {
 
     /**
      * 修改分组
+     *
      * @param friendId
      * @param oldGroup
      * @param newGroup
@@ -232,6 +240,7 @@ public class UserService {
 
     /**
      * 修改好友备注
+     *
      * @param userId
      * @param friendId
      */
@@ -244,6 +253,7 @@ public class UserService {
 
     /**
      * 搜索用户
+     *
      * @param userName
      * @return
      */
@@ -263,6 +273,7 @@ public class UserService {
 
     /**
      * 修改昵称
+     *
      * @param userId
      * @param nick
      */
@@ -279,6 +290,7 @@ public class UserService {
 
     /**
      * 修改用户信息
+     *
      * @param userId
      * @param sign
      * @param gender
@@ -302,6 +314,7 @@ public class UserService {
 
     /**
      * 新增分组
+     *
      * @param userId
      * @param groupName
      */
@@ -315,6 +328,7 @@ public class UserService {
 
     /**
      * 查询当前分组下是否还有好友
+     *
      * @param groupId
      * @return
      */
@@ -325,6 +339,7 @@ public class UserService {
 
     /**
      * 删除分组
+     *
      * @param groupId
      */
     public void deleteGroup(String groupId) {
@@ -333,6 +348,7 @@ public class UserService {
 
     /**
      * 修改邮箱
+     *
      * @param userId
      * @param newEmail
      */
@@ -390,6 +406,7 @@ public class UserService {
 
     /**
      * 确认修改邮箱
+     *
      * @param email
      * @param user_id
      * @param auth_key
@@ -418,6 +435,7 @@ public class UserService {
 
     /**
      * 上传图片
+     *
      * @param userId
      * @param avatar
      * @return
@@ -446,6 +464,7 @@ public class UserService {
 
     /**
      * 删除好友
+     *
      * @param userId
      * @param friendId
      */
@@ -460,7 +479,6 @@ public class UserService {
         friendDao.delete(user);
 
         // 给对方发送消息
-        List<Session> webSocket = this.getWebSocket(friendId);
         // 将验证消息存到redis中
         String key = friendId + "zw" + userId + "delete";
         String confirmInfo = "对方已将你删除，青山不改，绿水长流，江湖再见！";
@@ -470,15 +488,18 @@ public class UserService {
         redisTemplate.delete(key);
         redisTemplate.opsForList().leftPushAll(key, confirmInfo, userId, avatar, name, "3", "zw", "jx");
         // 将消息推送给对应的好友
-        webSocket.parallelStream().forEach((socket) -> {
-            // 封装消息
-            String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"3\"]";
-            socket.getAsyncRemote().sendText(message);
-        });
+        Session session = UserSocket.userCollect.get(friendId);
+        if (null == session) {
+            return;
+        }
+        // 封装消息
+        String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"3\"]";
+        session.getAsyncRemote().sendText(message);
     }
 
     /**
      * 获取用户备注
+     *
      * @param userId
      * @param friendId
      * @return
@@ -489,6 +510,7 @@ public class UserService {
 
     /**
      * 添加好友
+     *
      * @param userId
      * @param friendId
      * @param confirmInfo
@@ -497,7 +519,6 @@ public class UserService {
      */
     public void addFriend(String userId, String friendId, String confirmInfo, String todo, String groupFriendId) {
         // 通过socket推送给目标用户
-        List<Session> sockets = this.getWebSocket(friendId);
         // 查询用户头像以及昵称
         UserProfile user = userProfileDao.findById(userId).orElse(null);
         if (null == user) {
@@ -510,30 +531,18 @@ public class UserService {
         redisTemplate.delete(key);
         redisTemplate.opsForList().leftPushAll(key, confirmInfo, userId, avatar, name, "0", todo, groupFriendId);
         // 将消息推送给对应的好友
-        sockets.parallelStream().forEach((socket) -> {
-            // 封装消息
-            String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"0\"]";
-            socket.getAsyncRemote().sendText(message);
-        });
-    }
-
-    /**
-     * 获取符合条件的WebSocket
-     * @param keyWord
-     * @return
-     */
-    private List<Session> getWebSocket(String keyWord) {
-        List<Session> data = new ArrayList<>();
-        UserSocket.userCollect.forEach((key, value) -> {
-            if (key.contains(keyWord)) {
-                data.add(value);
-            }
-        });
-        return data;
+        Session session = UserSocket.userCollect.get(friendId);
+        if (null == session) {
+            return;
+        }
+        // 封装消息
+        String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"0\"]";
+        session.getAsyncRemote().sendText(message);
     }
 
     /**
      * 从redis中删除验证信息
+     *
      * @param userId
      * @param otherId
      * @param type
@@ -541,7 +550,7 @@ public class UserService {
     public void removeConfirmInfo(String userId, String otherId, String type) {
         String key;
         // 选择key生成的类型
-        switch(type) {
+        switch (type) {
             case "0":
             case "1":
                 key = userId + "zw" + otherId;
@@ -560,6 +569,7 @@ public class UserService {
 
     /**
      * 同意添加好友
+     *
      * @param userId
      * @param friendId
      */
@@ -589,24 +599,28 @@ public class UserService {
         friendDao.save(friend);
 
         // 通知对方已经同意了好友申请
-        List<Session> webSocket = this.getWebSocket(friendId);
         // 将消息存入redis中
         key = friendId + "zw" + userId + "success";
         String confirmInfo = "好友已同意申请，你们可以开始聊天啦";
+        user = userProfileDao.findById(userId).orElse(null);
         String name = user.getName();
         String avatar = user.getAvatar();
         redisTemplate.delete(key);
         redisTemplate.opsForList().leftPushAll(key, confirmInfo, userId,
                 avatar, name, "2", "zw", "jx");
-        webSocket.parallelStream().forEach((socket) -> {
-            // 封装消息
-            String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"2\"]";
-            socket.getAsyncRemote().sendText(message);
-        });
+        // 推送消息
+        Session session = UserSocket.userCollect.get(friendId);
+        if (null == session) {
+            return;
+        }
+        // 封装消息
+        String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"2\"]";
+        session.getAsyncRemote().sendText(message);
     }
 
     /**
      * 加载验证消息
+     *
      * @param userId
      * @return
      */
@@ -624,6 +638,8 @@ public class UserService {
             map.put("avatar", (String) list.get(4));
             map.put("confirmInfo", (String) list.get(6));
             map.put("type", (String) list.get(2));
+            map.put("groupName", (String) list.get(1));
+            map.put("applyId", (String) list.get(0));
             data.add(map);
         });
         return data;

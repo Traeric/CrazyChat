@@ -6,9 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="de63f89c-97d8-407c-9416-5abb7a1486a2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/group.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/friendList/friendList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/friendList/friendList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/groupList/groupList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/groupList/groupList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/notification/notification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/notification/notification.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/store/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/home_page/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home_page/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/store/group.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/src/main/java/com/crazychat/chat/socket/UserToUserSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/target/classes/com/crazychat/chat/socket/UserToUserSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/chat/target/classes/com/crazychat/chat/socket/UserToUserSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/group/group.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/group/group.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/group/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/group/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/group/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/group/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/group/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/group/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/user/src/main/java/com/crazychat/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/user/src/main/java/com/crazychat/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/user/src/main/java/com/crazychat/user/socket/UserSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/user/src/main/java/com/crazychat/user/socket/UserSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/user/target/classes/com/crazychat/user/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/user/target/classes/com/crazychat/user/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatParent/parent/user/target/classes/com/crazychat/user/socket/UserSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatParent/parent/user/target/classes/com/crazychat/user/socket/UserSocket.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,28 +41,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/home_page/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="597" column="14" selection-start-line="597" selection-start-column="14" selection-end-line="597" selection-end-column="14" />
+            <state relative-caret-position="378">
+              <caret line="516" column="63" selection-start-line="516" selection-start-column="63" selection-end-line="516" selection-end-column="63" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
                 <element signature="e#9197#9237#0" expanded="true" />
+                <element signature="e#12798#15578#0" />
+                <element signature="e#16317#20883#0" />
+                <element signature="e#23329#23597#0" />
+                <element signature="e#23659#23989#0" />
+                <element signature="e#24055#25406#0" />
+                <element signature="e#25470#26782#0" />
+                <element signature="e#26858#27032#0" />
                 <element signature="n#style#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/friendList/friendList.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="160" column="70" selection-start-line="160" selection-start-column="70" selection-end-line="160" selection-end-column="70" />
-              <folding>
-                <element signature="n#el-dialog#0;n#div#0;n#template#0;n#!!top" />
-                <element signature="e#5278#5927#0" />
-                <element signature="e#6917#7055#0" />
               </folding>
             </state>
           </provider>
@@ -54,14 +64,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/notification/notification.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="87" column="90" selection-start-line="87" selection-start-column="90" selection-end-line="87" selection-end-column="90" />
+            <state relative-caret-position="179">
+              <caret line="110" column="50" selection-start-line="110" selection-start-column="50" selection-end-line="110" selection-end-column="50" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#1;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#2;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#3;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#div#4;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#div#5;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#3135#3176#0" expanded="true" />
                 <element signature="n#style#0;n#!!top" />
               </folding>
             </state>
@@ -69,10 +80,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/store/user.js">
+        <entry file="file://$PROJECT_DIR$/api/group.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="54" column="11" lean-forward="true" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
+            <state relative-caret-position="371">
+              <caret line="45" column="76" selection-start-line="45" selection-start-column="76" selection-end-line="45" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -109,6 +120,7 @@
       <find>sendMsg</find>
       <find>disabled</find>
       <find>for</find>
+      <find>removeFromConfirmList</find>
     </findStrings>
     <replaceStrings>
       <replace>..</replace>
@@ -137,12 +149,10 @@
         <option value="$PROJECT_DIR$/assets/css/chat.css" />
         <option value="$PROJECT_DIR$/store/chat.js" />
         <option value="$PROJECT_DIR$/pages/build_group.vue" />
-        <option value="$PROJECT_DIR$/store/group.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/assets/css/add_group.ts" />
         <option value="$PROJECT_DIR$/assets/css/add_group.css" />
         <option value="$PROJECT_DIR$/assets/css/addgroup.css" />
-        <option value="$PROJECT_DIR$/api/group.js" />
         <option value="$PROJECT_DIR$/components/userGroup/userGroup.vue" />
         <option value="$PROJECT_DIR$/middleware/authencation.js" />
         <option value="$PROJECT_DIR$/utils/auth.js" />
@@ -158,7 +168,6 @@
         <option value="$PROJECT_DIR$/api/relation_chat.js" />
         <option value="$PROJECT_DIR$/components/personnalInfo/personnalInfo.vue" />
         <option value="$PROJECT_DIR$/pages/chat_room/index.vue" />
-        <option value="$PROJECT_DIR$/components/groupList/groupList.vue" />
         <option value="$PROJECT_DIR$/layouts/default.vue" />
         <option value="$PROJECT_DIR$/components/addFriend/addFriend.vue" />
         <option value="$PROJECT_DIR$/components/addGroup/addGroup.vue" />
@@ -168,15 +177,18 @@
         <option value="$PROJECT_DIR$/store/friend.js" />
         <option value="$PROJECT_DIR$/api/chat.js" />
         <option value="$PROJECT_DIR$/components/relationChat/relationChat.vue" />
-        <option value="$PROJECT_DIR$/pages/home_page/index.vue" />
         <option value="$PROJECT_DIR$/api/user.js" />
         <option value="$PROJECT_DIR$/store/user.js" />
+        <option value="$PROJECT_DIR$/store/group.js" />
+        <option value="$PROJECT_DIR$/api/group.js" />
+        <option value="$PROJECT_DIR$/components/groupList/groupList.vue" />
         <option value="$PROJECT_DIR$/components/friendList/friendList.vue" />
+        <option value="$PROJECT_DIR$/pages/home_page/index.vue" />
         <option value="$PROJECT_DIR$/components/notification/notification.vue" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="435" />
     <option name="y" value="109" />
     <option name="width" value="1400" />
@@ -212,7 +224,25 @@
               <item name="CrazyChatForward" type="b2602c69:ProjectViewProjectNode" />
               <item name="CrazyChatForward" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="addGroup" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CrazyChatForward" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CrazyChatForward" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="friendList" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CrazyChatForward" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CrazyChatForward" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="groupList" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CrazyChatForward" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CrazyChatForward" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="notification" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CrazyChatForward" type="b2602c69:ProjectViewProjectNode" />
@@ -332,12 +362,12 @@
       <workItem from="1553234429185" duration="873000" />
       <workItem from="1553235534227" duration="21776000" />
       <workItem from="1553308667867" duration="20473000" />
-      <workItem from="1553398123420" duration="3857000" />
+      <workItem from="1553398123420" duration="17652000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="380196000" />
+    <option name="totallyTimeSpent" value="393991000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -350,9 +380,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17604166" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17604166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -366,7 +395,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5015625" side_tool="true" weight="0.32101372" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4984375" visible="true" weight="0.32101372" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4984375" visible="true" weight="0.32101372" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -475,13 +504,6 @@
     <entry file="file://$PROJECT_DIR$/static/icon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/store/group.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nuxt.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -518,13 +540,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/loadeditor.js" />
-    <entry file="file://$PROJECT_DIR$/api/group.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/home_page/build_group.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
@@ -607,16 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/addGroup/addGroup.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="6" column="85" selection-start-line="6" selection-start-column="85" selection-end-line="6" selection-end-column="85" />
-          <folding>
-            <element signature="n#div#0;n#el-dialog#0;n#template#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/settings/index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
@@ -632,17 +637,6 @@
             <element signature="n#style#0;n#el-button#0;n#el-form-item#4;n#el-form#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#4256#4297#0" expanded="true" />
             <element signature="e#5583#6502#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/groupList/groupList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2944">
-          <caret line="131" column="48" lean-forward="true" selection-start-line="131" selection-start-column="48" selection-end-line="131" selection-end-column="48" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#el-dialog#0;n#div#0;n#template#0;n#!!top" />
           </folding>
         </state>
       </provider>
@@ -672,13 +666,6 @@
             <element signature="e#695#833#0" />
             <element signature="e#909#1131#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3936">
-          <caret line="123" column="79" selection-start-line="123" selection-start-column="79" selection-end-line="123" selection-end-column="79" />
         </state>
       </provider>
     </entry>
@@ -713,20 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/home_page/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="597" column="14" selection-start-line="597" selection-start-column="14" selection-end-line="597" selection-end-column="14" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="e#9197#9237#0" expanded="true" />
-            <element signature="n#style#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/store/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -734,28 +707,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="123" column="79" selection-start-line="123" selection-start-column="79" selection-end-line="123" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/addGroup/addGroup.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2400">
+          <caret line="6" column="85" selection-start-line="6" selection-start-column="85" selection-end-line="6" selection-end-column="85" />
+          <folding>
+            <element signature="n#div#0;n#el-dialog#0;n#template#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/store/group.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/group.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="45" column="76" selection-start-line="45" selection-start-column="76" selection-end-line="45" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/friendList/friendList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="160" column="70" selection-start-line="160" selection-start-column="70" selection-end-line="160" selection-end-column="70" />
+        <state relative-caret-position="743">
+          <caret line="158" column="62" selection-start-line="158" selection-start-column="62" selection-end-line="158" selection-end-column="62" />
           <folding>
             <element signature="n#el-dialog#0;n#div#0;n#template#0;n#!!top" />
             <element signature="e#5278#5927#0" />
-            <element signature="e#6917#7055#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/groupList/groupList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="236" column="61" selection-start-line="236" selection-start-column="61" selection-end-line="236" selection-end-column="61" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#el-dialog#0;n#div#0;n#template#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/home_page/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="516" column="63" selection-start-line="516" selection-start-column="63" selection-end-line="516" selection-end-column="63" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#9197#9237#0" expanded="true" />
+            <element signature="e#12798#15578#0" />
+            <element signature="e#16317#20883#0" />
+            <element signature="e#23329#23597#0" />
+            <element signature="e#23659#23989#0" />
+            <element signature="e#24055#25406#0" />
+            <element signature="e#25470#26782#0" />
+            <element signature="e#26858#27032#0" />
+            <element signature="n#style#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/components/notification/notification.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="87" column="90" selection-start-line="87" selection-start-column="90" selection-end-line="87" selection-end-column="90" />
+        <state relative-caret-position="179">
+          <caret line="110" column="50" selection-start-line="110" selection-start-column="50" selection-end-line="110" selection-end-column="50" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#1;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#2;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#3;n#div#2;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#div#4;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#div#5;n#div#0;n#div#0;n#el-dialog#0;n#li#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3135#3176#0" expanded="true" />
             <element signature="n#style#0;n#!!top" />
           </folding>
         </state>

@@ -6,10 +6,13 @@ import com.crazychat.group.dao.GroupDao;
 import com.crazychat.group.dao.GroupUserDao;
 import com.crazychat.group.pojo.Group;
 import com.crazychat.group.pojo.GroupUser;
+import com.crazychat.group.socket.GroupSocket;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import javax.websocket.Session;
 import java.util.*;
 
 @Service
@@ -26,6 +29,9 @@ public class GroupService {
 
     @Resource(name = "idWorker")
     private IdWorker idCreater;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     /**
      * 查询用户所在的群聊
@@ -112,7 +118,6 @@ public class GroupService {
             map.put("type", groupUser.getType());
             // 获取用户的头像以及昵称
             String name = new String(userClient.getUserNameById(groupUser.getUserId()));
-            System.out.println(name);
             map.put("nick", name);
             String avatar = new String(userClient.getUserAvatarById(groupUser.getUserId()));
             map.put("avatar", avatar);
@@ -125,10 +130,42 @@ public class GroupService {
      * 删除群成员
      * @param groupId
      * @param memberId
+     * @param type
      */
-    public void removeGroupMember(String groupId, String memberId) {
+    public void removeGroupMember(String groupId, String memberId, String type) {
         GroupUser groupUser = groupUserDao.findByGroupIdAndUserId(groupId, memberId);
         groupUserDao.delete(groupUser);
+
+        // 通知群
+        Group group = groupDao.findById(groupId).orElse(null);
+        String key = "";
+        String confirmInfo = "";
+        Session session = null;
+        if ("0".equals(type)) {
+            // 群主删除用户
+            // 推送给用户
+            key = memberId + "zw" + groupId + "delete";
+            confirmInfo = "群主已经将你踢出" + group.getName() + "，青山不改，绿水长流，江湖再见！";
+            session = GroupSocket.userCollect.get(memberId);
+        } else if ("1".equals(type)) {
+            // 用户主动退出群聊
+            // 通知群主
+            groupUser = groupUserDao.findByGroupIdAndType(groupId, "1");
+            key = groupUser.getUserId() + "zw" + groupId + "delete";
+            String name = new String(userClient.getUserNameById(memberId));
+            confirmInfo = name + "已退出" + group.getName();
+            session = GroupSocket.userCollect.get(groupUser.getUserId());
+        }
+        redisTemplate.delete(key);
+        redisTemplate.opsForList().leftPushAll(key, confirmInfo, groupId, group.getPicture(),
+                group.getName(), "3", "zw", "jx");
+        if (null == session) {
+            return;
+        }
+        // 封装消息
+        String message = "[\"" + groupId + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
+                group.getPicture() + "\", \"3\"]";
+        session.getAsyncRemote().sendText(message);
     }
 
     /**
@@ -189,5 +226,67 @@ public class GroupService {
         List<String> data = new ArrayList<>();
         groupUsers.parallelStream().forEach((groupUser) -> data.add(groupUser.getUserId()));
         return data;
+    }
+
+    /**
+     * 添加群聊申请
+     * @param userId
+     * @param groupId
+     * @param confirmInfo
+     */
+    public void addGroupApply(String userId, String groupId, String confirmInfo) {
+        // 查询申请user的信息
+        String name = new String(userClient.getUserNameById(userId));
+        String avatar = new String(userClient.getUserAvatarById(userId));
+        // 查询群主
+        GroupUser groupUser = groupUserDao.findByGroupIdAndType(groupId, "1");
+        String createrId = groupUser.getUserId();
+        String groupName = groupDao.findById(groupId).orElse(null).getName();
+        // 将验证消息存入redis中
+        String key = createrId + "zw" + groupId;
+        redisTemplate.delete(key);
+        redisTemplate.opsForList().leftPushAll(key, confirmInfo, groupId, avatar, name, "1", groupName, userId);
+        // 将消息推送给好友
+        Session session = GroupSocket.userCollect.get(createrId);
+        // 封装消息
+        if (null == session) {
+            return;
+        }
+        String message = "[\"" + groupId + "\", \"" + confirmInfo + "\", \"" + name +
+                "\", \"" + avatar + "\", \"1\", \"" + groupName + "\", \"" + userId + "\"]";
+        session.getAsyncRemote().sendText(message);
+    }
+
+    /**
+     * 确定用户的加群申请
+     * @param groupId
+     * @param applyId
+     * @param userId
+     */
+    public void confirmAddGroup(String groupId, String applyId, String userId) {
+        GroupUser groupUser = new GroupUser();
+        groupUser.setId(String.valueOf(idCreater.nextId()));
+        groupUser.setType("0");
+        groupUser.setGroupId(groupId);
+        groupUser.setUserId(applyId);
+        groupUserDao.save(groupUser);
+        // 从redis中删除
+        String key = userId + "zw" + groupId;
+        redisTemplate.delete(key);
+        // 推送给用户
+        Group group = groupDao.findById(groupId).orElse(null);
+        key = applyId + "zw" + groupId + "success";
+        String confirmInfo = "群主已经同意申请，您已是" + group.getName() + "的成员了。";
+        redisTemplate.delete(key);
+        redisTemplate.opsForList().leftPushAll(key, confirmInfo, groupId, group.getPicture(),
+                group.getName(), "2", "zw", "jx");
+        Session session = GroupSocket.userCollect.get(applyId);
+        if (null == session) {
+            return;
+        }
+        // 封装消息
+        String message = "[\"" + groupId + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
+                group.getPicture() + "\", \"2\"]";
+        session.getAsyncRemote().sendText(message);
     }
 }

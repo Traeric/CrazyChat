@@ -512,6 +512,9 @@
             },
             "refreshFriendList": function () {
                 return this.$store.state.user.refreshFriendList;
+            },
+            "refreshGroupList": function () {
+                return this.$store.state.group.refreshGroupList;
             }
         },
         watch: {
@@ -596,6 +599,12 @@
                     this.friendListData = response.data.data;
                 });
             },
+            // 在群主同意后从新刷新群组列表
+            refreshGroupList: function () {
+                chatApi.getUserGroupList(getUser().id).then((response) => {
+                    this.groupListData = response.data.data;
+                });
+            }
         },
         components: {
             FriendList,

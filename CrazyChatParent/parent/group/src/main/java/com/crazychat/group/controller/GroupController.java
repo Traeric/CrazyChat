@@ -41,7 +41,7 @@ public class GroupController {
     }
 
     /**
-     * 添加群聊
+     * 申请添加群聊
      * @param userId
      * @param groupId
      * @param map
@@ -51,6 +51,20 @@ public class GroupController {
     public Result addGroup(@PathVariable("user_id") String userId, @PathVariable("group_id") String groupId,
                            @RequestBody Map<String, String> map) {
         String confirmInfo = map.get("confirmInfo");
+        groupService.addGroupApply(userId, groupId, confirmInfo);
+        return new Result(true, StatusCode.OK.getCode(), "申请成功");
+    }
+
+    /**
+     * 确定添加群聊
+     * @param groupId
+     * @param applyId
+     * @return
+     */
+    @PostMapping("/confirm_add_group/{group_id}/{apply_id}/{user_id}")
+    public Result confirmAddGroup(@PathVariable("group_id") String groupId, @PathVariable("apply_id") String applyId,
+                                  @PathVariable("user_id") String userId) {
+        groupService.confirmAddGroup(groupId, applyId, userId);
         return new Result(true, StatusCode.OK.getCode(), "添加成功");
     }
 
@@ -93,9 +107,10 @@ public class GroupController {
      * @param memberId
      * @return
      */
-    @DeleteMapping("/delete_member/{group_id}/{member_id}")
-    public Result removeGroupMember(@PathVariable("group_id") String groupId, @PathVariable("member_id") String memberId) {
-        groupService.removeGroupMember(groupId, memberId);
+    @DeleteMapping("/delete_member/{group_id}/{member_id}/{type}")
+    public Result removeGroupMember(@PathVariable("group_id") String groupId, @PathVariable("member_id") String memberId,
+                                    @PathVariable("type") String type) {
+        groupService.removeGroupMember(groupId, memberId, type);
         return new Result(true, StatusCode.OK.getCode(), "删除成功");
     }
 

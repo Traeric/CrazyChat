@@ -205,7 +205,7 @@
                     type: 'error'
                 }).then(() => {
                     // 移除
-                    groupApi.removeGroupMember(this.currentGroupId, member_id).then((response) => {
+                    groupApi.removeGroupMember(this.currentGroupId, member_id, "0").then((response) => {
                         this.$message({
                             type: (response.data.flag ? 'success' : "error"),
                             message: response.data.message,
@@ -227,7 +227,7 @@
                     type: 'error'
                 }).then(() => {
                     // 退出
-                    groupApi.removeGroupMember(this.currentGroupId, getUser().id).then((response) => {
+                    groupApi.removeGroupMember(this.currentGroupId, getUser().id, "1").then((response) => {
                         this.$message({
                             type: (response.data.flag ? 'success' : "error"),
                             message: response.data.message,

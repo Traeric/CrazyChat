@@ -27,16 +27,20 @@
                         </div>
                         <!-- 删除好友跟群 -->
                         <div class="nick" v-if="item.type === '3'">
-                            {{ item.name }} <span style="color: #f00;">已将你删除</span>
+                            {{ item.name }} <span style="color: #f00;">删除操作</span>
                         </div>
 
                         <div class="confirm-info" @click="infoDetails">
                             验证消息：{{ item.confirmInfo }}
                         </div>
                     </div>
-                    <!-- 请求添加 -->
-                    <div class="button" v-if="item.type === '0' || item.type === '1'">
-                        <el-button type="primary" plain size="mini" @click="confirmAdd(item.otherId)">同意</el-button>
+                    <!-- 请求添加好友 -->
+                    <div class="button" v-if="item.type === '0'">
+                        <el-button type="primary" plain size="mini" @click="confirmAddUser(item.otherId)">同意</el-button>
+                    </div>
+                    <!-- 申请添加群 -->
+                    <div class="button" v-if="item.type === '1'">
+                        <el-button type="success" plain size="mini" @click="confirmAddGroup(item.otherId, item.applyId)">同意</el-button>
                     </div>
                     <!-- 添加成功 -->
                     <div class="button" v-if="item.type === '2'">
@@ -59,12 +63,15 @@
     import {getUser} from "../../utils/auth";
     import "../../api/user";
     import userApi from "../../api/user";
+    import groupApi from "../../api/group";
 
     export default {
         data() {
             return {
                 centerDialogVisible: false,
                 confirmList: [],
+                wsUser: null,
+                wsGroup: null,
             };
         },
         created() {
@@ -80,12 +87,12 @@
             /**
              * websocket发送验证消息，好友加好友
              */
-            this.wsConfirm = new WebSocket("ws://127.0.0.1:9002/message_broadcast/" + getUser().id);
+            this.wsConfirm = new WebSocket("ws://127.0.0.1:9002/verify_user/" + getUser().id);
             this.wsConfirm.onmessage = (event) => {
                 let data = JSON.parse(event.data);
                 let flag = true;
                 this.confirmList.forEach((item) => {
-                    if (item.otherId === data[0] && (item.type === "0" || item.type === "1")) {
+                    if (item.otherId === data[0] && item.type === "0") {
                         flag = false;
                     }
                 });
@@ -101,6 +108,44 @@
                     this.$store.dispatch("user/incremWarnCount");
                     this.confirmList.push(obj);
                 }
+                if (data[4] === "2" || data[4] === "3") {
+                    // 刷新群列表
+                    // 重新加载好友列表
+                    this.$store.dispatch("user/setRefreshFriendList", new Date());
+                }
+            };
+
+            /**
+             * websocket发送验证消息，群与好友之间
+             */
+            this.wsGroup = new WebSocket("ws://127.0.0.1:9003/verify_group/" + getUser().id);
+            this.wsGroup.onmessage = (event) => {
+                let data = JSON.parse(event.data);
+                let flag = true;
+                this.confirmList.forEach((item) => {
+                    if (item.otherId === data[0] && item.type === "1") {
+                        flag = false;
+                    }
+                });
+                // 在验证消息栏中添加一条记录
+                if (flag) {
+                    let obj = {
+                        otherId: data[0],
+                        name: data[2],
+                        avatar: data[3],
+                        confirmInfo: data[1],
+                        type: data[4],
+                        groupName: data[5],
+                        applyId: data[6],
+                    };
+                    this.$store.dispatch("user/incremWarnCount");
+                    this.confirmList.push(obj);
+                }
+                if (data[4] === "2" || data[4] === "3") {
+                    // 刷新群列表
+                    // 重新加载群列表
+                    this.$store.dispatch("group/setRefreshGroupList", new Date());
+                }
             };
         },
         methods: {
@@ -115,32 +160,41 @@
                     type: 'success',
                 });
             },
-            // 不同意加好友
+            // 删除信息框
             deleteConfirm(id, type) {
                 // 从redis中删除
                 userApi.removeConfirmInfo(getUser().id, id, type).then((response) => {
                     if (response.data.flag) {
                         // 删除该条请求
-                        this.removeFromConfirmList(id);
+                        this.removeFromConfirmList(id, type);
                     }
                 });
             },
             // 同意添加好友
-            confirmAdd(id) {
+            confirmAddUser(id) {
                 userApi.allowFriendApply(getUser().id, id).then((response) => {
                     if (response.data.flag) {
                         // 添加成功，删除该条请求
-                        this.removeFromConfirmList(id);
+                        this.removeFromConfirmList(id, "0");
                         // 重新加载好友列表
                         this.$store.dispatch("user/setRefreshFriendList", new Date());
                     }
                 });
             },
+            // 同意用户加入群
+            confirmAddGroup(groupId, applyId) {
+                groupApi.confirmAddGroup(groupId, applyId, getUser().id).then((response) => {
+                    if (response.data.flag) {
+                        // 添加成功，删除该请求
+                        this.removeFromConfirmList(groupId, "1");
+                    }
+                });
+            },
             // 从列表中移除好友申请
-            removeFromConfirmList(id) {
+            removeFromConfirmList(id, type) {
                 // 从列表中移除该好友申请
                 this.confirmList.forEach((item) => {
-                    if (id === item.otherId) {
+                    if (id === item.otherId && type === item.type) {
                         let index = this.confirmList.indexOf(item);
                         this.confirmList.splice(index, 1);
                     }

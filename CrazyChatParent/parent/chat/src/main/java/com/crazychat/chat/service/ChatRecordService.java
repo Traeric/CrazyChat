@@ -121,18 +121,10 @@ public class ChatRecordService {
      * @param message
      */
     public void sendMsgToUser(String userId, String friendId, String message) {
-        Map<String, Session> userCollect = UserToUserSocket.userCollect;
-        List<Session> list = new ArrayList<>();
-        // 筛选出符合条件的session
-        userCollect.forEach((key, value) -> {
-            if (key.contains(friendId)) {
-                // 属于当前的user
-                list.add(value);
-            }
-        });
+        Session session = UserToUserSocket.userCollect.get(friendId);
         // 推送消息给好友, zw@#$0发消息的头信息，0表示用户和用户进行发送
         String msg = "[\"" + userId + "\", \"0\", \"" + message + "\"]";
-        this.sendToRedis(list, msg, friendId, userId);
+        this.sendToRedis(session, msg, friendId, userId);
         // 保存消息到monogodb
         // 自己地方
         ChatRecord chatRecord = new ChatRecord();
@@ -167,9 +159,9 @@ public class ChatRecordService {
         String avatar = new String(userClient.getUserAvatarById(userId));
         groupMemberList.parallelStream().forEach((groupMember) -> {
             if (!groupMember.equals(userId)) {
-                List<Session> data = this.containsKey(groupMember);
+                Session session = UserToUserSocket.userCollect.get(groupMember);
                 String msg = "[\"" + groupId + "\", \"1\", \"" + name + "\", \"" + avatar + "\", \"" + message + "\"]";
-                this.sendToRedis(data, msg, groupMember, groupId);
+                this.sendToRedis(session, msg, groupMember, groupId);
             }
         });
         // 保存消息
@@ -182,33 +174,17 @@ public class ChatRecordService {
     }
 
     /**
-     * 获取某个群成员的所有socket对应的session
-     *
-     * @param key
-     * @return
-     */
-    private List<Session> containsKey(String key) {
-        List<Session> data = new ArrayList<>();
-        UserToUserSocket.userCollect.forEach((k, value) -> {
-            if (k.contains(key)) {
-                data.add(value);
-            }
-        });
-        return data;
-    }
-
-    /**
      * 将消息存到redis
      *
-     * @param data
+     * @param session
      * @param message
      * @param prefix
      * @param suffix
      */
-    private void sendToRedis(List<Session> data, String message, String prefix, String suffix) {
-        if (data.size() != 0) {
+    private void sendToRedis(Session session, String message, String prefix, String suffix) {
+        if (null != session) {
             // 该成员在线
-            data.parallelStream().forEach((session) -> session.getAsyncRemote().sendText(message));
+            session.getAsyncRemote().sendText(message);
         } else {
             // 该成员不在线，保存到redis
             this.saveToRedis(prefix, suffix);
