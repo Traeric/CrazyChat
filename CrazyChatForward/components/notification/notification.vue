@@ -1,7 +1,7 @@
 <template>
     <li>
         <i class="iconfont icon-xiaoxi" @click="getInfo($event)"></i>
-        <el-badge :value="count" class="item" type="danger" v-show="count > 0"></el-badge>
+        <el-badge :value="$store.state.user.warnCount" class="item" type="danger" v-show="$store.state.user.warnCount"></el-badge>
         <!-- 消息面板 -->
         <el-dialog title="验证消息" :visible.sync="centerDialogVisible" width="30%" center>
             <div class="message">
@@ -65,7 +65,6 @@
             return {
                 centerDialogVisible: false,
                 confirmList: [],
-                count: 0,
             };
         },
         created() {
@@ -73,7 +72,7 @@
             userApi.loadVerify(getUser().id).then((response) => {
                 if (response.data.flag) {
                     this.confirmList = response.data.data;
-                    this.count = this.confirmList.length;
+                    this.$store.dispatch("user/setWarnCount", this.confirmList.length);
                 }
             });
         },
@@ -86,7 +85,7 @@
                 let data = JSON.parse(event.data);
                 let flag = true;
                 this.confirmList.forEach((item) => {
-                    if (item.otherId === data[0]) {
+                    if (item.otherId === data[0] && (item.type === "0" || item.type === "1")) {
                         flag = false;
                     }
                 });
@@ -99,7 +98,7 @@
                         confirmInfo: data[1],
                         type: data[4],
                     };
-                    this.count++;
+                    this.$store.dispatch("user/incremWarnCount");
                     this.confirmList.push(obj);
                 }
             };
@@ -107,7 +106,6 @@
         methods: {
             getInfo() {
                 this.centerDialogVisible = true;
-
             },
             infoDetails(event) {
                 // 获取内容
@@ -148,8 +146,8 @@
                     }
                 });
                 // 验证消息减一
-                this.count--;
-                if (this.count === 0) {
+                this.$store.dispatch("user/decremWarnCount");
+                if (this.$store.state.user.warnCount === 0) {
                     document.getElementsByTagName("sup")[0].style.display = "none";
                 }
             },
