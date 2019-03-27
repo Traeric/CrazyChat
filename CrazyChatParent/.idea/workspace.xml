@@ -2,39 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fe8b064-248a-42e1-a2c6-0c657dde2e85" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/CrazyChat.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrazyChatForward/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/groupList/groupList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/groupList/groupList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/notification/notification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/notification/notification.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/pages/home_page/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/addFriend/addFriend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/addFriend/addFriend.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrazyChatForward/components/addGroup/addGroup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../CrazyChatForward/components/addGroup/addGroup.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/GroupClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/GroupClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/GroupClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/GroupClientDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/GroupClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/GroupClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/UserClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/GroupClientDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/GroupClientDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/UserClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/client/impl/UserClientImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/chat/target/classes/com/crazychat/chat/service/ChatRecordService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/controller/GroupController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/controller/GroupController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/service/GroupService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/group/target/classes/com/crazychat/group/service/GroupService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/service/RelationChatService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/relationchat/target/classes/com/crazychat/relationchat/service/RelationChatService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/parent/user/target/classes/com/crazychat/user/service/UserService.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/parent/common/target/" />
     <ignored path="$PROJECT_DIR$/parent/target/" />
@@ -52,15 +27,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="39" column="61" lean-forward="true" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="347" column="21" selection-start-line="347" selection-start-column="21" selection-end-line="347" selection-end-column="21" />
+            <state relative-caret-position="428">
+              <caret line="79" column="43" lean-forward="true" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getGroupListbyId#0;class#GroupService#0" />
-                <element signature="method#searchGroup#0;class#GroupService#0" />
                 <element signature="method#getGroupInfo#0;class#GroupService#0" />
                 <element signature="method#groupMembers#0;class#GroupService#0" />
                 <element signature="method#removeGroupMember#0;class#GroupService#0" />
@@ -141,9 +124,7 @@
         <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/socket/GroupSocket.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/UserClientImpl.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/UserClient.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" />
         <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/dao/GroupUserDao.java" />
-        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/GroupClient.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/client/impl/GroupClientDao.java" />
         <option value="$PROJECT_DIR$/parent/chat/src/main/java/com/crazychat/chat/service/ChatRecordService.java" />
@@ -152,6 +133,8 @@
         <option value="$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/config/RedisConfig.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/controller/UserController.java" />
         <option value="$PROJECT_DIR$/parent/user/src/main/java/com/crazychat/user/service/UserService.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java" />
+        <option value="$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java" />
       </list>
     </option>
   </component>
@@ -255,6 +238,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="group" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CrazyChatParent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="parent" type="462c0819:PsiDirectoryNode" />
+              <item name="group" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="group" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CrazyChatParent" type="b2602c69:ProjectViewProjectNode" />
@@ -433,7 +426,7 @@
       <workItem from="1553308896436" duration="26273000" />
       <workItem from="1553398625552" duration="21188000" />
       <workItem from="1553487890640" duration="12892000" />
-      <workItem from="1553676283655" duration="2677000" />
+      <workItem from="1553676283655" duration="5141000" />
     </task>
     <servers />
   </component>
@@ -461,10 +454,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284647000" />
+    <option name="totallyTimeSpent" value="287111000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17395833" />
@@ -914,13 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5504">
-          <caret line="180" column="56" selection-start-line="180" selection-start-column="56" selection-end-line="180" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parent/relationchat/src/main/java/com/crazychat/relationchat/service/RelationChatService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
@@ -971,14 +957,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/controller/GroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="39" column="61" lean-forward="true" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parent/group/src/main/java/com/crazychat/group/service/GroupService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="347" column="21" selection-start-line="347" selection-start-column="21" selection-end-line="347" selection-end-column="21" />
+        <state relative-caret-position="428">
+          <caret line="79" column="43" lean-forward="true" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getGroupListbyId#0;class#GroupService#0" />
-            <element signature="method#searchGroup#0;class#GroupService#0" />
             <element signature="method#getGroupInfo#0;class#GroupService#0" />
             <element signature="method#groupMembers#0;class#GroupService#0" />
             <element signature="method#removeGroupMember#0;class#GroupService#0" />

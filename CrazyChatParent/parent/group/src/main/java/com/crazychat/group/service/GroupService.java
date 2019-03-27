@@ -69,19 +69,22 @@ public class GroupService {
 
     /**
      * 搜索群名
-     *
      * @param groupName
+     * @param userId
      * @return
      */
-    public List<Map<String, String>> searchGroup(String groupName) {
+    public List<Map<String, String>> searchGroup(String groupName, String userId) {
         // 获取符合条件的群
         List<Group> groups = groupDao.findAllByNameContains(groupName);
         List<Map<String, String>> data = new ArrayList<>();
         groups.parallelStream().forEach((group) -> {
+            // 检查有没有加入该群
+            boolean groupMember = this.isGroupMember(userId, group.getId());
             Map<String, String> map = new HashMap<>();
             map.put("id", group.getId());
             map.put("name", group.getName());
             map.put("avatar", group.getPicture());
+            map.put("isGroupMember", groupMember ? "0" : "1");
             data.add(map);
         });
         return data;

@@ -32,11 +32,12 @@ public class GroupController {
     /**
      * 搜索群名
      * @param groupName
+     * @param userId
      * @return
      */
-    @GetMapping("/search_group/{group_name}")
-    public Result searchGroup(@PathVariable("group_name") String groupName) {
-        List<Map<String, String>> data = groupService.searchGroup(groupName);
+    @GetMapping("/search_group/{group_name}/{user_id}")
+    public Result searchGroup(@PathVariable("group_name") String groupName, @PathVariable("user_id") String userId) {
+        List<Map<String, String>> data = groupService.searchGroup(groupName, userId);
         return new Result(true, StatusCode.OK.getCode(), "搜索成功", data);
     }
 

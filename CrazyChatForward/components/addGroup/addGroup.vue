@@ -21,8 +21,11 @@
                 <div class="info">
                     <div class="nick">{{ item.name }}</div>
                 </div>
-                <div class="add-btn">
+                <div class="add-btn" v-if="item.isGroupMember === '1'">
                     <el-button type="success" @click="addGroup(item.id)">申请加群</el-button>
+                </div>
+                <div class="add-btn" v-else>
+                    <el-tag type="warning" style="margin-top: 5px;">已加入该群</el-tag>
                 </div>
             </div>
         </div>
@@ -67,7 +70,7 @@
                     return;
                 }
                 // 搜索群聊
-                groupApi.searchGroupByName(this.addGroupName).then((response) => {
+                groupApi.searchGroupByName(this.addGroupName, getUser().id).then((response) => {
                     if (response.data.flag && response.data.data.length !== 0) {
                         this.searchGroupList = response.data.data;
                         this.addGroupFlag = false;
