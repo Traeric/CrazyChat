@@ -2,9 +2,9 @@ import request from "../utils/request";
 
 export default {
     // 通过名称搜索群聊
-    searchGroupByName(group_name) {
+    searchGroupByName(group_name, user_id) {
         return request({
-            url: `/group/group/search_group/${group_name}`,
+            url: `/group/group/search_group/${group_name}/${user_id}`,
             method: "get",
         });
     },
