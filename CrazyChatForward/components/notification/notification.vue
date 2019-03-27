@@ -23,7 +23,7 @@
                         </div>
                         <!-- 添加通过 -->
                         <div class="nick" v-if="item.type === '2'">
-                            {{ item.name }} <span style="color: #8ae27a;">已同意申请</span>
+                            {{ item.name }} <span style="color: #8ae27a;">成功操作</span>
                         </div>
                         <!-- 删除好友跟群 -->
                         <div class="nick" v-if="item.type === '3'">

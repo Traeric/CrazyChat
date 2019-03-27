@@ -166,11 +166,12 @@ public class UserController {
     /**
      * 搜索用户
      * @param userName
+     * @param userId
      * @return
      */
-    @GetMapping("/search_friend/{user_name}")
-    public Result searchUser(@PathVariable("user_name") String userName) {
-        List<Map<String, String>> data = userService.searchUser(userName);
+    @GetMapping("/search_friend/{user_name}/{user_id}")
+    public Result searchUser(@PathVariable("user_name") String userName, @PathVariable("user_id") String userId) {
+        List<Map<String, String>> data = userService.searchUser(userName, userId);
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 
@@ -379,5 +380,17 @@ public class UserController {
     @GetMapping("/user_todo/{user_id}/{friend_id}")
     public byte[] getUserTodo(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
         return userService.getUserTodo(userId, friendId);
+    }
+
+    /**
+     * 查询是否具有好友关系
+     * 该接口通过feign客户端调用
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @GetMapping("/have_friendship/{user_id}/{friend_id}")
+    public boolean haveFriendship(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        return userService.haveFriendship(userId, friendId);
     }
 }

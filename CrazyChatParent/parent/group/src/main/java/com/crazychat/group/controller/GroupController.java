@@ -171,4 +171,15 @@ public class GroupController {
     public List<String> getGroupMemberList(@PathVariable("group_id") String groupId) {
         return groupService.getGroupMember(groupId);
     }
+
+    /**
+     * 检测成员是否在群里面
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    @GetMapping("/is_group_member/{user_id}/{group_id}")
+    public boolean isGroupMember(@PathVariable("user_id") String userId, @PathVariable("group_id") String groupId) {
+        return groupService.isGroupMember(userId, groupId);
+    }
 }

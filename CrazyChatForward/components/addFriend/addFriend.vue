@@ -21,8 +21,11 @@
                     <div class="nick">{{ item.name }}</div>
                     {{ item.sign }}
                 </div>
-                <div class="add-btn">
+                <div class="add-btn" v-if="item.isFriend === '1'">
                     <el-button type="success" @click="addFriend(item.id)">添加好友</el-button>
+                </div>
+                <div class="add-btn" v-else>
+                    <el-tag type="success" style="margin-top: 5px;">已建立好友关系</el-tag>
                 </div>
             </div>
         </div>
@@ -81,7 +84,7 @@
                     return;
                 }
                 // 进行搜索
-                userApi.searchUser(this.addFriendName).then((response) => {
+                userApi.searchUser(this.addFriendName, getUser().id).then((response) => {
                     if (response.data.flag && response.data.data.length !== 0) {
                         this.searchUser = response.data.data;
                         this.addFriendFlag = false;

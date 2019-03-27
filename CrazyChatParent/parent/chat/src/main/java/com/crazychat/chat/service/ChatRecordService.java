@@ -121,6 +121,14 @@ public class ChatRecordService {
      * @param message
      */
     public void sendMsgToUser(String userId, String friendId, String message) {
+        /**
+         * 检测是否为好友
+         */
+        boolean haveFriendship = userClient.haveFriendship(userId, friendId);
+        if (!haveFriendship) {
+            throw new RuntimeException("没有好友关系");
+        }
+        // 是好友，可以发送消息
         Session session = UserToUserSocket.userCollect.get(friendId);
         // 推送消息给好友, zw@#$0发消息的头信息，0表示用户和用户进行发送
         String msg = "[\"" + userId + "\", \"0\", \"" + message + "\"]";
@@ -152,6 +160,12 @@ public class ChatRecordService {
      * @param message
      */
     public void sendMsgToGroup(String userId, String groupId, String message) {
+        // 检测是否在成员群里面
+        boolean isGroupMember = groupClient.isGroupMember(userId, groupId);
+        if (!isGroupMember) {
+            throw new RuntimeException("您已不属于该群");
+        }
+        // 在群里面，可以发送消息
         // 获取所有的群成员的id
         List<String> groupMemberList = groupClient.getGroupMemberList(groupId);
         // 推送消息给用户
@@ -210,10 +224,10 @@ public class ChatRecordService {
         String key = prefix + "|" + suffix;
         // 查看该键是否存在
         if (null != redisTemplate.opsForValue().get(key)) {
-            Long num = (Long) redisTemplate.opsForValue().get(key);
+            Integer num = (Integer) redisTemplate.opsForValue().get(key);
             redisTemplate.opsForValue().set(key, ++num);
         } else {
-            redisTemplate.opsForValue().set(key, 1L);
+            redisTemplate.opsForValue().set(key, 1);
         }
     }
 

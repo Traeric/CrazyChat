@@ -253,19 +253,22 @@ public class UserService {
 
     /**
      * 搜索用户
-     *
      * @param userName
+     * @param userId
      * @return
      */
-    public List<Map<String, String>> searchUser(String userName) {
+    public List<Map<String, String>> searchUser(String userName, String userId) {
         List<UserProfile> users = userProfileDao.findByNameContains(userName);
         List<Map<String, String>> data = new ArrayList<>();
         users.parallelStream().forEach((user) -> {
+            // 检查用户与当前好友是否建立了关系
+            boolean isFriend = this.haveFriendship(userId, user.getId());
             Map<String, String> map = new HashMap<>();
             map.put("id", user.getId());
             map.put("name", user.getName());
             map.put("avatar", user.getAvatar());
             map.put("sign", user.getSign());
+            map.put("isFriend", isFriend ? "0" : "1");
             data.add(map);
         });
         return data;
@@ -643,5 +646,15 @@ public class UserService {
             data.add(map);
         });
         return data;
+    }
+
+    /**
+     * 检测是否具有好友关系
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    public boolean haveFriendship(String userId, String friendId) {
+        return null != friendDao.findByUserIdAndFriendId(userId, friendId);
     }
 }

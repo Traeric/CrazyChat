@@ -21,9 +21,9 @@ export default {
         });
     },
     // 搜索用户
-    searchUser(user_name) {
+    searchUser(user_name, user_id) {
         return request({
-            url: `/user/user/search_friend/${user_name}`,
+            url: `/user/user/search_friend/${user_name}/${user_id}`,
             method: "get",
         });
     },

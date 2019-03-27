@@ -12,4 +12,9 @@ public class UserClientImpl implements UserClient {
     public byte[] getUserAvatarById(String userId) {
         return "NOT AVAILABLE".getBytes();
     }
+
+    @Override
+    public boolean haveFriendship(String userId, String friendId) {
+        return false;
+    }
 }

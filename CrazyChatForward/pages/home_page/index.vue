@@ -445,7 +445,7 @@
                         });
                     } else {
                         this.$message({
-                            message: '发送失败，请重试',
+                            message: response.data.message,
                             type: 'error'
                         });
                         // 变换等待标志

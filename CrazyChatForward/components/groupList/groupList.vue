@@ -89,6 +89,7 @@
                 <div class="name">
                     {{ item.nick }}
                 </div>
+                <el-tag type="warning" v-if="item.type === '1'" style="margin-top: 8px;">群主</el-tag>
                 <div class="del-button" v-if="currentGroupType === '1'">
                     <el-button type="danger" size="small" icon="el-icon-remove" style="float: right;"
                                @click="removeMember($event, item.id)" v-if="item.type === '0'">移出群聊

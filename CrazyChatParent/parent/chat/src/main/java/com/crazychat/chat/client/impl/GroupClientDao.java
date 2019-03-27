@@ -10,4 +10,9 @@ public class GroupClientDao implements GroupClient {
     public List<String> getGroupMemberList(String groupId) {
         return new ArrayList<>();
     }
+
+    @Override
+    public boolean isGroupMember(String userId, String groupId) {
+        return false;
+    }
 }

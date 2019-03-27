@@ -35,6 +35,7 @@ public class GroupService {
 
     /**
      * 查询用户所在的群聊
+     *
      * @param userId
      * @return
      */
@@ -58,6 +59,7 @@ public class GroupService {
 
     /**
      * 用过id获取群
+     *
      * @param groupId
      * @return
      */
@@ -67,6 +69,7 @@ public class GroupService {
 
     /**
      * 搜索群名
+     *
      * @param groupName
      * @return
      */
@@ -86,6 +89,7 @@ public class GroupService {
 
     /**
      * 获取群信息
+     *
      * @param groupId
      * @return
      */
@@ -106,6 +110,7 @@ public class GroupService {
 
     /**
      * 获取群成员
+     *
      * @param groupId
      * @return
      */
@@ -128,6 +133,7 @@ public class GroupService {
 
     /**
      * 删除群成员
+     *
      * @param groupId
      * @param memberId
      * @param type
@@ -170,6 +176,7 @@ public class GroupService {
 
     /**
      * 删除群聊
+     *
      * @param groupId
      */
     public void deleteGroup(String groupId) {
@@ -178,11 +185,35 @@ public class GroupService {
         if (null == group) {
             throw new RuntimeException("没有该群聊");
         }
+        List<String> groupMemberIds = this.getGroupMember(group.getId());
         groupDao.delete(group);
+
+        // 获取群主
+        String createdId = groupUserDao.findByGroupIdAndType(groupId, "1").getUserId();
+        String name = new String(userClient.getUserNameById(createdId));
+        // 通知每一个人
+        groupMemberIds.parallelStream().forEach((memberId) -> {
+            if (!memberId.equals(createdId)) {
+                // 通知每个人
+                String key = memberId + "zw" + group.getId() + "delete";
+                String confirmInfo = "群主" + name + "已经将" + group.getName() + "解散了，青山不改，绿水长流，兄弟们江湖再见！";
+                redisTemplate.delete(key);
+                redisTemplate.opsForList().leftPushAll(key, confirmInfo, group.getId(), group.getPicture(),
+                        group.getName(), "3", "zw", "jx");
+                Session session = GroupSocket.userCollect.get(memberId);
+                if (null != session) {
+                    // 封装消息
+                    String message = "[\"" + group.getId() + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
+                            group.getPicture() + "\", \"3\"]";
+                    session.getAsyncRemote().sendText(message);
+                }
+            }
+        });
     }
 
     /**
      * 创建群聊
+     *
      * @param groupName
      * @param createTime
      * @param createrId
@@ -205,7 +236,8 @@ public class GroupService {
         self.setType("1");
         groupUserDao.save(self);
 
-        // 添加其他人的关联
+        // 添加其他人的关联并通知每个人
+        String name = new String(userClient.getUserNameById(createrId));
         groupMembers.parallelStream().forEach((memberId) -> {
             GroupUser member = new GroupUser();
             member.setId(String.valueOf(idCreater.nextId()));
@@ -213,11 +245,25 @@ public class GroupService {
             member.setGroupId(group.getId());
             member.setType("0");
             groupUserDao.save(member);
+            // 通知每个人
+            String key = memberId + "zw" + group.getId() + "success";
+            String confirmInfo = name + "将你拉入了" + group.getName();
+            redisTemplate.delete(key);
+            redisTemplate.opsForList().leftPushAll(key, confirmInfo, group.getId(), group.getPicture(),
+                    group.getName(), "2", "zw", "jx");
+            Session session = GroupSocket.userCollect.get(memberId);
+            if (null != session) {
+                // 封装消息
+                String message = "[\"" + group.getId() + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
+                        group.getPicture() + "\", \"2\"]";
+                session.getAsyncRemote().sendText(message);
+            }
         });
     }
 
     /**
      * 获取群聊成员
+     *
      * @param groupId
      * @return
      */
@@ -230,6 +276,7 @@ public class GroupService {
 
     /**
      * 添加群聊申请
+     *
      * @param userId
      * @param groupId
      * @param confirmInfo
@@ -259,6 +306,7 @@ public class GroupService {
 
     /**
      * 确定用户的加群申请
+     *
      * @param groupId
      * @param applyId
      * @param userId
@@ -288,5 +336,15 @@ public class GroupService {
         String message = "[\"" + groupId + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
                 group.getPicture() + "\", \"2\"]";
         session.getAsyncRemote().sendText(message);
+    }
+
+    /**
+     * 检测用户是否是群成员
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    public boolean isGroupMember(String userId, String groupId) {
+        return null != groupUserDao.findByGroupIdAndUserId(groupId, userId);
     }
 }

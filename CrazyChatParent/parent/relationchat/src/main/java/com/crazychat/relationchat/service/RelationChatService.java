@@ -79,7 +79,7 @@ public class RelationChatService {
             }
             // 从redis中获取未读取的聊天
             String key = userId + "|" + relationChat.getOtherId();
-            Long unRead = (Long) redisTemplate.opsForValue().get(key);
+            Object unRead = redisTemplate.opsForValue().get(key);
             if (null == unRead) {
                 map.put("unRead", "");
             } else {

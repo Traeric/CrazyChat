@@ -22,4 +22,13 @@ public interface UserClient {
      */
     @GetMapping("/user/user_id/{user_id}")
     byte[] getUserAvatarById(@PathVariable("user_id") String userId);
+
+    /**
+     * 检测是否具有好友关系
+     * @param userId
+     * @param friendId
+     * @return
+     */
+    @GetMapping("/user/have_friendship/{user_id}/{friend_id}")
+    boolean haveFriendship(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId);
 }
