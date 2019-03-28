@@ -338,6 +338,8 @@
                 this.$refs.chatPanelHook.innerHTML += msg;
                 // 将页面调至最下面
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
+                // 刷新最近联系人
+                this.$store.dispatch("user/setRefreshFriendList", new Date());
             };
         },
         methods: {
