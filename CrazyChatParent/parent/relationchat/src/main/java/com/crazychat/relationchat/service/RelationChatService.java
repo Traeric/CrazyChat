@@ -116,4 +116,14 @@ public class RelationChatService {
             relationChatDao.delete(relationChat);
         }
     }
+
+    /**
+     * 检查置顶聊天是否保存在了最近联系人
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    public boolean inRelationChat(String userId, String otherId) {
+        return null != relationChatDao.findByUserIdAndOtherId(userId, otherId);
+    }
 }

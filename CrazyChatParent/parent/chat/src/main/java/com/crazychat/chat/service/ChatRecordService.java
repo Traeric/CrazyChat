@@ -1,6 +1,7 @@
 package com.crazychat.chat.service;
 
 import com.crazychat.chat.client.GroupClient;
+import com.crazychat.chat.client.RelationChatClient;
 import com.crazychat.chat.client.UserClient;
 import com.crazychat.chat.dao.ChatRecordDao;
 import com.crazychat.chat.dao.GroupChatRecordDao;
@@ -39,6 +40,9 @@ public class ChatRecordService {
 
     @Resource
     private GroupClient groupClient;
+
+    @Resource
+    private RelationChatClient relationChatClient;
 
 
     /**
@@ -128,11 +132,19 @@ public class ChatRecordService {
         if (!haveFriendship) {
             throw new RuntimeException("没有好友关系");
         }
+        // 检查是否是最近联系人
+        boolean inRelationChat = relationChatClient.inRelationChat(userId, friendId);
+        if (!inRelationChat) {
+            // 添加最近联系人
+            relationChatClient.addRealtionChat(friendId, userId, "0");
+        }
         // 是好友，可以发送消息
         Session session = UserToUserSocket.userCollect.get(friendId);
-        // 推送消息给好友, zw@#$0发消息的头信息，0表示用户和用户进行发送
-        String msg = "[\"" + userId + "\", \"0\", \"" + message + "\"]";
-        this.sendToRedis(session, msg, friendId, userId);
+        if (null != session) {
+            // 推送消息给好友, zw@#$0发消息的头信息，0表示用户和用户进行发送
+            String msg = "[\"" + userId + "\", \"0\", \"" + message + "\"]";
+            this.sendToRedis(session, msg, friendId, userId);
+        }
         // 保存消息到monogodb
         // 自己地方
         ChatRecord chatRecord = new ChatRecord();
@@ -173,9 +185,17 @@ public class ChatRecordService {
         String avatar = new String(userClient.getUserAvatarById(userId));
         groupMemberList.parallelStream().forEach((groupMember) -> {
             if (!groupMember.equals(userId)) {
+                // 检查是否添加了最近联系人
+                boolean inRelation = relationChatClient.inRelationChat(groupMember, groupId);
+                if (!inRelation) {
+                    relationChatClient.addRealtionChat(groupMember, groupId, "1");
+                }
+
                 Session session = UserToUserSocket.userCollect.get(groupMember);
-                String msg = "[\"" + groupId + "\", \"1\", \"" + name + "\", \"" + avatar + "\", \"" + message + "\"]";
-                this.sendToRedis(session, msg, groupMember, groupId);
+                if (null != session) {
+                    String msg = "[\"" + groupId + "\", \"1\", \"" + name + "\", \"" + avatar + "\", \"" + message + "\"]";
+                    this.sendToRedis(session, msg, groupMember, groupId);
+                }
             }
         });
         // 保存消息
@@ -207,6 +227,7 @@ public class ChatRecordService {
 
     /**
      * 更新未读消息到redis
+     *
      * @param userId
      * @param otherId
      */
@@ -216,6 +237,7 @@ public class ChatRecordService {
 
     /**
      * 往redis中插入数据
+     *
      * @param prefix
      * @param suffix
      */
@@ -233,6 +255,7 @@ public class ChatRecordService {
 
     /**
      * 删除未读记录
+     *
      * @param userId
      * @param otherId
      */

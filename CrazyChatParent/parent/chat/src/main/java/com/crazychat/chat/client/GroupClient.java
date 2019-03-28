@@ -1,13 +1,13 @@
 package com.crazychat.chat.client;
 
-import com.crazychat.chat.client.impl.GroupClientDao;
+import com.crazychat.chat.client.impl.GroupClientImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(value = "crazychat-group", fallback = GroupClientDao.class)
+@FeignClient(value = "crazychat-group", fallback = GroupClientImpl.class)
 public interface GroupClient {
     /**
      * 获取群成员的id

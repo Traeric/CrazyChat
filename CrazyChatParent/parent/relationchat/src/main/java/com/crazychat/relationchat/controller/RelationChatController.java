@@ -52,4 +52,28 @@ public class RelationChatController {
         relationChatService.deleteRelationChat(userId, otherId);
         return new Result(true, StatusCode.OK.getCode(), "删除成功");
     }
+
+    /**
+     * 检查置顶聊天是否保存在了最近联系人
+     * 该接口通过feign客户端调用
+     * @param userId
+     * @param otherId
+     * @return
+     */
+    @GetMapping("/in_relation_chat/{user_id}/{other_id}")
+    public boolean inRelationChat(@PathVariable("user_id") String userId, @PathVariable("other_id") String otherId) {
+        return relationChatService.inRelationChat(userId, otherId);
+    }
+
+    /**
+     * 添加最近联系人
+     * @param userId
+     * @param otherId
+     * @param type
+     */
+    @PostMapping("/add_relation_chat/{user_id}/{other_id}/{type}")
+    public void addRealtionChat(@PathVariable("user_id") String userId, @PathVariable("other_id") String otherId,
+                                @PathVariable("type") String type) {
+        relationChatService.addRelationChat(userId, otherId, type);
+    }
 }
