@@ -1,7 +1,7 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">CrazyChat 后台管理系统</div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
                     <el-input v-model="ruleForm.username" placeholder="username">
@@ -16,19 +16,22 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">Tips : 请输入后台管理账号密码。</p>
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
+    import userApi from "../../api/user";
+    import {setUser} from "../../utils/auth";
+
     export default {
         data: function(){
             return {
                 ruleForm: {
-                    username: 'admin',
-                    password: '123123'
+                    username: '',
+                    password: ''
                 },
                 rules: {
                     username: [
@@ -41,14 +44,30 @@
             }
         },
         methods: {
+            // 登录表单
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',this.ruleForm.username);
+                    if (!valid) {
+                        this.$notify.error({
+                            title: '失败',
+                            message: "error submit!",
+                        });
+                        return false;
+                    }
+                });
+
+                userApi.login(this.ruleForm.username, this.ruleForm.password).then((response) => {
+                    if (response.data.flag) {
+                        const data = response.data.data;
+                        // 登录成功，设置cookie
+                        setUser(data.id, data.username, data.avatar, data.token);
+                        // 跳转到主页
                         this.$router.push('/');
                     } else {
-                        console.log('error submit!!');
-                        return false;
+                        this.$notify.error({
+                            title: '失败',
+                            message: response.data.message,
+                        });
                     }
                 });
             }
