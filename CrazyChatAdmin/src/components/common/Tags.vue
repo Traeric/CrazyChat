@@ -53,14 +53,14 @@
             closeOther(){
                 const curItem = this.tagsList.filter(item => {
                     return item.path === this.$route.fullPath;
-                })
+                });
                 this.tagsList = curItem;
             },
             // 设置标签
             setTags(route){
                 const isExist = this.tagsList.some(item => {
                     return item.path === route.fullPath;
-                })
+                });
                 if(!isExist){
                     if(this.tagsList.length >= 8){
                         this.tagsList.shift();

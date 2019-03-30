@@ -4,18 +4,18 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
-                        <img src="../../assets/img/img.jpg" class="user-avator" alt="">
+                        <img :src="userAvatar" class="user-avator" alt="">
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
+                            <div class="user-info-name">{{ userName }}</div>
+                            <div>管理员你好！</div>
                         </div>
                     </div>
-                    <div class="user-info-list">上次登录时间：<span>2018-01-01</span></div>
-                    <div class="user-info-list">上次登录地点：<span>东莞</span></div>
+                    <div class="user-info-list">当前登录时间：<span>{{ currentDate }}</span></div>
+                    <div class="user-info-list">当前登录用户：<span>{{ userName }}</span></div>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
-                        <span>语言详情</span>
+                        <span>网站语言详情</span>
                     </div>
                     Vue
                     <el-progress :percentage="71.3" color="#42b983"></el-progress>
@@ -34,8 +34,8 @@
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-lx-people grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
+                                    <div class="grid-num">{{ userNum }}</div>
+                                    <div>当前登录用户数</div>
                                 </div>
                             </div>
                         </el-card>
@@ -43,10 +43,10 @@
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-2">
-                                <i class="el-icon-lx-notice grid-con-icon"></i>
+                                <i class="el-icon-lx-news grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
+                                    <div class="grid-num">{{ registerUser }}</div>
+                                    <div>注册用户总数</div>
                                 </div>
                             </div>
                         </el-card>
@@ -54,10 +54,10 @@
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-3">
-                                <i class="el-icon-lx-goods grid-con-icon"></i>
+                                <i class="el-icon-lx-profile grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
+                                    <div class="grid-num">{{ adminNum }}</div>
+                                    <div>管理员数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -66,9 +66,12 @@
                 <el-card shadow="hover" style="height:403px;">
                     <div slot="header" class="clearfix">
                         <span>待办事项</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="addTodo">
+                            添加
+                        </el-button>
                     </div>
-                    <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;">
+                    <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;"
+                              @row-click="changeStatus">
                         <el-table-column width="40">
                             <template slot-scope="scope">
                                 <el-checkbox v-model="scope.row.status"></el-checkbox>
@@ -76,154 +79,112 @@
                         </el-table-column>
                         <el-table-column>
                             <template slot-scope="scope">
-                                <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
+                                <div class="todo-item" :class="{'todo-item-del': scope.row.status}">
+                                    {{scope.row.title}}
+                                </div>
                             </template>
                         </el-table-column>
                         <el-table-column width="60">
                             <template slot-scope="scope">
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
+                                <i class="el-icon-delete" style="cursor: pointer; color: #f00;"
+                                   @click="deleteTodo(scope.row.tag)"></i>
                             </template>
                         </el-table-column>
                     </el-table>
                 </el-card>
             </el-col>
         </el-row>
+        <!--
         <el-row :gutter="20">
             <el-col :span="12">
                 <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :data="data" type="bar" :options="options"></schart>
+
                 </el-card>
             </el-col>
             <el-col :span="12">
                 <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :data="data" type="line" :options="options2"></schart>
+
                 </el-card>
             </el-col>
         </el-row>
+        -->
     </div>
 </template>
 
 <script>
-    import Schart from 'vue-schart';
-    import bus from '../common/bus';
+    import {getUser} from "../../utils/auth";
+    import userApi from "../../api/user";
+
     export default {
         name: 'dashboard',
         data() {
             return {
-                name: localStorage.getItem('ms_username'),
-                todoList: [{
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: false,
-                    }, {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: true,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: true,
-                    }
-                ],
-                data: [{
-                        name: '2018/09/04',
-                        value: 1083
-                    },
-                    {
-                        name: '2018/09/05',
-                        value: 941
-                    },
-                    {
-                        name: '2018/09/06',
-                        value: 1139
-                    },
-                    {
-                        name: '2018/09/07',
-                        value: 816
-                    },
-                    {
-                        name: '2018/09/08',
-                        value: 327
-                    },
-                    {
-                        name: '2018/09/09',
-                        value: 228
-                    },
-                    {
-                        name: '2018/09/10',
-                        value: 1065
-                    }
-                ],
-                options: {
-                    title: '最近七天每天的用户访问量',
-                    showValue: false,
-                    fillColor: 'rgb(45, 140, 240)',
-                    bottomPadding: 30,
-                    topPadding: 30
-                },
-                options2: {
-                    title: '最近七天用户访问趋势',
-                    fillColor: '#FC6FA1',
-                    axisColor: '#008ACD',
-                    contentColor: '#EEEEEE',
-                    bgColor: '#F5F8FD',
-                    bottomPadding: 30,
-                    topPadding: 30
+                userName: getUser().name,
+                userAvatar: getUser().avatar,
+                currentDate: "",
+                userNum: 0,    // 用户登录数
+                registerUser: 0,  // 注册用户数
+                adminNum: 0,    // 管理员数量
+                todoList: [],
+            }
+        },
+        created() {
+            const date = new Date();
+            this.currentDate = date.getFullYear() + "年" + date.getMonth() + "月"
+                + date.getDay() + "日 " + date.getHours() + ":" + date.getMinutes();
+            // 查询登录用户数
+            userApi.UserNum().then((response) => {
+                if (response.data.flag) {
+                    this.userNum = response.data.data.userNum;
+                    this.registerUser = response.data.data.registerNum;
+                    this.adminNum = response.data.data.adminNum;
                 }
-            }
+            });
         },
-        components: {
-            Schart
-        },
-        computed: {
-            role() {
-                return this.name === 'admin' ? '超级管理员' : '普通用户';
-            }
-        },
-        created(){
-            this.handleListener();
-            this.changeDate();
-        },
-        activated(){
-            this.handleListener();
-        },
-        deactivated(){
-            window.removeEventListener('resize', this.renderChart);
-            bus.$off('collapse', this.handleBus);
+        mounted() {
+            // 加载待办事项
+            this.todoList = JSON.parse(localStorage.getItem("todoList")) || [];
         },
         methods: {
-            changeDate(){
-                const now = new Date().getTime();
-                this.data.forEach((item, index) => {
-                    const date = new Date(now - (6 - index) * 86400000);
-                    item.name = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`
-                })
+            // 添加备忘录
+            addTodo() {
+                this.$prompt('请填写备忘项', '备忘录', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }).then(({value}) => {
+                    if (value === null || value.trim() === "") {
+                        this.$message({
+                            type: 'success',
+                            message: '写点东西吧',
+                        });
+                        return false;
+                    }
+                    // 添加到localStorage
+                    let obj = {
+                        title: value,
+                        status: false,
+                        tag: new Date().getTime(),
+                    };
+                    this.todoList.push(obj);
+                    localStorage.setItem("todoList", JSON.stringify(this.todoList));
+                });
             },
-            handleListener(){
-                bus.$on('collapse', this.handleBus);
-                // 调用renderChart方法对图表进行重新渲染
-                window.addEventListener('resize', this.renderChart)
+            changeStatus() {
+                // 保存到localStorage
+                localStorage.setItem("todoList", JSON.stringify(this.todoList));
             },
-            handleBus(msg){
-                setTimeout(() => {
-                    this.renderChart()
-                }, 300);
+            deleteTodo(tag) {
+                // 找出当前的删除项
+                this.todoList.forEach((item) => {
+                    if (item.tag === tag) {
+                        // 删除
+                        const index = this.todoList.indexOf(item);
+                        this.todoList.splice(index, 1);
+                    }
+                });
+                // 保存到localStorage
+                localStorage.setItem("todoList", JSON.stringify(this.todoList));
             },
-            renderChart(){
-                this.$refs.bar.renderChart();
-                this.$refs.line.renderChart();
-            }
         }
     }
 
@@ -297,7 +258,7 @@
     .user-avator {
         width: 120px;
         height: 120px;
-        border-radius: 50%;
+        border-radius: 12px;
     }
 
     .user-info-cont {
