@@ -17,4 +17,8 @@ public class ChatClientImpl implements ChatClient {
         data.add(map);
         return data;
     }
+
+    @Override
+    public void deleteChatRecord(String userId, String friendId) {
+    }
 }

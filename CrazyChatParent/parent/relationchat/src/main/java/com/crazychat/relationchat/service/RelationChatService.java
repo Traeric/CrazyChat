@@ -49,6 +49,7 @@ public class RelationChatService {
         List<Map<String, Object>> data = new LinkedList<>();
         relationChats.parallelStream().forEach((relationChat) -> {
             Map<String, Object> map = new HashMap<>();
+            map.put("sort", relationChat.get_id());
             map.put("id", relationChat.getOtherId());
             if ("0".equals(relationChat.getType())) {
                 // 用户
@@ -98,7 +99,6 @@ public class RelationChatService {
      */
     public void addRelationChat(String userId, String otherId, String type) {
         RelationChat relationChat = new RelationChat();
-        relationChat.set_id(String.valueOf(idCreater.nextId()));
         relationChat.setUserId(userId);
         relationChat.setOtherId(otherId);
         relationChat.setType(type);

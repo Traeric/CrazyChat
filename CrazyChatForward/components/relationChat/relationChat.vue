@@ -70,13 +70,23 @@
                     // 获取当前用户的id
                     let currentUserId = getUser().id;
                     chatApi.getChatRecord(currentUserId, currentId).then((response) => {
+                        let data = response.data.data;
+                        // 排序聊天记录
+                        data.sort((c1, c2) => {
+                            return c1.id - c2.id;
+                        });
                         // 设置聊天记录
-                        this.$store.dispatch("friend/setChatRecord", response.data.data);
+                        this.$store.dispatch("friend/setChatRecord", data);
                     });
                 } else {
                     chatApi.getGroupChatRecord(currentId).then((response) => {
+                        let data = response.data.data;
+                        // 排序聊天记录
+                        data.sort((c1, c2) => {
+                            return c1.sortId - c2.sortId;
+                        });
                         // 设置聊天记录
-                        this.$store.dispatch("friend/setGroupChatRecord", response.data.data);
+                        this.$store.dispatch("friend/setGroupChatRecord", data);
                     });
                 }
 

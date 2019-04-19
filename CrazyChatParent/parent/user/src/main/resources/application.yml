@@ -1,23 +1,26 @@
 server:
   port: 9002
+
+web-resource-path: /media/eric/Data/Projects/CrazyChat/CrazyChatParent/static/
+
 spring:
   # 配置静态路径
   resources:
-    static-locations: classpath:/META-INF/resources/, classpath:/static, classpath:/resources/, classpath:/public/, file:static/
+    static-locations: classpath:/META-INF/resources/, classpath:/static, classpath:/resources/, classpath:/public/, file:${web-resource-path}
   application:
     name: crazychat-user
   datasource:   # 配置数据源
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.117.128:3306/crazychat_user?characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.17.98.177:3306/crazychat_user?characterEncoding=utf-8
     username: root
-    password: 123
+    password: 123456
   jpa:    # 配置jpa
     show-sql: true
     database: mysql
   # 发送邮件
   mail:
     username: 2789519045@qq.com
-    password: anwqrmdhqggddghh    # 邮箱授权码
+    password: zepghwtjqvijdcea    # 邮箱授权码
     host: smtp.qq.com
     properties:
       mail:
@@ -27,7 +30,7 @@ spring:
   # redis配置
   redis:
     database: 0
-    host: 192.168.117.128
+    host: 172.17.98.177
     port: 6379
 jwt:
   config:

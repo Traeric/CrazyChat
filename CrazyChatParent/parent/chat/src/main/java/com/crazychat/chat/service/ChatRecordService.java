@@ -15,10 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.websocket.Session;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -87,6 +84,7 @@ public class ChatRecordService {
         List<Map<String, String>> data = new ArrayList<>();
         chatRecords.parallelStream().forEach((chatReocrd) -> {
             Map<String, String> map = new HashMap<>();
+            map.put("id", chatReocrd.get_id());
             map.put("status", chatReocrd.getStatus());
             map.put("message", chatReocrd.getContent());
             data.add(map);
@@ -105,6 +103,7 @@ public class ChatRecordService {
         List<Map<String, String>> data = new ArrayList<>();
         chatGroups.parallelStream().forEach((groupChat) -> {
             Map<String, String> map = new HashMap<>();
+            map.put("sortId", groupChat.get_id());
             map.put("id", groupChat.getUserId());
             map.put("message", groupChat.getContent());
             // 获取用户名
@@ -146,21 +145,22 @@ public class ChatRecordService {
             this.sendToRedis(session, msg, friendId, userId);
         }
         // 保存消息到monogodb
-        // 自己地方
+        String currentTime = String.valueOf(System.currentTimeMillis());
+        // 自己一方
         ChatRecord chatRecord = new ChatRecord();
-        chatRecord.set_id(String.valueOf(idWorker.nextId()));
         chatRecord.setUserId(userId);
         chatRecord.setFriendId(friendId);
         chatRecord.setStatus("right");
         chatRecord.setContent(message);
+        chatRecord.setCreateTime(currentTime);
         chatRecordDao.save(chatRecord);
         // 朋友一方
         chatRecord = new ChatRecord();
-        chatRecord.set_id(String.valueOf(idWorker.nextId()));
         chatRecord.setUserId(friendId);
         chatRecord.setFriendId(userId);
         chatRecord.setContent(message);
         chatRecord.setStatus("left");
+        chatRecord.setCreateTime(currentTime);
         chatRecordDao.save(chatRecord);
     }
 
@@ -200,7 +200,6 @@ public class ChatRecordService {
         });
         // 保存消息
         GroupChatRecord groupChatRecord = new GroupChatRecord();
-        groupChatRecord.set_id(String.valueOf(idWorker.nextId()));
         groupChatRecord.setUserId(userId);
         groupChatRecord.setGroupId(groupId);
         groupChatRecord.setContent(message);
@@ -265,5 +264,21 @@ public class ChatRecordService {
         if (null != redisTemplate.opsForValue().get(unReadKey)) {
             redisTemplate.delete(unReadKey);
         }
+    }
+
+
+    /**
+     * 删除指定的聊天记录
+     * @param userId
+     * @param friendId
+     */
+    public void deleteChatRecord(String userId, String friendId) {
+        // 获取用户对好友的聊天
+        List<ChatRecord> userChat = chatRecordDao.findAllByUserIdAndFriendId(userId, friendId);
+        // 删除
+        userChat.parallelStream().forEach((record) -> chatRecordDao.delete(record));
+        List<ChatRecord> friendChat = chatRecordDao.findAllByUserIdAndFriendId(friendId, userId);
+        // 删除
+        friendChat.parallelStream().forEach((record) -> chatRecordDao.delete(record));
     }
 }

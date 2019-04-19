@@ -103,6 +103,10 @@
                 this.$store.dispatch("chat/setSendType", 0);
                 chatApi.getChatRecord(currentUserId, friendId).then((response) => {
                     let data = response.data.data;
+                    // 排序聊天记录
+                    data.sort((c1, c2) => {
+                        return c1.id - c2.id;
+                    });
                     // 设置聊天记录
                     this.$store.dispatch("friend/setChatRecord", data);
                 });
