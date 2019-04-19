@@ -1,9 +1,9 @@
 package com.crazychat.user.service;
 
-import com.crazychat.common.utils.FileResource;
 import com.crazychat.common.utils.IdWorker;
 import com.crazychat.common.utils.MD5Utils;
 import com.crazychat.user.client.ChatClient;
+import com.crazychat.user.client.RelationChatClient;
 import com.crazychat.user.dao.FriendDao;
 import com.crazychat.user.dao.FriendGroupDao;
 import com.crazychat.user.dao.UserProfileDao;
@@ -67,11 +67,17 @@ public class UserService {
     @Resource
     private FriendGroupDao friendGroupDao;
 
+    @Resource
+    private RelationChatClient relationChatClient;
+
     @Value("${auth-key}")
     private String token;
 
     @Value("${url-path}")
     private String hostPath;
+
+    @Value("${web-resource-path}")
+    private String webResourcePath;
 
     /**
      * 登录验证
@@ -124,6 +130,8 @@ public class UserService {
             // 密码加密
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userProfileDao.save(user);   // 保存
+            // 创建默认分组
+            this.addGroup(user.getId(), "我的好友");
         } else {
             String msg;
             if (confirmCode != null) {
@@ -450,16 +458,20 @@ public class UserService {
             throw new RuntimeException("没有该用户");
         }
         String surfix = avatar.getOriginalFilename().split("\\.")[1];
-        String filePath = FileResource.getUploadPath("userAvatar") + File.separator + user.getId() + "." + surfix;
+        String filePath = webResourcePath + "user_avatar/" + user.getId() + "." + surfix;
         // 将文件保存到指定目录
         try {
+            if (!new File(webResourcePath + "user_avatar/").isDirectory()) {
+                // 不是目录穿件目录
+                new File(webResourcePath + "user_avatar/").mkdirs();
+            }
             Files.write(Paths.get(filePath), avatar.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("上传图片失败");
         }
         // 将图片路径存入数据库
-        String reDisplay = hostPath + "/userAvatar/" + user.getId() + "." + surfix;
+        String reDisplay = hostPath + "/user_avatar/" + user.getId() + "." + surfix;
         user.setAvatar(reDisplay);
         userProfileDao.save(user);
         return reDisplay;
@@ -498,6 +510,11 @@ public class UserService {
         // 封装消息
         String message = "[\"" + userId + "\", \"" + confirmInfo + "\", \"" + name + "\", \"" + avatar + "\", \"3\"]";
         session.getAsyncRemote().sendText(message);
+
+        // 删除聊天记录跟最近联系人
+        chatClient.deleteChatRecord(userId, friendId);
+        relationChatClient.deleteRelationChat(userId, friendId);
+        relationChatClient.deleteRelationChat(friendId, userId);
     }
 
     /**

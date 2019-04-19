@@ -190,15 +190,15 @@
 <script>
     import "~/assets/css/bootstrap.min.css";
     import "~/assets/css/chat.css";
-    import FriendList from "@/components/friendList/friendList";
-    import GroupList from "@/components/groupList/groupList";
-    import CurrentChat from "@/components/currentChat/currentChat";
-    import RelationChat from "@/components/relationChat/relationChat";
-    import AddFriend from "@/components/addFriend/addFriend";
-    import AddGroup from "@/components/addGroup/addGroup";
-    import PersonnalInfo from "@/components/personnalInfo/personnalInfo";
-    import UserGroup from "@/components/userGroup/userGroup";
-    import Notification from "@/components/notification/notification";
+    import FriendList from "../../components/friendList/friendList";
+    import GroupList from "../../components/groupList/groupList";
+    import CurrentChat from "../../components/currentChat/currentChat";
+    import RelationChat from "../../components/relationChat/relationChat";
+    import AddFriend from "../../components/addFriend/addFriend";
+    import AddGroup from "../../components/addGroup/addGroup";
+    import PersonnalInfo from "../../components/personnalInfo/personnalInfo";
+    import UserGroup from "../../components/userGroup/userGroup";
+    import Notification from "../../components/notification/notification";
     import {getUser, removeUser} from "../../utils/auth";
     import chatApi from "../../api/chat";
     import userApi from "../../api/user";
@@ -251,7 +251,13 @@
             ]).then(axios.spread((friendList, groupList, relationChatList) => {
                 this.friendListData = friendList.data.data;
                 this.groupListData = groupList.data.data;
-                this.relationChatListData = relationChatList.data.data;
+                // 排序
+                let data = relationChatList.data.data;
+                // 排序聊天记录
+                data.sort((c1, c2) => {
+                    return c2.sort - c1.sort;
+                });
+                this.relationChatListData = data;
             }));
         },
         mounted() {

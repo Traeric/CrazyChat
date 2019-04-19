@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class FileResource {
     public static String getUploadPath(String filePath) {
         // 获取根目录
-        File path = null;
+        File path;
         try {
             path = new File(ResourceUtils.getURL("classpath:").getPath());
         } catch (FileNotFoundException e) {

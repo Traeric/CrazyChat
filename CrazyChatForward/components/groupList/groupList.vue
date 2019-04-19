@@ -135,8 +135,13 @@
                 this.$store.dispatch("chat/setSendType", 1);
                 // 获取聊天记录
                 chatApi.getGroupChatRecord(groupId).then((response) => {
+                    let data = response.data.data;
+                    // 排序聊天记录
+                    data.sort((c1, c2) => {
+                        return c1.sortId - c2.sortId;
+                    });
                     // 设置聊天记录
-                    this.$store.dispatch("friend/setGroupChatRecord", response.data.data);
+                    this.$store.dispatch("friend/setGroupChatRecord", data);
                 });
             },
             // 我加入的群

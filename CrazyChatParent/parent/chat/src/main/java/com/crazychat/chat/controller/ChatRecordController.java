@@ -16,6 +16,19 @@ public class ChatRecordController {
     @Resource
     private ChatRecordService chatRecordService;
 
+
+    /**
+     * 删除指定的聊天记录
+     * 删除好友之后，删除好友与好友之间的聊天记录
+     * feign客户端调用
+     * @param userId
+     * @param friendId
+     */
+    @DeleteMapping("/delete_chat_record/{user_id}/{friend_id}")
+    public void deleteChatRecord(@PathVariable("user_id") String userId, @PathVariable("friend_id") String friendId) {
+        chatRecordService.deleteChatRecord(userId, friendId);
+    }
+
     /**
      * 获取用户和用户之间的最后一次聊天
      * 该接口供feign客户端远程调用
