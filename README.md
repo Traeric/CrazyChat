@@ -25,10 +25,10 @@
 * mongodb
 # 页面展示
 ![login](https://github.com/Traeric/ProjectSource/blob/master/CrazyChat/1.jpg)
-
+***
 ![login](https://github.com/Traeric/ProjectSource/blob/master/CrazyChat/2.jpg)
-
+***
 ![login](https://github.com/Traeric/ProjectSource/blob/master/CrazyChat/3.jpg)
-
+***
 ![login](https://github.com/Traeric/ProjectSource/blob/master/CrazyChat/4.jpg)
 
