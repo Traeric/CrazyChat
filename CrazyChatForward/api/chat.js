@@ -63,4 +63,12 @@ export default {
             method: "delete",
         });
     },
+    // 上传图片
+    uploadImage(user_id, dict) {
+        return request({
+            url: `/chat/chat/upload_image/${user_id}`,
+            method: "put",
+            data: dict,
+        });
+    },
 };

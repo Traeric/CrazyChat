@@ -7,11 +7,11 @@ spring:
   # mongodb配置
   data:
     mongodb:
-      host: 172.17.98.177
+      host: 152.136.68.61
       database: chatDB
   # redis配置
   redis:
-    host: 172.17.98.177
+    host: 152.136.68.61
     port: 6379
 # eureka配置
 eureka:
