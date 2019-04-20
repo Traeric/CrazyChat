@@ -197,7 +197,8 @@
                     /**
                      * 检查上传文件是否是图片
                      */
-                    let name = this.$refs.inputHook.files[0].name.split(".")[1];
+                    let nameArr = this.$refs.inputHook.files[0].name.split(".");
+                    let name = nameArr[nameArr.length - 1];
                     let size = this.$refs.inputHook.files[0].size;
                     // 检查大小
                     if (size > 1024 * 1024 * 10) {   // 不能超过10MB

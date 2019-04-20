@@ -280,6 +280,18 @@
                     htmlTags: {"img": ["src",]},
                 }
             );
+            // 替换图片按钮以及文件按钮
+            let imageDom = $("span[data-name=image]");
+            imageDom.css("position", "relative");
+            imageDom.append(`<input type="file" id="image_input"
+                style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
+            // 添加点击事件
+            imageDom.on("change", "input[type=file]", this.uploadImage);
+            let fileDom = $("span[data-name=insertfile]");
+            fileDom.css("position", "relative");
+            fileDom.append(`<input type="file" id="file_input"
+                style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
+            fileDom.on("change", "input[type=file]", this.uploadFile);
 
             /**
              * websocket发送消息操作
@@ -506,6 +518,43 @@
             logout() {
                 removeUser();
                 location.href = "/login";
+            },
+            // 上传图片
+            uploadImage(event) {
+                let e = event || window.event;
+                let currentDom = e.currentTarget;
+                // 检查文件名
+                let nameList = ["jpg", "jpeg", "png", "gif"];
+                let nameArr = currentDom.files[0].name.split(".");
+                let name = nameArr[nameArr.length - 1];
+                if (nameList.indexOf(name) === -1) {
+                    this.$message({
+                        message: "上传文件不是图片",
+                        type: "error",
+                    });
+                    return;
+                }
+                // 上传文件到后台
+                let dict = new FormData();
+                dict.append("image", currentDom.files[0]);
+                chatApi.uploadImage(getUser().id, dict).then((response) => {
+                    if (response.data.flag) {
+                        // 上传成功
+                        let content = this.editor.html();
+                        content += `<img width="100" src="${response.data.data}" alt="NO IMG">`;
+                        this.editor.html(content);
+                    } else {
+                        // 上传失败
+                        this.$message({
+                            message: response.data.msg,
+                            type: "error",
+                        });
+                    }
+                });
+            },
+            // 上传文件
+            uploadFile() {
+                alert(2);
             },
         },
         computed: {
