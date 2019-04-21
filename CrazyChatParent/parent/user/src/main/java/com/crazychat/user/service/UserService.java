@@ -457,7 +457,8 @@ public class UserService {
         if (null == user) {
             throw new RuntimeException("没有该用户");
         }
-        String surfix = avatar.getOriginalFilename().split("\\.")[1];
+        String[] nameArr = avatar.getOriginalFilename().split("\\.");
+        String surfix = nameArr[nameArr.length - 1];
         String filePath = webResourcePath + "user_avatar/" + user.getId() + "." + surfix;
         // 将文件保存到指定目录
         try {

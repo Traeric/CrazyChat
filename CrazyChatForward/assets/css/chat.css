@@ -37,3 +37,16 @@
 .msg .body .send-status {position: absolute; top: 20px;}
 .msg-left .body .send-status {right: -20px;}
 .msg-right .body .send-status {left: -20px;}
+
+/* 上传文件 */
+.msg .body .text .chat-wrap .top {display: flex; padding-bottom: 10px; border-bottom: 1px solid #9ea2ad;}
+.msg .body .text .chat-wrap .top .left {flex: 0 0 40px; width: 40px; height: 40px;}
+.msg .body .text .chat-wrap .top .left img {width: 40px; height: 40px; border-radius: 4px;}
+.msg .body .text .chat-wrap .top .right {flex: 1; margin-left: 10px;}
+.msg .body .text .chat-wrap .top .right .file-name {text-align: left;}
+.msg .body .text .chat-wrap .top .right .info {text-align: left; color: #5a5b62; font-size: 12px;}
+.msg .body .text .chat-wrap .top .right .info i {color: #40bc37;}
+.msg .body .text .chat-wrap .button {height: 20px; line-height: 20px;}
+.msg .body .text .chat-wrap .button a {float: right;}
+
+

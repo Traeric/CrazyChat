@@ -9,12 +9,24 @@ import com.crazychat.chat.pojo.ChatRecord;
 import com.crazychat.chat.pojo.GroupChatRecord;
 import com.crazychat.chat.socket.UserToUserSocket;
 import com.crazychat.common.utils.IdWorker;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.websocket.Session;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 @Service
@@ -40,6 +52,12 @@ public class ChatRecordService {
 
     @Resource
     private RelationChatClient relationChatClient;
+
+    @Value("${web-resource-path}")
+    private String webResourcePath;
+
+    @Value("${url-path}")
+    private String hostPath;
 
 
     /**
@@ -269,6 +287,7 @@ public class ChatRecordService {
 
     /**
      * 删除指定的聊天记录
+     *
      * @param userId
      * @param friendId
      */
@@ -280,5 +299,81 @@ public class ChatRecordService {
         List<ChatRecord> friendChat = chatRecordDao.findAllByUserIdAndFriendId(friendId, userId);
         // 删除
         friendChat.parallelStream().forEach((record) -> chatRecordDao.delete(record));
+    }
+
+
+    /**
+     * 上传聊天图片
+     *
+     * @param userId
+     * @param image
+     */
+    public String uploadChatImage(String userId, MultipartFile image) {
+        // 查询user
+        String[] nameArr = image.getOriginalFilename().split("\\.");
+        String surfix = nameArr[nameArr.length - 1];
+        String fileName = System.currentTimeMillis() + "." + surfix;
+        String filePath = webResourcePath + "chat_image/" + userId + "/" + fileName;
+        // 将文件保存到指定目录
+        try {
+            if (!new File(webResourcePath + "chat_image/" + userId + "/").isDirectory()) {
+                // 不是目录穿件目录
+                new File(webResourcePath + "chat_image/" + userId + "/").mkdirs();
+            }
+            Files.write(Paths.get(filePath), image.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("发送图片失败");
+        }
+        return hostPath + "/chat_image/" + userId + "/" + fileName;
+    }
+
+
+    /**
+     * 上传聊天文件
+     * @param userId
+     * @param file
+     * @return
+     */
+    public String uploadChatFile(String userId, MultipartFile file) {
+        // 查询user
+        String[] nameArr = file.getOriginalFilename().split("\\.");
+        String surfix = nameArr[nameArr.length - 1];
+        String fileName = System.currentTimeMillis() + "." + surfix;
+        String filePath = webResourcePath + "chat_file/" + userId + "/" + fileName;
+        // 将文件保存到指定目录
+        try {
+            if (!new File(webResourcePath + "chat_file/" + userId + "/").isDirectory()) {
+                // 不是目录穿件目录
+                new File(webResourcePath + "chat_file/" + userId + "/").mkdirs();
+            }
+            Files.write(Paths.get(filePath), file.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("上传文件失败");
+        }
+        return hostPath + "/chat/chat/download_file/" + userId + "/" + fileName;
+    }
+
+
+    /**
+     * 下载文件
+     * @param userId
+     * @param fileName
+     * @return
+     */
+    public ResponseEntity downloadFile(String userId, String fileName) throws IOException {
+        // 下载文件要使用FileSystemResource这个类
+        // 构建文件路径
+        String filePath = webResourcePath + "chat_file/" + userId + "/" + fileName;
+        FileSystemResource file = new FileSystemResource(filePath);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        // 在响应头中设置文件下载的名称
+        httpHeaders.add("Content-Disposition", "attachment; filename=" + fileName);
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .contentLength(file.contentLength())        // 下载文件的长度
+                .contentType(MediaType.ALL.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(file.getInputStream()));
     }
 }
