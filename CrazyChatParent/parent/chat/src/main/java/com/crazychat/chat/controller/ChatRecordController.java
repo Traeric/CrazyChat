@@ -3,9 +3,12 @@ package com.crazychat.chat.controller;
 import com.crazychat.chat.service.ChatRecordService;
 import com.crazychat.common.entity.Result;
 import com.crazychat.common.entity.StatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,39 @@ import java.util.Map;
 public class ChatRecordController {
     @Resource
     private ChatRecordService chatRecordService;
+
+
+    @GetMapping("/download_file/{user_id}/{file_name}")
+    public ResponseEntity downloadFile(@PathVariable("user_id") String userId,
+                                       @PathVariable("file_name") String fileName) throws IOException {
+        return chatRecordService.downloadFile(userId, fileName);
+    }
+
+
+    /**
+     * 上传聊天文件
+     * @param userId
+     * @param file
+     * @return
+     */
+    @PutMapping("/upload_file/{user_id}")
+    public Result uploadChatFile(@PathVariable("user_id") String userId, MultipartFile file) {
+        String path = chatRecordService.uploadChatFile(userId, file);
+        return new Result(true, StatusCode.OK.getCode(), "上传成功", path);
+    }
+
+
+    /**
+     * 上传聊天图片
+     * @param userId
+     * @param image
+     * @return
+     */
+    @PutMapping("/upload_image/{user_id}")
+    public Result uploadChatImage(@PathVariable("user_id") String userId, MultipartFile image) {
+        String path = chatRecordService.uploadChatImage(userId, image);
+        return new Result(true, StatusCode.OK.getCode(), "上传成功", path);
+    }
 
 
     /**

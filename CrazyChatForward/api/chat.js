@@ -71,4 +71,12 @@ export default {
             data: dict,
         });
     },
+    // 上传文件
+    uploadFile(user_id, dict) {
+        return request({
+            url: `/chat/chat/upload_file/${user_id}`,
+            method: "put",
+            data: dict,
+        });
+    },
 };

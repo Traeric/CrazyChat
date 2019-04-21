@@ -6,7 +6,7 @@
                     <i class="iconfont icon-biji"></i>
                 </div>
                 <ul class="left-list">
-                    <Notification />
+                    <Notification/>
                     <li><i class="iconfont icon-youjian1"></i></li>
                     <li title="个人信息" @click="personnalInfo"><i class="iconfont icon-solid-person"></i></li>
                     <li style="clear: both; display: none;"></li>
@@ -277,7 +277,7 @@
                     ],           // 配置工具栏的参数，  "/"表示换行   "|"表示分割符
                     width: '100%',       // 文本框宽度(可以百分比或像素)
                     height: '150px',     // 文本框高度(只能像素)
-                    htmlTags: {"img": ["src",]},
+                    htmlTags: {"img": ["src", "width"]},
                 }
             );
             // 替换图片按钮以及文件按钮
@@ -286,12 +286,12 @@
             imageDom.append(`<input type="file" id="image_input"
                 style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
             // 添加点击事件
-            imageDom.on("change", "input[type=file]", this.uploadImage);
+            imageDom.on("input", "input[type=file]", this.uploadImage);
             let fileDom = $("span[data-name=insertfile]");
             fileDom.css("position", "relative");
             fileDom.append(`<input type="file" id="file_input"
                 style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
-            fileDom.on("change", "input[type=file]", this.uploadFile);
+            fileDom.on("input", "input[type=file]", this.uploadFile);
 
             /**
              * websocket发送消息操作
@@ -379,7 +379,7 @@
             },
             // 发送消息
             sendMsg(sendId, sendType) {
-                if (sendId === 0) {
+                if (!sendId) {
                     // 没有选择发送的对象
                     this.$message({
                         message: '请选择发送对象',
@@ -410,7 +410,7 @@
                                     <img class="user-img" src="${this.userAvatar}" alt="NO IMG">
                                 </div>
                                 <div class="body">
-                                    <div class="send-status ${removeFlag}">
+                                    <div id="${removeFlag}" class="send-status">
                                         <i class="el-icon-loading"></i>
                                     </div>
                                     <div class="trangle user-trangle"></div>
@@ -432,7 +432,7 @@
                                     <img class="user-img" src="${this.userAvatar}" alt="NO IMG">
                                 </div>
                                 <div class="body">
-                                    <div class="send-status ${removeFlag}">
+                                    <div id="${removeFlag}" class="send-status">
                                         <i class="el-icon-loading"></i>
                                     </div>
                                     <div class="trangle user-trangle"></div>
@@ -452,16 +452,18 @@
                 chatApi.sendMessage(sendStr, getUser().id, sendId, msg, removeFlag).then((response) => {
                     if (response.data.flag) {
                         // 发送成功，移除等待标志
-                        $(`.${response.data.data}`).remove();
+                        $(`#${response.data.data}`).remove();
                         // 将聊天对象添加到最近联系人
                         relationChatApi.deleteRelationChat(getUser().id, sendId).then((response) => {
-                            relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
-                                if (response.data.flag) {
-                                    chatApi.getRelationChatList(getUser().id).then((response) => {
-                                        this.relationChatListData = response.data.data;
-                                    });
-                                }
-                            });
+                            if (response.data.flag) {
+                                relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
+                                    if (response.data.flag) {
+                                        chatApi.getRelationChatList(getUser().id).then((response) => {
+                                            this.relationChatListData = response.data.data;
+                                        });
+                                    }
+                                });
+                            }
                         });
                     } else {
                         this.$message({
@@ -540,9 +542,8 @@
                 chatApi.uploadImage(getUser().id, dict).then((response) => {
                     if (response.data.flag) {
                         // 上传成功
-                        let content = this.editor.html();
-                        content += `<img width="100" src="${response.data.data}" alt="NO IMG">`;
-                        this.editor.html(content);
+                        let bodyDom = $("iframe")[0].contentWindow.document.body;
+                        $(bodyDom).append(`<img class="chat-image" src="${response.data.data}" alt="NO IMG" width="150">`);
                     } else {
                         // 上传失败
                         this.$message({
@@ -553,8 +554,95 @@
                 });
             },
             // 上传文件
-            uploadFile() {
-                alert(2);
+            uploadFile(event) {
+                let sendId = this.$refs.sendBtnHook.dataset.otherid;
+                if (!sendId) {
+                    // 没有选择发送的对象
+                    this.$message({
+                        message: '请选择发送对象',
+                        type: 'error'
+                    });
+                    return;
+                }
+
+                let e = event || window.event;
+                let currentDom = e.currentTarget;
+                // 上传文件到后台
+                let dict = new FormData();
+                dict.append("file", currentDom.files[0]);
+                chatApi.uploadFile(getUser().id, dict).then((response) => {
+                    if (response.data.flag) {
+                        let removeFlag = new Date().getTime() + '';
+                        // 上传成功
+                        let msgStr = `
+                            <div class="msg-right msg clear-float">
+                                <div class="user-wrap clear-float">
+                                    <div class="header">
+                                        <img class="user-img" src="${this.userAvatar}" alt="NO IMG">
+                                    </div>
+                                    <div class="body">
+                                        <div id="${removeFlag}" class="send-status">
+                                            <i class="el-icon-loading"></i>
+                                        </div>
+                                        <div class="trangle user-trangle"></div>
+                                        <div class="text user-text">
+                                            <div class="chat-wrap">
+                                                <div class="top">
+                                                    <div class="left"><img src="/_nuxt/assets/images/cloud.png" alt="NO IMG"></div>
+                                                    <div class="right">
+                                                        <div class="file-name">${currentDom.files[0].name} (${currentDom.files[0].size}B)</div>
+                                                        <div class="info"><i class="el-icon-success"></i>文件上传成功</div>
+                                                    </div>
+                                                </div>
+                                                <div class="button"><a href="${response.data.data}">下载</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        this.$refs.chatPanelHook.innerHTML += msgStr;    // 添加到聊天记录
+                        // 刷新div到底部显示
+                        this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
+                        // 保存到聊天记录
+                        let file_msg = `
+                            <div class="chat-wrap">
+                                <div class="top">
+                                    <div class="left"><img src="/_nuxt/assets/images/cloud.png" alt="NO IMG"></div>
+                                    <div class="right">
+                                        <div class="file-name">${currentDom.files[0].name} (${currentDom.files[0].size}B)</div>
+                                        <div class="info"><i class="el-icon-success"></i>文件上传成功</div>
+                                    </div>
+                                </div>
+                                <div class="button"><a href="${response.data.data}">下载</a></div>
+                            </div>
+                        `;
+                        let sendType = this.$refs.sendBtnHook.dataset.sendtype;
+                        let sendStr = sendType === '0' ? "send_msgpersonnal" : "send_msggroup";
+                        chatApi.sendMessage(sendStr, getUser().id, sendId, file_msg, removeFlag).then((response) => {
+                            // 移除等代标志
+                            $(`#${response.data.data}`).remove();
+                            // 将聊天对象添加到最近联系人
+                            relationChatApi.deleteRelationChat(getUser().id, sendId).then((response) => {
+                                if (response.data.flag) {
+                                    relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
+                                        if (response.data.flag) {
+                                            chatApi.getRelationChatList(getUser().id).then((response) => {
+                                                this.relationChatListData = response.data.data;
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    } else {
+                        // 上传失败
+                        this.$message({
+                            message: response.data.msg,
+                            type: "error",
+                        });
+                    }
+                });
             },
         },
         computed: {
@@ -705,6 +793,7 @@
 
             .left
                 padding 0
+
                 .writing
                     margin 10px
                     width 40px
@@ -812,9 +901,11 @@
                         &:nth-child(2)
                             margin 6px 20px 0 5px
                             padding 11px 10px
+
                             i
                                 margin-right 3px
                                 font-size 16px
+
                         &:hover
                             background-color rgba(91, 188, 218, 0.29)
 
