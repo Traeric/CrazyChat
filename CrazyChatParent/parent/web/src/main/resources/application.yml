@@ -23,6 +23,19 @@ zuul:
     crazychat-chat:
       path: /chat/** # 配置请求URL的请求规则
       serviceId: crazychat-chat # 指定Eureka注册中心中的服务id
+  host:
+    connect-timeout-millis: 30000   #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000    #socket超时
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
 

@@ -1,7 +1,7 @@
 server:
   port: 9002
 
-web-resource-path: /media/eric/Data/Projects/CrazyChat/CrazyChatParent/static/
+web-resource-path: /home/static/
 
 spring:
   # 配置静态路径
@@ -11,9 +11,9 @@ spring:
     name: crazychat-user
   datasource:   # 配置数据源
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://152.136.68.61:3306/crazychat_user?characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/crazychat_user?characterEncoding=utf-8
     username: root
-    password: 123
+    password: 123456
   jpa:    # 配置jpa
     show-sql: true
     database: mysql
@@ -30,7 +30,7 @@ spring:
   # redis配置
   redis:
     database: 0
-    host: 152.136.68.61
+    host: 127.0.0.1
     port: 6379
 jwt:
   config:

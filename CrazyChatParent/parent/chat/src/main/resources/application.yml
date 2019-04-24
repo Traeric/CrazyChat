@@ -7,11 +7,11 @@ spring:
   # mongodb配置
   data:
     mongodb:
-      host: 152.136.68.61
+      host: 127.0.0.1
       database: chatDB
   # redis配置
   redis:
-    host: 152.136.68.61
+    host: 127.0.0.1
     port: 6379
 # eureka配置
 eureka:
@@ -22,7 +22,7 @@ eureka:
     prefer-ip-address: true     # 跨域访问
 
 # 上传文件的路径
-web-resource-path: /media/eric/Data/Projects/CrazyChat/CrazyChatParent/static/
+web-resource-path: /home/static/
 # 访问域名
 url-path: http://127.0.0.1:4140
 

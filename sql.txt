@@ -1,0 +1,76 @@
+friend_group
+
+CREATE TABLE `crazychat_user`.`friend_group`  (
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `user_id`(`user_id`, `name`) USING BTREE,
+  CONSTRAINT `userprofileKey` FOREIGN KEY (`user_id`) REFERENCES `crazychat_user`.`userprofile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+userprofile
+
+CREATE TABLE `crazychat_user`.`userprofile`  (
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sign` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `birthday` date NULL DEFAULT NULL,
+  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `userdescribe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/_nuxt/assets/images/avtar.png',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `emailIndex`(`email`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+friend
+
+CREATE TABLE `crazychat_user`.`friend` (
+`id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`friendgroup_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`friend_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`todo`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
+`user_id`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`friend_id`) REFERENCES `userprofile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`friendgroup_id`) REFERENCES `friend_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`user_id`) REFERENCES `userprofile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+INDEX `friendgroupKey` (`friendgroup_id`) USING BTREE ,
+INDEX `userprofile_Key` (`friend_id`) USING BTREE ,
+INDEX `userprofile_F_Key` (`user_id`) USING BTREE 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+ROW_FORMAT=DYNAMIC
+;
+
+
+group_chat
+
+CREATE TABLE `crazychat_group`.`group_chat`  (
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `create_time` date NULL DEFAULT NULL,
+  `picture`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+
+group_userprofile
+
+CREATE TABLE `crazychat_group`.`group_userprofile`  (
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `group_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `groupKey`(`group_id`) USING BTREE,
+  INDEX `userKey`(`user_id`) USING BTREE,
+  CONSTRAINT `userKey` FOREIGN KEY (`user_id`) REFERENCES `crazychat_user`.`userprofile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `groupKey` FOREIGN KEY (`group_id`) REFERENCES `crazychat_group`.`group_chat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;

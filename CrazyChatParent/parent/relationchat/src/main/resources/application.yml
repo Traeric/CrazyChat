@@ -6,11 +6,11 @@ spring:
     name: crazychat-relationchat
   data:
     mongodb:
-      host: 152.136.68.61
+      host: 127.0.0.1
       database: relationChatDB
   # redis配置
   redis:
-    host: 152.136.68.61
+    host: 127.0.0.1
 
 # eureka配置
 eureka:
