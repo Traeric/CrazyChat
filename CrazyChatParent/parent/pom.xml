@@ -16,7 +16,7 @@
         <module>eureka</module>
         <module>relationchat</module>
         <module>web</module>
-        <module>config</module>
+        <module>backend</module>
     </modules>
 
     <parent>

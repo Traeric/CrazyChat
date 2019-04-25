@@ -7,6 +7,9 @@ import com.crazychat.group.dao.GroupUserDao;
 import com.crazychat.group.pojo.Group;
 import com.crazychat.group.pojo.GroupUser;
 import com.crazychat.group.socket.GroupSocket;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -349,5 +352,24 @@ public class GroupService {
      */
     public boolean isGroupMember(String userId, String groupId) {
         return null != groupUserDao.findByGroupIdAndUserId(groupId, userId);
+    }
+
+    /**
+     * 查询群里聊数量
+     * @return
+     */
+    public Integer groupNum() {
+        return groupDao.groupNum();
+    }
+
+
+    /**
+     * 查询所有的群聊
+     * @param currentPage
+     * @return
+     */
+    public Page<Group> findAllGroup(Integer currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return groupDao.findAllGroup(pageable);
     }
 }

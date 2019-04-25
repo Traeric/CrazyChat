@@ -45,7 +45,7 @@
                                 <span style="font-weight: normal;">{{ props.row.gender === '0' ? '男' : '女' }}</span>
                             </el-form-item>
                             <el-form-item label="个人简介: " style="font-weight: bolder;">
-                                <span style="font-weight: normal;">{{ props.row.describ }}</span>
+                                <span style="font-weight: normal;">{{ props.row.userdescribe }}</span>
                             </el-form-item>
                         </el-form>
                     </template>
@@ -80,10 +80,10 @@
                 <el-table-column label="账号状态" align="center">
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper" style="cursor: pointer;">
-                            <el-tag size="medium" :type="'success'" v-if="scope.row.status === '0'">
+                            <el-tag size="medium" :type="'success'" v-if="scope.row.status === 0">
                                 正常
                             </el-tag>
-                            <el-tag size="medium" :type="'danger'" v-if="scope.row.status === '1'">
+                            <el-tag size="medium" :type="'danger'" v-if="scope.row.status === 1">
                                 已冻结
                             </el-tag>
                         </div>
@@ -93,7 +93,7 @@
                     <template slot-scope="scope">
                         <!-- 冻结账号 -->
                         <el-button type="text" icon="el-icon-lx-warn"
-                                   @click="frozenAccount(scope.row.id, scope.row)" v-if="scope.row.status === '0'">
+                                   @click="frozenAccount(scope.row.id, scope.row)" v-if="scope.row.status === 0">
                             冻结账号
                         </el-button>
                         <!-- 解冻 -->
@@ -235,14 +235,14 @@
                     cancelButtonText: '取消',
                     type: 'info'
                 }).then(() => {
-                    userApi.changeStatus(id, "1").then((response) => {
+                    userApi.changeStatus(id, 1).then((response) => {
                         this.$notify({
                             title: (response.data.flag ? '冻结成功' : '冻结失败'),
                             type: (response.data.flag ? 'success' : 'error'),
                             message: response.data.message,
                         });
                         if (response.data.flag) {
-                            row.status = "1";
+                            row.status = 1;
                         }
                     });
                 });
@@ -254,14 +254,14 @@
                     cancelButtonText: '取消',
                     type: 'success'
                 }).then(() => {
-                    userApi.changeStatus(id, "0").then((response) => {
+                    userApi.changeStatus(id, 0).then((response) => {
                         this.$notify({
                             title: (response.data.flag ? '解冻成功' : '解冻失败'),
                             type: (response.data.flag ? 'success' : 'error'),
                             message: response.data.message,
                         });
                         if (response.data.flag) {
-                            row.status = "0";
+                            row.status = 0;
                         }
                     });
                 });

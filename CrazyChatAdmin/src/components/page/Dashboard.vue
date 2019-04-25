@@ -4,7 +4,7 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
-                        <img :src="userAvatar" class="user-avator" alt="">
+                        <img src="../../assets/img/img.jpg" class="user-avator" alt="">
                         <div class="user-info-cont">
                             <div class="user-info-name">{{ userName }}</div>
                             <div>管理员你好！</div>
@@ -17,14 +17,16 @@
                     <div slot="header" class="clearfix">
                         <span>网站语言详情</span>
                     </div>
-                    Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>
+                    java
+                    <el-progress :percentage="50" color="#b07219"></el-progress>
                     JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>
+                    <el-progress :percentage="24" color="#f1e05a"></el-progress>
                     CSS
-                    <el-progress :percentage="3.7"></el-progress>
+                    <el-progress :percentage="8"></el-progress>
                     HTML
-                    <el-progress :percentage="0.9" color="#f56c6c"></el-progress>
+                    <el-progress :percentage="8" color="#f56c6c"></el-progress>
+                    Vue
+					<el-progress :percentage="10" color="#42b983"></el-progress>
                 </el-card>
             </el-col>
             <el-col :span="16">
@@ -34,8 +36,8 @@
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-lx-people grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">{{ userNum }}</div>
-                                    <div>当前登录用户数</div>
+                                    <div class="grid-num">{{ groupNum }}</div>
+                                    <div>创建的群聊数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -120,9 +122,8 @@
         data() {
             return {
                 userName: getUser().name,
-                userAvatar: getUser().avatar,
                 currentDate: "",
-                userNum: 0,    // 用户登录数
+                groupNum: 0,    // 用户登录数
                 registerUser: 0,  // 注册用户数
                 adminNum: 0,    // 管理员数量
                 todoList: [],
@@ -132,10 +133,10 @@
             const date = new Date();
             this.currentDate = date.getFullYear() + "年" + date.getMonth() + "月"
                 + date.getDay() + "日 " + date.getHours() + ":" + date.getMinutes();
-            // 查询登录用户数
+            // 查询用户数量，管理员，群聊数量
             userApi.UserNum().then((response) => {
                 if (response.data.flag) {
-                    this.userNum = response.data.data.userNum;
+                    this.groupNum = response.data.data.groupNum;
                     this.registerUser = response.data.data.registerNum;
                     this.adminNum = response.data.data.adminNum;
                 }

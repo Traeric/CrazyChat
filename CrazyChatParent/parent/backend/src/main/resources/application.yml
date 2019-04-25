@@ -1,0 +1,48 @@
+server:
+  port: 1223
+spring:
+  application:
+    name: crazychat-backend
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:4170/eureka/
+  instance:
+    prefer-ip-address: true    # 支持跨域
+
+zuul:
+  routes:
+    crazychat-user:
+      path: /user/** # 配置请求URL的请求规则
+      serviceId: crazychat-user # 指定Eureka注册中心中的服务id
+    crazychat-relationchat:
+      path: /relationchat/** # 配置请求URL的请求规则
+      serviceId: crazychat-relationchat # 指定Eureka注册中心中的服务id
+    crazychat-group:
+      path: /group/** # 配置请求URL的请求规则
+      serviceId: crazychat-group # 指定Eureka注册中心中的服务id
+    crazychat-chat:
+      path: /chat/** # 配置请求URL的请求规则
+      serviceId: crazychat-chat # 指定Eureka注册中心中的服务id
+  host:
+    connect-timeout-millis: 30000   #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000    #socket超时
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+jwt:
+  config:
+    # 加盐
+    key: ericjin
+    ttl: 3600000
+

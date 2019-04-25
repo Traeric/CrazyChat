@@ -19,7 +19,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 无论如何都放行，具体能不能操作还是在具体操作中去判断
         // 拦截器只负责把请求头中包含token的令牌进行解析
-        String headers = request.getHeader("Authorization");
+        String headers = request.getHeader("Authorization-token");
         if (!StringUtils.isEmpty(headers)) {
             // 如果有包含ZW 的头信息，就对其进行解析
             if(headers.startsWith("ZW ")) {
@@ -29,10 +29,10 @@ public class JwtInterceptor implements HandlerInterceptor {
                 try {
                     Claims claims = jwtUtils.parseJWT(token);
                     String roles = (String) claims.get("roles");
-                    if ("admin".equals(roles)) {
+                    if ("admin".equals(roles.trim())) {
                         request.setAttribute("claims_admin", token);
                     }
-                    if ("user".equals(roles)) {
+                    if ("user".equals(roles.trim())) {
                         request.setAttribute("claims_user", token);
                     }
                 } catch (Exception e) {

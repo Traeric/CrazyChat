@@ -37,7 +37,10 @@
                 </div>
             </form>
             <div class="forget-password">
-                <p>还未注册账号?点击 <nuxt-link to="/register">注册</nuxt-link> 吧！</p>
+                <p>还未注册账号?点击
+                    <nuxt-link to="/register">注册</nuxt-link>
+                    吧！
+                </p>
             </div>
             <div class="signin">
                 <input type="submit" value="Login" @click="login">

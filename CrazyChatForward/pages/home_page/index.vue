@@ -184,6 +184,12 @@
         <PersonnalInfo/>
         <!-- 分组管理 -->
         <UserGroup/>
+        <!-- 消息提醒 -->
+        <audio id="msg_hook">
+            <source src="radio/msg.wav"/>
+            <source src="radio/msg.mp3"/>
+            <source src="radio/msg.ogg"/>
+        </audio>
     </div>
 </template>
 
@@ -299,7 +305,29 @@
             // 建立socket连接
             this.wsMsg = new WebSocket("ws://127.0.0.1:9001/chat_user_to_user/" + getUser().id);
             this.wsMsg.onmessage = (event) => {
+                // 消息提示音
+                document.getElementById("msg_hook").play();
+
                 let data = JSON.parse(event.data);
+
+                // 将聊天对象添加到最近联系人
+                relationChatApi.deleteRelationChat(getUser().id, data[0]).then((response) => {
+                    if (response.data.flag) {
+                        relationChatApi.addRelationChat(getUser().id, data[0], data[1]).then((response) => {
+                            if (response.data.flag) {
+                                chatApi.getRelationChatList(getUser().id).then((response) => {
+                                    let data = response.data.data;
+                                    // 排序聊天记录
+                                    data.sort((c1, c2) => {
+                                        return c2.sort - c1.sort;
+                                    });
+                                    this.relationChatListData = data;
+                                });
+                            }
+                        });
+                    }
+                });
+
                 let msg = "";
                 // 当前聊天面板的id
                 let currentChatId = this.$store.state.friend.currentId;
@@ -356,8 +384,6 @@
                 this.$refs.chatPanelHook.innerHTML += msg;
                 // 将页面调至最下面
                 this.$refs.chatPanelHook.scrollTop = this.$refs.chatPanelHook.scrollHeight;
-                // 刷新最近联系人
-                this.$store.dispatch("user/setRefreshFriendList", new Date());
             };
         },
         methods: {
@@ -459,7 +485,12 @@
                                 relationChatApi.addRelationChat(getUser().id, sendId, sendType).then((response) => {
                                     if (response.data.flag) {
                                         chatApi.getRelationChatList(getUser().id).then((response) => {
-                                            this.relationChatListData = response.data.data;
+                                            let data = response.data.data;
+                                            // 排序聊天记录
+                                            data.sort((c1, c2) => {
+                                                return c2.sort - c1.sort;
+                                            });
+                                            this.relationChatListData = data;
                                         });
                                     }
                                 });

@@ -56,6 +56,12 @@
                 <el-button type="success" @click="centerDialogVisible = false" plain>关 闭 验 证</el-button>
             </span>
         </el-dialog>
+        <!-- 消息提醒 -->
+        <audio id="notification_msg_hook">
+            <source src="radio/system.wav"/>
+            <source src="radio/system.mp3"/>
+            <source src="radio/system.ogg"/>
+        </audio>
     </li>
 </template>
 
@@ -89,6 +95,9 @@
              */
             this.wsConfirm = new WebSocket("ws://127.0.0.1:9002/verify_user/" + getUser().id);
             this.wsConfirm.onmessage = (event) => {
+                // 声音提示
+                document.getElementById("notification_msg_hook").play();
+
                 let data = JSON.parse(event.data);
                 let flag = true;
                 this.confirmList.forEach((item) => {

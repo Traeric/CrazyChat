@@ -22,9 +22,11 @@ CREATE TABLE `crazychat_user`.`userprofile`  (
   `userdescribe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/_nuxt/assets/images/avtar.png',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `status` int default 0 not null,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `emailIndex`(`email`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
 
 
 friend

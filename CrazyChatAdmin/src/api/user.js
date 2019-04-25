@@ -54,6 +54,7 @@ export default {
             method: "get",
         });
     },
+	// 修改状态
     changeStatus(user_id, status) {
         return request({
             url: `/user/user/change_status/${user_id}/${status}`,

@@ -7,11 +7,11 @@ spring:
   # mongodb配置
   data:
     mongodb:
-      host: 127.0.0.1
+      host: 192.168.188.128
       database: chatDB
   # redis配置
   redis:
-    host: 127.0.0.1
+    host: 192.168.188.128
     port: 6379
 # eureka配置
 eureka:
@@ -22,7 +22,7 @@ eureka:
     prefer-ip-address: true     # 跨域访问
 
 # 上传文件的路径
-web-resource-path: /home/static/
+web-resource-path: C:\Users\Eric Jin\Desktop\static\
 # 访问域名
 url-path: http://127.0.0.1:4140
 

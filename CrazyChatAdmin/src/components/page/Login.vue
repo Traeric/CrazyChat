@@ -46,15 +46,17 @@
         methods: {
             // 登录表单
             submitForm(formName) {
+				let flag = true;
                 this.$refs[formName].validate((valid) => {
                     if (!valid) {
-                        this.$notify.error({
-                            title: '失败',
-                            message: "error submit!",
-                        });
+						flag = false;
                         return false;
                     }
                 });
+				if (flag == false) {
+					// 登陆有误
+					return null;
+				}
 
                 userApi.login(this.ruleForm.username, this.ruleForm.password).then((response) => {
                     if (response.data.flag) {

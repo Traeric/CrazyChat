@@ -13,6 +13,9 @@ import com.crazychat.user.pojo.UserProfile;
 import com.crazychat.user.socket.UserSocket;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -91,6 +94,10 @@ public class UserService {
         UserProfile user = userProfileDao.findByEmail(email);
         // 验证密码
         if (null != user && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            // 查看账号是否被冻结
+            if (1 == user.getStatus()) {
+                throw new RuntimeException("账户已被冻结");
+            }
             return user;
         }
         return null;
@@ -674,5 +681,72 @@ public class UserService {
      */
     public boolean haveFriendship(String userId, String friendId) {
         return null != friendDao.findByUserIdAndFriendId(userId, friendId);
+    }
+
+
+    /**
+     * 获取所有的用户
+     * @param currentPage
+     * @return
+     */
+    public Page<UserProfile> findAllByPage(int currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return userProfileDao.findAllUser(pageable);
+    }
+
+
+    /**
+     * 根据账号状态查询
+     * @param status
+     * @param currentPage
+     * @return
+     */
+    public Page<UserProfile> findAllUserByStatus(Integer status, int currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return userProfileDao.findAllByStatus(status, pageable);
+    }
+
+
+    /**
+     * 根据用户名查询
+     * @param username
+     * @param currentPage
+     * @return
+     */
+    public Page<UserProfile> findAllByName(String username, int currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return userProfileDao.findAllByNameContains(username, pageable);
+    }
+
+
+    /**
+     * 根据用户名和状态查询
+     * @param username
+     * @param status
+     * @param currentPage
+     * @return
+     */
+    public Page<UserProfile> findAllUserByNameAndStatus(String username, Integer status, int currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return userProfileDao.findAllByNameContainsAndStatus(username, status, pageable);
+    }
+
+
+    /**
+     * 修改账号状态
+     * @param userId
+     * @param status
+     */
+    public void changeStatus(String userId, Integer status) {
+        userProfileDao.changeStatus(status, userId);
+    }
+
+
+    /**
+     * 删除账户
+     * @param userId
+     */
+    public void deleteAccount(String userId) {
+        userProfileDao.deleteById(userId);
     }
 }

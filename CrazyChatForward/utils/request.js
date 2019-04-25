@@ -10,8 +10,6 @@ const service = axios.create({
         'Authorization': "ZW " + getUser().token,   // 每次请求都带上该头信息
         'withCredentials': true,
         'Access-Control-Allow-Origin': "*",
-        "Access-Control-Allow-Headers": "content-type",
-        'Access-Control-Request-Method': "GET, POST, PUT, DELETE",
     },
 });
 

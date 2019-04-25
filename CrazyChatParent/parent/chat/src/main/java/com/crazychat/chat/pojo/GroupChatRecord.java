@@ -15,4 +15,6 @@ public class GroupChatRecord implements Serializable {
     private String userId;
 
     private String content;
+
+    private Long createTime;
 }

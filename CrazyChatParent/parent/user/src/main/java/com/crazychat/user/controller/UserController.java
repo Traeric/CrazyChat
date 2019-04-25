@@ -5,11 +5,14 @@ import com.crazychat.common.entity.StatusCode;
 import com.crazychat.common.utils.JwtUtils;
 import com.crazychat.user.pojo.UserProfile;
 import com.crazychat.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +31,7 @@ public class UserController {
 
     /**
      * 用户登录
+     *
      * @param map
      * @return
      */
@@ -51,6 +55,7 @@ public class UserController {
 
     /**
      * 发送邮箱验证码
+     *
      * @param map
      * @return
      */
@@ -68,6 +73,7 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @param user
      * @param code
      * @return
@@ -80,6 +86,7 @@ public class UserController {
 
     /**
      * 获取用户的好友列表
+     *
      * @param user_id
      * @return
      */
@@ -91,6 +98,7 @@ public class UserController {
 
     /**
      * 获取用户信息
+     *
      * @param userId
      * @return
      */
@@ -114,6 +122,7 @@ public class UserController {
 
     /**
      * 获取用户聊天数据
+     *
      * @param userId
      * @param friendId
      * @return
@@ -126,6 +135,7 @@ public class UserController {
 
     /**
      * 查询用户分组
+     *
      * @param userId
      * @return
      */
@@ -137,6 +147,7 @@ public class UserController {
 
     /**
      * 修改分组
+     *
      * @param friendId
      * @param oldGroup
      * @param newGroup
@@ -151,6 +162,7 @@ public class UserController {
 
     /**
      * 修改好友备注
+     *
      * @param userId
      * @param friendId
      * @return
@@ -165,6 +177,7 @@ public class UserController {
 
     /**
      * 搜索用户
+     *
      * @param userName
      * @param userId
      * @return
@@ -177,6 +190,7 @@ public class UserController {
 
     /**
      * 添加好友
+     *
      * @param userId
      * @param friendId
      * @param map
@@ -194,6 +208,7 @@ public class UserController {
 
     /**
      * 从redis中移除验证信息
+     *
      * @param userId
      * @param otherId
      * @return
@@ -207,6 +222,7 @@ public class UserController {
 
     /**
      * 同意好友申请
+     *
      * @param userId
      * @param friendId
      * @return
@@ -219,6 +235,7 @@ public class UserController {
 
     /**
      * 删除好友
+     *
      * @param userId
      * @param friendId
      * @return
@@ -231,6 +248,7 @@ public class UserController {
 
     /**
      * 修改昵称
+     *
      * @param userId
      * @return
      */
@@ -243,6 +261,7 @@ public class UserController {
 
     /**
      * 修改用户其他设置信息
+     *
      * @param userId
      * @param map
      * @return
@@ -270,6 +289,7 @@ public class UserController {
 
     /**
      * 新增分组
+     *
      * @param userId
      * @param map
      * @return
@@ -283,6 +303,7 @@ public class UserController {
 
     /**
      * 查询当前分组下是否还有好友
+     *
      * @param groupId
      * @return
      */
@@ -294,6 +315,7 @@ public class UserController {
 
     /**
      * 删除分组
+     *
      * @param groupId
      * @return
      */
@@ -305,6 +327,7 @@ public class UserController {
 
     /**
      * 修改邮箱
+     *
      * @param userId
      * @return
      */
@@ -317,6 +340,7 @@ public class UserController {
 
     /**
      * 确定修改邮箱
+     *
      * @param email
      * @param userId
      * @param authKey
@@ -329,6 +353,7 @@ public class UserController {
 
     /**
      * 修改用户头像
+     *
      * @param userId
      * @return
      */
@@ -340,6 +365,7 @@ public class UserController {
 
     /**
      * 加载验证消息
+     *
      * @param userId
      * @return
      */
@@ -349,31 +375,136 @@ public class UserController {
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 
+
+    /**
+     * 获取所有的用户
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/find_all/{page}")
+    public Result authFindAllUser(HttpServletRequest request, @PathVariable("page") int currentPage) {
+        Page<UserProfile> users = userService.findAllByPage(currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", users.getTotalElements());
+        data.put("rows", users.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 根据状态获取用户
+     * @param status
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/search_by_status/{status}/{page}")
+    public Result authFindAllUserByStatus(HttpServletRequest request, @PathVariable("status") Integer status, @PathVariable("page") int currentPage) {
+        Page<UserProfile> users = userService.findAllUserByStatus(status, currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", users.getTotalElements());
+        data.put("rows", users.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 通过用户名查询
+     * @param username
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/search_by_name/{name}/{page}")
+    public Result authFindAllUserByName(HttpServletRequest request, @PathVariable("name") String username, @PathVariable("page") int currentPage) {
+        // 检查角色
+        Page<UserProfile> users = userService.findAllByName(username, currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", users.getTotalElements());
+        data.put("rows", users.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 通过用户名和状态查询
+     * @param username
+     * @param status
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/search_by_name_and_status/{name}/{status}/{page}")
+    public Result authFindAllUserByNameAndStatus(HttpServletRequest request, @PathVariable("name") String username,
+                                                 @PathVariable("status") Integer status, @PathVariable("page") int currentPage) {
+        Page<UserProfile> users = userService.findAllUserByNameAndStatus(username, status, currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", users.getTotalElements());
+        data.put("rows", users.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 修改账户状态
+     * @param userId
+     * @param status
+     * @return
+     */
+    @PutMapping("/change_status/{user_id}/{status}")
+    public Result authChangeStatus(HttpServletRequest request, @PathVariable("user_id") String userId,
+                                   @PathVariable("status") Integer status) {
+        userService.changeStatus(userId, status);
+        String data = (status == 0 ? "解冻成功" : "冻结成功");
+        return new Result(true, StatusCode.OK.getCode(), data);
+    }
+
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/delete_account/{user_id}")
+    public Result authDeleteAccount(HttpServletRequest request, @PathVariable("user_id") String userId) {
+        userService.deleteAccount(userId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
+    }
+
+
     /**
      * 通过id获取用户名
      * 该接口通过feign客户端远程调用
+     *
      * @param userId
      * @return
      */
     @GetMapping("/name/{user_id}")
     public byte[] getUserNameById(@PathVariable("user_id") String userId) {
-        return userService.getNameById(userId).getName().getBytes();
+        UserProfile user = userService.getNameById(userId);
+        if (null != user && null != user.getName()) {
+            return userService.getNameById(userId).getName().getBytes();
+        }
+        return "NULL".getBytes();
     }
 
     /**
      * 通过id获取用户头像
      * 该接口通过feign客户端远程调用
+     *
      * @param userId
      * @return
      */
     @GetMapping("/user_id/{user_id}")
     public byte[] getUserAvatarById(@PathVariable("user_id") String userId) {
-        return userService.getNameById(userId).getAvatar().getBytes();
+        UserProfile nameById = userService.getNameById(userId);
+        if (null != nameById && null != nameById.getAvatar()) {
+            return userService.getNameById(userId).getAvatar().getBytes();
+        }
+        return "NULL".getBytes();
     }
 
     /**
      * 获取好友的备注
      * 该接口通过feign客户端远程调用
+     *
      * @param userId
      * @return
      */
@@ -385,6 +516,7 @@ public class UserController {
     /**
      * 查询是否具有好友关系
      * 该接口通过feign客户端调用
+     *
      * @param userId
      * @param friendId
      * @return

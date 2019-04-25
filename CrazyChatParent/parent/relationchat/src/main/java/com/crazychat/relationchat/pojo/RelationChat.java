@@ -15,4 +15,6 @@ public class RelationChat implements Serializable {
     private String otherId;
 
     private String type;
+
+    private Long createTime;
 }

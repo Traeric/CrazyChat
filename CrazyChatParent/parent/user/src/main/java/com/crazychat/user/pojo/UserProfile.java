@@ -4,11 +4,9 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -29,9 +27,11 @@ public class UserProfile implements Serializable {
 
     private String userdescribe;
 
-    private String avatar;
+    private String avatar = "/_nuxt/assets/images/avtar.png";
 
     private String password;
+
+    private Integer status;
 
     @Override
     public String toString() {

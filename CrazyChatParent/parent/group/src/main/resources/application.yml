@@ -7,17 +7,17 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/crazychat_group?characterEncoding=utf-8
+    url: jdbc:mysql://192.168.188.128:3306/crazychat_group?characterEncoding=utf-8
   jpa:
     database: mysql
     show-sql: true
   data:
     mongodb:
-      host: 127.0.0.1
+      host: 192.168.188.128
       database: groupDB
   # redis配置
   redis:
-    host: 127.0.0.1
+    host: 192.168.188.128
 
 # eureka配置
 eureka:

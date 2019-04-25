@@ -2,7 +2,9 @@ package com.crazychat.group.controller;
 
 import com.crazychat.common.entity.Result;
 import com.crazychat.common.entity.StatusCode;
+import com.crazychat.group.pojo.Group;
 import com.crazychat.group.service.GroupService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,6 +18,16 @@ import java.util.*;
 public class GroupController {
     @Resource
     private GroupService groupService;
+
+
+    /**
+     * 查询群聊数量，通过feign客户端查询
+     * @return
+     */
+    @GetMapping("/group_num")
+    public Integer groupNum() {
+        return groupService.groupNum();
+    }
 
 
     /**
@@ -182,5 +194,20 @@ public class GroupController {
     @GetMapping("/is_group_member/{user_id}/{group_id}")
     public boolean isGroupMember(@PathVariable("user_id") String userId, @PathVariable("group_id") String groupId) {
         return groupService.isGroupMember(userId, groupId);
+    }
+
+
+    /**
+     * 获取所有的群聊
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/find_all/{page}")
+    public Result authFindAllGroup(@PathVariable("page") Integer currentPage) {
+        Page<Group> groups = groupService.findAllGroup(currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", groups.getTotalElements());
+        data.put("rows", groups.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 }

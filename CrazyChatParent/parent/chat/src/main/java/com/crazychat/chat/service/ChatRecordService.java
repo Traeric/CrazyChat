@@ -102,7 +102,7 @@ public class ChatRecordService {
         List<Map<String, String>> data = new ArrayList<>();
         chatRecords.parallelStream().forEach((chatReocrd) -> {
             Map<String, String> map = new HashMap<>();
-            map.put("id", chatReocrd.get_id());
+            map.put("id", String.valueOf(chatReocrd.getCreateTime()));
             map.put("status", chatReocrd.getStatus());
             map.put("message", chatReocrd.getContent());
             data.add(map);
@@ -121,7 +121,7 @@ public class ChatRecordService {
         List<Map<String, String>> data = new ArrayList<>();
         chatGroups.parallelStream().forEach((groupChat) -> {
             Map<String, String> map = new HashMap<>();
-            map.put("sortId", groupChat.get_id());
+            map.put("sortId", String.valueOf(groupChat.getCreateTime()));
             map.put("id", groupChat.getUserId());
             map.put("message", groupChat.getContent());
             // 获取用户名
@@ -163,7 +163,7 @@ public class ChatRecordService {
             this.sendToRedis(session, msg, friendId, userId);
         }
         // 保存消息到monogodb
-        String currentTime = String.valueOf(System.currentTimeMillis());
+        Long currentTime = System.currentTimeMillis();
         // 自己一方
         ChatRecord chatRecord = new ChatRecord();
         chatRecord.setUserId(userId);
@@ -221,6 +221,7 @@ public class ChatRecordService {
         groupChatRecord.setUserId(userId);
         groupChatRecord.setGroupId(groupId);
         groupChatRecord.setContent(message);
+        groupChatRecord.setCreateTime(System.currentTimeMillis());
         groupChatRecordDao.save(groupChatRecord);
     }
 

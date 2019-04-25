@@ -19,7 +19,7 @@ public class ChatRecord implements Serializable {
 
     private String status;   // 状态 left or right
 
-    private String createTime;   // 创建时间
+    private Long createTime;   // 创建时间
 
     @Override
     public String toString() {

@@ -17,6 +17,6 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         // 声明拦截的对象和拦截得请求
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")    // 需要拦截的路径
-                .excludePathPatterns("/**/login/**", "/**/register/**", "/**/send_email/**");    // 不拦截得到路径
+                .excludePathPatterns("/**/login/**", "/**/register/**", "/**/send_email/**", "/**/admin_login/**");    // 不拦截的路径
     }
 }
