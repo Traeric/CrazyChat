@@ -749,4 +749,21 @@ public class UserService {
     public void deleteAccount(String userId) {
         userProfileDao.deleteById(userId);
     }
+
+
+    /**
+     * 获取所有的用户
+     * @return
+     */
+    public List<Map<String, String>> findAllUser() {
+        List<UserProfile> users = userProfileDao.findAllUser();
+        List<Map<String, String>> list = new ArrayList<>();
+        users.parallelStream().forEach((user) -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", user.getId());
+            map.put("name", user.getName());
+            list.add(map);
+        });
+        return list;
+    }
 }

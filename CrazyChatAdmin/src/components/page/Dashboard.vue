@@ -17,7 +17,7 @@
                     <div slot="header" class="clearfix">
                         <span>网站语言详情</span>
                     </div>
-                    java
+                    Java
                     <el-progress :percentage="50" color="#b07219"></el-progress>
                     JavaScript
                     <el-progress :percentage="24" color="#f1e05a"></el-progress>
@@ -34,7 +34,7 @@
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-1">
-                                <i class="el-icon-lx-people grid-con-icon"></i>
+                                <i class="el-icon-lx-group grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">{{ groupNum }}</div>
                                     <div>创建的群聊数量</div>
@@ -130,9 +130,8 @@
             }
         },
         created() {
-            const date = new Date();
-            this.currentDate = date.getFullYear() + "年" + date.getMonth() + "月"
-                + date.getDay() + "日 " + date.getHours() + ":" + date.getMinutes();
+            let loginTime = localStorage.getItem("currentTime");
+			this.currentDate = loginTime;
             // 查询用户数量，管理员，群聊数量
             userApi.UserNum().then((response) => {
                 if (response.data.flag) {

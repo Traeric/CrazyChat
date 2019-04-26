@@ -8,7 +8,6 @@ import com.crazychat.chat.dao.GroupChatRecordDao;
 import com.crazychat.chat.pojo.ChatRecord;
 import com.crazychat.chat.pojo.GroupChatRecord;
 import com.crazychat.chat.socket.UserToUserSocket;
-import com.crazychat.common.utils.IdWorker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
@@ -27,6 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -40,9 +41,6 @@ public class ChatRecordService {
 
     @Resource
     private UserClient userClient;
-
-    @Resource
-    private IdWorker idWorker;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -376,5 +374,55 @@ public class ChatRecordService {
                 .contentLength(file.contentLength())        // 下载文件的长度
                 .contentType(MediaType.ALL.parseMediaType("application/octet-stream"))
                 .body(new InputStreamResource(file.getInputStream()));
+    }
+
+
+    /**
+     * 管理员查询用户对用户的聊天记录
+     * @param fromUser
+     * @param toUser
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public List<Map<String, Object>> getUserRecordByTime(String fromUser, String toUser, Long startTime, Long endTime) {
+        List<ChatRecord> chatRecords = chatRecordDao.findAllByUserIdAndFriendIdAndCreateTimeBetween(fromUser, toUser, startTime, endTime);
+        // 用户名
+        String userName = new String(userClient.getUserNameById(fromUser));
+        List<Map<String, Object>> data = new ArrayList<>();
+        chatRecords.parallelStream().forEach((chatRecord) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", userName);
+            map.put("content", chatRecord.getContent());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm ss秒");
+            map.put("date", simpleDateFormat.format(new Date(chatRecord.getCreateTime())));
+            data.add(map);
+        });
+        return data;
+    }
+
+
+    /**
+     * 查询群聊的全部记录
+     * @param userId
+     * @param groupId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public List<Map<String, Object>> getAllGroupRecordByTime(String userId, String groupId, Long startTime, Long endTime) {
+        List<GroupChatRecord> groups = groupChatRecordDao.findAllByUserIdAndGroupIdAndCreateTimeBetween(userId, groupId, startTime, endTime);
+        List<Map<String, Object>> data = new ArrayList<>();
+        groups.parallelStream().forEach((group) -> {
+            Map<String, Object> map = new HashMap<>();
+            // 查询用户名
+            String userName = new String(userClient.getUserNameById(group.getUserId()));
+            map.put("name", userName);
+            map.put("content", group.getContent());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm ss秒");
+            map.put("date", simpleDateFormat.format(new Date(group.getCreateTime())));
+            data.add(map);
+        });
+        return data;
     }
 }

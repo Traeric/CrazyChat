@@ -89,6 +89,16 @@ export default {
             },
         });
     },
+	// 修改密码
+	modifyPwassord(adminId, password) {
+		return request({
+			url: `/user/admin/modify_password/${adminId}`,
+			method: "put",
+			data: {
+				password,
+			},
+		});
+	},
 };
 
 

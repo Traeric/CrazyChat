@@ -26,3 +26,9 @@ eureka:
       defaultZone: http://127.0.0.1:4170/eureka/
   instance:
     prefer-ip-address: true     # 跨域访问
+
+jwt:
+  config:
+    # 加盐
+    key: ericjin
+    ttl: 3600000

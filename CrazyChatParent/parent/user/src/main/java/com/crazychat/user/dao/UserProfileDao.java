@@ -35,4 +35,7 @@ public interface UserProfileDao extends JpaRepository<UserProfile, String>, JpaS
     @Query(value = "UPDATE userprofile SET status = ?1 WHERE id = ?2", nativeQuery = true)
     @Modifying
     void changeStatus(Integer status, String userId);
+
+    @Query(value = "SELECT * FROM userprofile WHERE status = 0", nativeQuery = true)
+    List<UserProfile> findAllUser();
 }

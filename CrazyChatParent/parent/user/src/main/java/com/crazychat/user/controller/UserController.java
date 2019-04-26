@@ -470,6 +470,19 @@ public class UserController {
 
 
     /**
+     * 获取所有的用户
+     * @param request
+     * @return
+     */
+    @GetMapping("/find_all")
+    public Result authFindAllUser(HttpServletRequest request) {
+        List<Map<String, String>> data = userService.findAllUser();
+
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
      * 通过id获取用户名
      * 该接口通过feign客户端远程调用
      *

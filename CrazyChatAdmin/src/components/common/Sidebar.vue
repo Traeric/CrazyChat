@@ -66,9 +66,14 @@
                     },
                     {
                         icon: 'el-icon-lx-mail',
-                        index: '/shend_notice',
+                        index: '/send_notice',
                         title: '编辑公告',
                     },
+					{
+					    icon: 'el-icon-setting',
+					    index: '/account_setting',
+					    title: '账号设置',
+					},
                 ]
             }
         },

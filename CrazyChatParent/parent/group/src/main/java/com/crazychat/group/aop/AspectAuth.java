@@ -1,4 +1,4 @@
-package com.crazychat.user.aop;
+package com.crazychat.group.aop;
 
 import com.crazychat.common.entity.StatusCode;
 import org.aspectj.lang.JoinPoint;
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
-public class AdminAuthority {
+public class AspectAuth {
     /**
      * 在执行之前检查权限
      */
-    @Before("(execution(public * com.crazychat.user.controller.UserController.auth*(..))) || (execution(public * com.crazychat.user.controller.AdminUserController.auth*(..)))")
+    @Before("execution(public * com.crazychat.group.controller.GroupController.auth*(..))")
     public void before(JoinPoint point) {
         // 获取request
         HttpServletRequest request = (HttpServletRequest) point.getArgs()[0];

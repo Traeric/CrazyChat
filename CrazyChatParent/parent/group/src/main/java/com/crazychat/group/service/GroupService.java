@@ -72,6 +72,7 @@ public class GroupService {
 
     /**
      * 搜索群名
+     *
      * @param groupName
      * @param userId
      * @return
@@ -346,6 +347,7 @@ public class GroupService {
 
     /**
      * 检测用户是否是群成员
+     *
      * @param userId
      * @param groupId
      * @return
@@ -356,6 +358,7 @@ public class GroupService {
 
     /**
      * 查询群里聊数量
+     *
      * @return
      */
     public Integer groupNum() {
@@ -365,11 +368,59 @@ public class GroupService {
 
     /**
      * 查询所有的群聊
+     *
      * @param currentPage
      * @return
      */
     public Page<Group> findAllGroup(Integer currentPage) {
         Pageable pageable = PageRequest.of(currentPage - 1, 10);
         return groupDao.findAllGroup(pageable);
+    }
+
+
+    /**
+     * 通过名字查询群聊
+     *
+     * @param userName
+     * @param currentPage
+     * @return
+     */
+    public Page<Group> findGroupByName(String userName, Integer currentPage) {
+        Pageable pageable = PageRequest.of(currentPage - 1, 10);
+        return groupDao.findAllByNameContains(userName, pageable);
+    }
+
+
+    /**
+     * 管理员删除群聊
+     *
+     * @param groupId
+     */
+    public void adminDeleteGroup(String groupId) {
+        // 查询群聊
+        Group group = groupDao.findById(groupId).orElse(null);
+        if (null == group) {
+            throw new RuntimeException("没有该群聊");
+        }
+        // 获取所有的群聊
+        List<String> groupMemberIds = this.getGroupMember(group.getId());
+        groupDao.delete(group);
+
+        // 通知每一个人
+        groupMemberIds.parallelStream().forEach((memberId) -> {
+            // 通知每个人
+            String key = memberId + "zw" + group.getId() + "delete";
+            String confirmInfo = "管理员已经将" + group.getName() + "解散了，青山不改，绿水长流，兄弟们江湖再见！";
+            redisTemplate.delete(key);
+            redisTemplate.opsForList().leftPushAll(key, confirmInfo, group.getId(), group.getPicture(),
+                    group.getName(), "3", "zw", "jx");
+            Session session = GroupSocket.userCollect.get(memberId);
+            if (null != session) {
+                // 封装消息
+                String message = "[\"" + group.getId() + "\", \"" + confirmInfo + "\", \"" + group.getName() + "\", \"" +
+                        group.getPicture() + "\", \"3\"]";
+                session.getAsyncRemote().sendText(message);
+            }
+        });
     }
 }

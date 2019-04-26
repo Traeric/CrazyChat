@@ -13,4 +13,16 @@ public interface ChatRecordDao extends MongoRepository<ChatRecord, String> {
      * @return
      */
     List<ChatRecord> findAllByUserIdAndFriendId(String userId, String friendId);
+
+    /**
+     * 查询用户对用户的聊天记录
+     * @param userId
+     * @param friendId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<ChatRecord> findAllByUserIdAndFriendIdAndCreateTimeBetween(String userId, String friendId, Long startTime, Long endTime);
 }
+
+

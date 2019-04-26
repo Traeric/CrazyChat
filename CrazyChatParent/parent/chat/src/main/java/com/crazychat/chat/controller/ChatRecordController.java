@@ -167,4 +167,34 @@ public class ChatRecordController {
         chatRecordService.removeUnRead(userId, otherId);
         return new Result(true, StatusCode.OK.getCode(), "删除成功");
     }
+
+
+    /**
+     * 管理员查询用户对用户的聊天记录
+     * @param fromUser
+     * @param toUser
+     * @param map
+     * @return
+     */
+    @GetMapping("/admin_get_user_record/{fromUser}/{toUser}/{startTime}/{endTime}")
+    public Result getUserRecordByTime(@PathVariable String fromUser, @PathVariable String toUser,
+                                      @PathVariable Long startTime, @PathVariable Long endTime) {
+        List<Map<String, Object>> data = chatRecordService.getUserRecordByTime(fromUser, toUser, startTime, endTime);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 查询群聊的全部记录
+     * @param groupId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @GetMapping("/admin_get_group_record_all/{userId}/{groupId}/{startTime}/{endTime}")
+    public Result getAllGroupRecordByTime(@PathVariable String userId, @PathVariable String groupId,
+                                          @PathVariable Long startTime, @PathVariable Long endTime) {
+        List<Map<String, Object>> data = chatRecordService.getAllGroupRecordByTime(userId, groupId, startTime, endTime);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
 }

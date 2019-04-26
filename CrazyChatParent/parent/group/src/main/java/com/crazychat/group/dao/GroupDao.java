@@ -18,4 +18,6 @@ public interface GroupDao extends JpaRepository<Group, String>, JpaSpecification
 
     @Query(value = "SELECT * FROM group_chat", nativeQuery = true)
     Page<Group> findAllGroup(Pageable pageable);
+
+    Page<Group> findAllByNameContains(String username, Pageable pageable);
 }

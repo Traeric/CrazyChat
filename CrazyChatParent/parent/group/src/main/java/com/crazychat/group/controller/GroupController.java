@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -203,11 +204,42 @@ public class GroupController {
      * @return
      */
     @GetMapping("/find_all/{page}")
-    public Result authFindAllGroup(@PathVariable("page") Integer currentPage) {
+    public Result authFindAllGroup(HttpServletRequest request, @PathVariable("page") Integer currentPage) {
         Page<Group> groups = groupService.findAllGroup(currentPage);
         Map<String, Object> data = new HashMap<>();
         data.put("allNum", groups.getTotalElements());
         data.put("rows", groups.getContent());
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 通过名字查找群聊
+     * @param request
+     * @param userName
+     * @param currentPage
+     * @return
+     */
+    @GetMapping("/search_by_name/{name}/{page}")
+    public Result authFindGroupByName(HttpServletRequest request, @PathVariable("name") String userName,
+                                      @PathVariable("page") Integer currentPage) {
+        Page<Group> groups = groupService.findGroupByName(userName, currentPage);
+        Map<String, Object> data = new HashMap<>();
+        data.put("allNum", groups.getTotalElements());
+        data.put("rows", groups.getContent());
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 管理员删除群聊
+     * @param request
+     * @param groupId
+     * @return
+     */
+    @DeleteMapping("/delete_group_admin/{group_id}")
+    public Result authDeleteGroup(HttpServletRequest request, @PathVariable("group_id") String groupId) {
+        groupService.adminDeleteGroup(groupId);
+        return new Result(true, StatusCode.OK.getCode(), "删除成功");
     }
 }

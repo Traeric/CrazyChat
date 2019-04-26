@@ -63,6 +63,12 @@
                         const data = response.data.data;
                         // 登录成功，设置cookie
                         setUser(data.id, data.username, data.avatar, data.token);
+						// 设置登陆时间
+						const date = new Date();
+						let loginTime = date.getFullYear() + "年" + date.getMonth() + "月"
+						    + date.getDay() + "日 " + date.getHours() + ":" + date.getMinutes();
+						// 保存到localStorage
+						localStorage.setItem("currentTime", loginTime);
                         // 跳转到主页
                         this.$router.push('/');
                     } else {

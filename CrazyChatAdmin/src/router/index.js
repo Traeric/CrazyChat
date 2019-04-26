@@ -39,10 +39,15 @@ export default new Router({
                     meta: { title: '用户聊天记录' }
                 },
                 {
-                    path: '/shend_notice',
+                    path: '/send_notice',
                     component: resolve => require(['../components/page/SendNotice.vue'], resolve),
                     meta: { title: '发送公告' }
                 },
+				{
+				    path: '/account_setting',
+				    component: resolve => require(['../components/page/AccountSetting.vue'], resolve),
+				    meta: { title: '账号设置' }
+				},
                 {
                     path: '/404',
                     component: resolve => require(['../components/page/404.vue'], resolve),

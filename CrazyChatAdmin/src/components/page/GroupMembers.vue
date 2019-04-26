@@ -9,7 +9,7 @@
             <el-tabs v-model="message">
                 <el-tab-pane :label="`群员列表(${members.length})`" name="first">
                     <el-table :data="members" :show-header="false" style="width: 100%" :highlight-current-row="true">
-                        <el-table-column width="150">
+                        <el-table-column width="200">
                             <template slot-scope="scope">
                                 <span class="message-title">{{scope.row.id}}</span>
                             </template>

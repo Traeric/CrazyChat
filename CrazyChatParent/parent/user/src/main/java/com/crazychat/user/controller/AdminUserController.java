@@ -5,12 +5,12 @@ import com.crazychat.common.entity.StatusCode;
 import com.crazychat.common.utils.JwtUtils;
 import com.crazychat.user.pojo.AdminUser;
 import com.crazychat.user.service.AdminUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -58,4 +58,39 @@ public class AdminUserController {
         Map<String, Object> data = adminUserService.countNum();
         return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
+
+
+    /**
+     * 给所有用户推送公告
+     * @param request
+     * @param map
+     * @return
+     */
+    @PostMapping("/send_nitice_to_all")
+    public Result authSendNoticeToAll(HttpServletRequest request, @RequestBody Map map) {
+        // 获取待发送的消息
+        String message = (String) map.get("message");
+        adminUserService.sendNoticeToAll(message);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功");
+    }
+
+
+    /**
+     * 给选中的用户推送消息
+     * @param request
+     * @param map
+     * @return
+     */
+    @PostMapping("/send_notice_to_select")
+    public Result authSendNoticeToSelect(HttpServletRequest request, @RequestBody Map map) {
+        // 获取要推送的消息
+        String message = (String) map.get("message");
+        // 获取要推送的用户
+        List<String> remoteUser = (List<String>) map.get("selectList");
+        adminUserService.sendNoticeToSelect(message, remoteUser);
+        return new Result(true, StatusCode.OK.getCode(), "发送成功");
+    }
+
+
+    
 }
