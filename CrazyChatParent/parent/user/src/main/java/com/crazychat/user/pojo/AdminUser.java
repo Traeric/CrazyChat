@@ -2,15 +2,15 @@ package com.crazychat.user.pojo;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "admin_user")
-public class AdminUser {
+public class AdminUser implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String username;

@@ -55,15 +55,17 @@
 
 <script>
 	import userApi from "../../api/user";
-	import {getUser} from "../../utils/auth";
-	
-	
+	import {
+		getUser
+	} from "../../utils/auth";
+
+
 	export default {
 		data() {
 			return {
 				newPwd: "",
 				confirmPwd: "",
-				
+
 				// 创建账号
 				account_name: "",
 				pwd: "",
@@ -90,10 +92,18 @@
 					});
 					return;
 				}
+				if (newPwd.trim() === "") {
+					this.$message({
+						message: "密码不能为空！",
+						type: "error",
+					});
+					return;
+				}
 				// 修改密码
 				userApi.modifyPwassord(getUser().id, newPwd).then((response) => {
-					this.$message({
+					this.$notify({
 						message: response.data.message,
+						title: (response.data.flag ? '成功' : '失败'),
 						type: (response.data.flag ? 'success' : 'error'),
 					});
 					if (response.data.flag) {
@@ -103,7 +113,56 @@
 				});
 			},
 			createAccount() {
-				alert(2);
+				let adminName = this.account_name;
+				let pwd = this.pwd;
+				let confirm = this.caccountConfirmPwd;
+				if (adminName.trim() === "") {
+					this.$message({
+						message: "用户名不能为空！",
+						type: "error",
+					});
+					return;
+				}
+				if (pwd.trim() === "") {
+					this.$message({
+						message: "密码不能为空！",
+						type: "error",
+					});
+					return;
+				}
+				if (pwd !== confirm) {
+					this.$message({
+						message: "两次密码输入不一致！",
+						type: "error",
+					});
+					return;
+				}
+				// 发送请求创建账号
+				userApi.createAccount(adminName, pwd).then((response) => {
+					if (response.data.flag) {
+						this.account_name = "";
+						this.pwd = "";
+						this.caccountConfirmPwd = "";
+						// 提示
+						this.$notify({
+							title: '成功',
+							type: 'success',
+							dangerouslyUseHTMLString: true,    // 允许html
+							duration: 0,     // 不会关闭
+							message: `
+								<p style="font-weight: bolder; color: #67C23A;">创建成功</p>
+								<p><span style="font-weight: bolder;">管理员账号： </span>${adminName}</p>
+								<p><span style="font-weight: bolder;">管理员密码： </span>${pwd}</p>
+								<p><small><i class="el-icon-warning" style="color: #67C23A;"></i> 请及时保存账户信息，以免遗忘。</smalll></p>
+							`,
+						});
+					} else {
+						this.$message({
+							message: response.data.message,
+							type: "error",
+						});
+					}
+				});
 			},
 		},
 	}

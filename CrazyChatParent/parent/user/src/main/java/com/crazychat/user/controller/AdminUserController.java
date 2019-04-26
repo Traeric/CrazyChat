@@ -92,5 +92,34 @@ public class AdminUserController {
     }
 
 
-    
+    /**
+     * 修改管理员密码
+     * @param request
+     * @param adminId
+     * @param map
+     * @return
+     */
+    @PutMapping("/modify_password/{adminId}")
+    public Result authModifyPassword(HttpServletRequest request, @PathVariable String adminId, @RequestBody Map map) {
+        // 获取新密码
+        String newPassword = (String) map.get("password");
+        adminUserService.ModifyPassword(adminId, newPassword);
+        return new Result(true, StatusCode.OK.getCode(), "修改成功");
+    }
+
+
+    /**
+     * 创建账号
+     * @param request
+     * @param map
+     * @return
+     */
+    @PostMapping("/create_account")
+    public Result authCreateAccount(HttpServletRequest request, @RequestBody Map map) {
+        // 获取密码跟用户名
+        String adminName = (String) map.get("adminName");
+        String password = (String) map.get("password");
+        adminUserService.createAccount(adminName, password);
+        return new Result(true, StatusCode.OK.getCode(), "账号创建成功");
+    }
 }

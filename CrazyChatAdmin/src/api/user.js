@@ -99,6 +99,17 @@ export default {
 			},
 		});
 	},
+	// 创建账号
+	createAccount(adminName, password) {
+		return request({
+			url: '/user/admin/create_account',
+			method: "post",
+			data: {
+				adminName,
+				password,
+			},
+		});
+	},
 };
 
 

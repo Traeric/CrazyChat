@@ -39,6 +39,7 @@ public class AdminUserService {
     @Resource
     private IdWorker idWorker;
 
+
     /**
      * 登陆后台用户
      *
@@ -125,5 +126,38 @@ public class AdminUserService {
                 session.getAsyncRemote().sendText(msg);
             }
         });
+    }
+
+
+    /**
+     * 修改密码
+     *
+     * @param adminId
+     * @param newPassword
+     */
+    public void ModifyPassword(String adminId, String newPassword) {
+        // 设置密码加密
+        String encodePassword = bCryptPasswordEncoder.encode(newPassword);
+        adminUserDao.ModifyPaassword(encodePassword, adminId);
+    }
+
+
+    /**
+     * 创建管理员账号
+     *
+     * @param adminName
+     * @param password
+     */
+    public void createAccount(String adminName, String password) {
+        // 查看账户是否已经存在
+        if (null != adminUserDao.findByUsername(adminName)) {
+            throw new RuntimeException("账户已存在！");
+        }
+        // 加密
+        password = bCryptPasswordEncoder.encode(password);
+        AdminUser adminUser = new AdminUser();
+        adminUser.setUsername(adminName);
+        adminUser.setPassword(password);
+        adminUserDao.save(adminUser);
     }
 }
