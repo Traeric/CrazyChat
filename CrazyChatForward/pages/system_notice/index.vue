@@ -340,6 +340,6 @@
 	.wrapper .right .content {
 		overflow: hidden;
 		padding: 20px;
-		background-color: #a0aeab;
+		background-color: #fff;
 	}
 </style>
