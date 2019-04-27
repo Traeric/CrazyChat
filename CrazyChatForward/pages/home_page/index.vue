@@ -6,8 +6,8 @@
                     <i class="iconfont icon-biji"></i>
                 </div>
                 <ul class="left-list">
-                    <Notification/>
-                    <li><i class="iconfont icon-youjian1"></i></li>
+                    <Notification title="验证消息" />
+                    <li @click="notice" title="系统通知"><el-badge :value="systemMsg ? 'zw' : ''"><i class="iconfont icon-youjian1"></i></el-badge></li>
                     <li title="个人信息" @click="personnalInfo"><i class="iconfont icon-solid-person"></i></li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
@@ -190,6 +190,12 @@
             <source src="radio/msg.mp3"/>
             <source src="radio/msg.ogg"/>
         </audio>
+		<!-- 公告消息提醒 -->
+		<audio id="sys_hook">
+		    <source src="radio/notice.wav"/>
+		    <source src="radio/notice.mp3"/>
+		    <source src="radio/notice.ogg"/>
+		</audio>
     </div>
 </template>
 
@@ -226,6 +232,7 @@
                 groupListData: [],
                 relationChatListData: [],
                 wsMsg: null,
+				systemMsg: false,
             };
         },
         created() {
@@ -298,6 +305,21 @@
             fileDom.append(`<input type="file" id="file_input"
                 style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
             fileDom.on("input", "input[type=file]", this.uploadFile);
+			
+			/**
+			 * 加载是否有未读的系统消息
+			 */
+			userApi.haveNoReadNotice(getUser().id).then((response) => {
+				this.systemMsg = response.data.data;
+			});
+			// 建立socket连接
+			this.wsMsg = new WebSocket("ws://127.0.0.1:9002/verify_user/" + getUser().id);
+			this.wsMsg.onmessage = (event) => {
+				// 消息提示音
+				document.getElementById("sys_hook").play();
+				this.systemMsg = true;
+			};
+			
 
             /**
              * websocket发送消息操作
@@ -675,7 +697,11 @@
                     }
                 });
             },
-        },
+			// 跳转到公告信息栏
+			notice() {
+				location.href = "/system_notice"
+			},
+		},
         computed: {
             "isChatingComputed": function () {
                 return this.$store.state.friend.currentNick;

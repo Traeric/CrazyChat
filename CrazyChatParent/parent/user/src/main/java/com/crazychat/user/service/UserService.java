@@ -657,19 +657,21 @@ public class UserService {
         // 获取所有的key
         Set<String> keys = redisTemplate.keys(userId + "zw*");
         List<Map<String, String>> data = new ArrayList<>();
-        keys.parallelStream().forEach((key) -> {
-            // 获取redis中对应的值
-            List<Object> list = redisTemplate.opsForList().range(key, 0, -1);
-            Map<String, String> map = new HashMap<>();
-            map.put("otherId", (String) list.get(5));
-            map.put("name", (String) list.get(3));
-            map.put("avatar", (String) list.get(4));
-            map.put("confirmInfo", (String) list.get(6));
-            map.put("type", (String) list.get(2));
-            map.put("groupName", (String) list.get(1));
-            map.put("applyId", (String) list.get(0));
-            data.add(map);
-        });
+        if (null != keys) {
+            keys.parallelStream().forEach((key) -> {
+                // 获取redis中对应的值
+                List<Object> list = redisTemplate.opsForList().range(key, 0, -1);
+                Map<String, String> map = new HashMap<>();
+                map.put("otherId", (String) list.get(5));
+                map.put("name", (String) list.get(3));
+                map.put("avatar", (String) list.get(4));
+                map.put("confirmInfo", (String) list.get(6));
+                map.put("type", (String) list.get(2));
+                map.put("groupName", (String) list.get(1));
+                map.put("applyId", (String) list.get(0));
+                data.add(map);
+            });
+        }
         return data;
     }
 

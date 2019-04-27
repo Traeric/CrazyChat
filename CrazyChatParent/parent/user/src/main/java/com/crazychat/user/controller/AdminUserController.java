@@ -26,6 +26,7 @@ public class AdminUserController {
 
     /**
      * 登陆
+     *
      * @param map
      * @return
      */
@@ -47,6 +48,7 @@ public class AdminUserController {
 
     /**
      * 统计当前登陆的人数
+     *
      * @return
      */
     @GetMapping("/user_num")
@@ -62,6 +64,7 @@ public class AdminUserController {
 
     /**
      * 给所有用户推送公告
+     *
      * @param request
      * @param map
      * @return
@@ -77,6 +80,7 @@ public class AdminUserController {
 
     /**
      * 给选中的用户推送消息
+     *
      * @param request
      * @param map
      * @return
@@ -94,6 +98,7 @@ public class AdminUserController {
 
     /**
      * 修改管理员密码
+     *
      * @param request
      * @param adminId
      * @param map
@@ -110,6 +115,7 @@ public class AdminUserController {
 
     /**
      * 创建账号
+     *
      * @param request
      * @param map
      * @return
@@ -121,5 +127,76 @@ public class AdminUserController {
         String password = (String) map.get("password");
         adminUserService.createAccount(adminName, password);
         return new Result(true, StatusCode.OK.getCode(), "账号创建成功");
+    }
+
+
+    /**
+     * 加载所有的通知
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/load_notice/{user_id}")
+    public Result loadNotice(@PathVariable("user_id") String userId) {
+        List<Map<String, String>> data = adminUserService.loadNotice(userId);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
+    }
+
+
+    /**
+     * 将公告标为已读
+     *
+     * @param map
+     * @return
+     */
+    @PutMapping("/read_notice")
+    public Result readNotice(@RequestBody Map map) {
+        // 获取key
+        String noticeKey = (String) map.get("noticeKey");
+        adminUserService.readNotice(noticeKey);
+        return new Result(true, StatusCode.OK.getCode(), "成功标为已读");
+    }
+
+
+    /**
+     * 将公告标为已读
+     *
+     * @param map
+     * @return
+     */
+    @PutMapping("/no_read_notice")
+    public Result noReadNotice(@RequestBody Map map) {
+        // 获取key
+        String noticeKey = (String) map.get("noticeKey");
+        adminUserService.noReadNotice(noticeKey);
+        return new Result(true, StatusCode.OK.getCode(), "成功标为未读");
+    }
+
+
+    /**
+     * 删除公告
+     *
+     * @param map
+     * @return
+     */
+    @PutMapping("/delete_notice")
+    public Result deleteNotice(@RequestBody Map map) {
+        // 获取key
+        String noticeKey = (String) map.get("noticeKey");
+        adminUserService.deleteNotice(noticeKey);
+        return new Result(true, StatusCode.OK.getCode(), "公告删除成功");
+    }
+
+
+    /**
+     * 查看是否有未读消息
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/have_no_read_notice/{user_id}")
+    public Result haveNoReadNotice(@PathVariable("user_id") String userId) {
+        boolean data = adminUserService.haveNoReadNotice(userId);
+        return new Result(true, StatusCode.OK.getCode(), "查询成功", data);
     }
 }

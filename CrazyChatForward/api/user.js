@@ -139,4 +139,53 @@ export default {
             method: "get",
         });
     },
+	
+	// 加载通知
+	loadNotice(user_id) {
+		return request({
+			url: `/user/admin/load_notice/${user_id}`,
+			method: "get",
+		});
+	},
+	
+	// 将公告标为已读
+	readNotice(noticeKey) {
+		return request({
+			url: '/user/admin/read_notice',
+			method: "put",
+			data: {
+				noticeKey,
+			},
+		});
+	},
+	
+	// 将公告标为未读
+	noReadNotice(noticeKey) {
+		return request({
+			url: '/user/admin/no_read_notice',
+			method: "put",
+			data: {
+				noticeKey,
+			},
+		});
+	},
+	
+	// 删除公告
+	deleteNotice(noticeKey) {
+		return request({
+			url: "/user/admin/delete_notice",
+			method: "put",
+			data: {
+				noticeKey,
+			},
+		});
+	},
+	
+	// 是否有未读的系统消息
+	haveNoReadNotice(user_id) {
+		return request({
+			url: `/user/admin/have_no_read_notice/${user_id}`,
+			method: "get",
+		});
+	},
 }
