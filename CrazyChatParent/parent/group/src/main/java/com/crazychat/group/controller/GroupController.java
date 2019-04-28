@@ -111,8 +111,8 @@ public class GroupController {
      * @return
      */
     @GetMapping("/name/{group_id}")
-    public String getGroupNameById(@PathVariable("group_id") String groupId) {
-        return groupService.getGroupById(groupId).getName();
+    public byte[] getGroupNameById(@PathVariable("group_id") String groupId) {
+        return groupService.getGroupById(groupId).getName().getBytes();
     }
 
     /**
@@ -172,8 +172,8 @@ public class GroupController {
      * @return
      */
     @GetMapping("/group_picture/{group_id}")
-    public String getGroupPictureById(@PathVariable("group_id") String groupId) {
-        return groupService.getGroupById(groupId).getPicture();
+    public byte[] getGroupPictureById(@PathVariable("group_id") String groupId) {
+        return groupService.getGroupById(groupId).getPicture().getBytes();
     }
 
     /**

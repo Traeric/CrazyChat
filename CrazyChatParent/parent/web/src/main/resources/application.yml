@@ -1,8 +1,15 @@
 server:
   port: 4140
+
+
+web-resource-path: C:\Users\Eric Jin\Desktop\static\
 spring:
   application:
     name: crazychat-web
+    # 配置静态路径
+  resources:
+    static-locations: classpath:/META-INF/resources/, classpath:/static, classpath:/resources/, classpath:/public/, file:${web-resource-path}
+
 eureka:
   client:
     serviceUrl:

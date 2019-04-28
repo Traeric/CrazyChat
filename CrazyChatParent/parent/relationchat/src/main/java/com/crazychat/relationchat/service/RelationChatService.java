@@ -31,9 +31,6 @@ public class RelationChatService {
     @Resource
     private ChatClient chatClient;
 
-    @Resource(name = "idWorker")
-    private IdWorker idCreater;
-
     @Resource
     private RedisTemplate redisTemplate;
 
@@ -65,9 +62,9 @@ public class RelationChatService {
                 map.put("lastMsg", message);
             } else {
                 // 群
-                String groupName = groupClient.getGroupNameById(relationChat.getOtherId());
+                String groupName = new String(groupClient.getGroupNameById(relationChat.getOtherId()));
                 map.put("name", groupName);
-                String picture = groupClient.getGroupPictureById(relationChat.getOtherId());
+                String picture = new String(groupClient.getGroupPictureById(relationChat.getOtherId()));
                 map.put("picture", picture);
                 // 返回的data数据
                 Map<String, String> map1 = new HashMap<>();
