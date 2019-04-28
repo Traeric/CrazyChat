@@ -4,9 +4,6 @@ server:
 web-resource-path: C:\Users\Eric Jin\Desktop\static\
 
 spring:
-  # 配置静态路径
-  resources:
-    static-locations: classpath:/META-INF/resources/, classpath:/static, classpath:/resources/, classpath:/public/, file:${web-resource-path}
   application:
     name: crazychat-user
   datasource:   # 配置数据源

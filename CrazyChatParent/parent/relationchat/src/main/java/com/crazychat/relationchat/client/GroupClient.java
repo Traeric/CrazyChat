@@ -16,7 +16,7 @@ public interface GroupClient {
      * @return
      */
     @GetMapping("/group/name/{group_id}")
-    String getGroupNameById(@PathVariable("group_id") String groupId);
+    byte[] getGroupNameById(@PathVariable("group_id") String groupId);
 
     /**
      * 获取群聊的图片
@@ -24,5 +24,5 @@ public interface GroupClient {
      * @return
      */
     @GetMapping("/group/group_picture/{group_id}")
-    String getGroupPictureById(@PathVariable("group_id") String groupId);
+    byte[] getGroupPictureById(@PathVariable("group_id") String groupId);
 }

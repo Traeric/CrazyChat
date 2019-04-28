@@ -8,12 +8,12 @@ import java.util.Map;
 public class GroupClientImpl implements GroupClient {
 
     @Override
-    public String getGroupNameById(String groupId) {
-        return "NOT AVALIABLE";
+    public byte[] getGroupNameById(String groupId) {
+        return "NOT AVALIABLE".getBytes();
     }
 
     @Override
-    public String getGroupPictureById(String groupId) {
-        return "NOT AVALIABLE";
+    public byte[] getGroupPictureById(String groupId) {
+        return "NOT AVALIABLE".getBytes();
     }
 }
