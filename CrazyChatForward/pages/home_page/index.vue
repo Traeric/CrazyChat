@@ -2,7 +2,7 @@
     <div class="wrap">
         <div class="nav">
             <div class="left col-md-2 col-lg-2 col-sm-2">
-                <div class="writing" title="写动态">
+                <div class="writing" title="写动态" @click="writeDynamic">
                     <i class="iconfont icon-biji"></i>
                 </div>
                 <ul class="left-list">
@@ -701,6 +701,10 @@
 			notice() {
 				location.href = "/system_notice"
 			},
+            // 跳转到写动态页面
+            writeDynamic() {
+                location.href = "/dynamic";
+            },
 		},
         computed: {
             "isChatingComputed": function () {
