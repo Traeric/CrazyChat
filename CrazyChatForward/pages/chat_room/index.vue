@@ -32,7 +32,7 @@
                         <nuxt-link to="/home_page">个人主页</nuxt-link>
                     </el-button>
                     <el-button type="text">
-                        <nuxt-link to="/home_page">动态空间</nuxt-link>
+                        <nuxt-link to="/dynamic_space">动态空间</nuxt-link>
                     </el-button>
                 </el-row>
             </div>
@@ -94,7 +94,8 @@
                     // some quill options
                     modules: {
                         toolbar: [
-                            ['bold', 'underline', 'image'],
+                            ['bold', 'underline'],
+                            // ['bold', 'underline', 'image'],
                         ]
                     }
                 },

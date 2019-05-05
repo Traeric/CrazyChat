@@ -97,7 +97,7 @@
                 // 用户好友列表
                 dialogVisible: false,
                 friendObj: {},
-                friendList: [],
+                friendList: {},
                 userInfo: {},
             };
         },

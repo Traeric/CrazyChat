@@ -6,8 +6,10 @@
                     <i class="iconfont icon-biji"></i>
                 </div>
                 <ul class="left-list">
-                    <Notification title="验证消息" />
-                    <li @click="notice" title="系统通知"><el-badge :value="systemMsg ? 'zw' : ''"><i class="iconfont icon-youjian1"></i></el-badge></li>
+                    <Notification title="验证消息"/>
+                    <li @click="notice" title="系统通知">
+                        <el-badge :value="systemMsg ? 'zw' : ''"><i class="iconfont icon-youjian1"></i></el-badge>
+                    </li>
                     <li title="个人信息" @click="personnalInfo"><i class="iconfont icon-solid-person"></i></li>
                     <li style="clear: both; display: none;"></li>
                 </ul>
@@ -124,7 +126,11 @@
                                 聊天室<i class="el-icon-back el-icon--right" style="transform: rotate(180deg);"></i>
                             </nuxt-link>
                         </el-button>
-                        <el-button type="warning">动态空间<i class="el-icon-star-on el-icon--right"></i></el-button>
+                        <el-button type="warning">
+                            <nuxt-link to="/dynamic_space" style="color: #fff; text-decoration: none; display: block;">
+                                动态空间<i class="el-icon-star-on el-icon--right"></i>
+                            </nuxt-link>
+                        </el-button>
                     </el-row>
                 </div>
                 <div class="chat-pannel">
@@ -190,12 +196,12 @@
             <source src="radio/msg.mp3"/>
             <source src="radio/msg.ogg"/>
         </audio>
-		<!-- 公告消息提醒 -->
-		<audio id="sys_hook">
-		    <source src="radio/notice.wav"/>
-		    <source src="radio/notice.mp3"/>
-		    <source src="radio/notice.ogg"/>
-		</audio>
+        <!-- 公告消息提醒 -->
+        <audio id="sys_hook">
+            <source src="radio/notice.wav"/>
+            <source src="radio/notice.mp3"/>
+            <source src="radio/notice.ogg"/>
+        </audio>
     </div>
 </template>
 
@@ -232,7 +238,7 @@
                 groupListData: [],
                 relationChatListData: [],
                 wsMsg: null,
-				systemMsg: false,
+                systemMsg: false,
             };
         },
         created() {
@@ -305,21 +311,21 @@
             fileDom.append(`<input type="file" id="file_input"
                 style="position: absolute; width: 20px;height: 18px; top: 0; left: 0; opacity: 0; cursor: pointer;">`);
             fileDom.on("input", "input[type=file]", this.uploadFile);
-			
-			/**
-			 * 加载是否有未读的系统消息
-			 */
-			userApi.haveNoReadNotice(getUser().id).then((response) => {
-				this.systemMsg = response.data.data;
-			});
-			// 建立socket连接
-			this.wsMsg = new WebSocket("ws://127.0.0.1:9002/verify_user/" + getUser().id);
-			this.wsMsg.onmessage = (event) => {
-				// 消息提示音
-				document.getElementById("sys_hook").play();
-				this.systemMsg = true;
-			};
-			
+
+            /**
+             * 加载是否有未读的系统消息
+             */
+            userApi.haveNoReadNotice(getUser().id).then((response) => {
+                this.systemMsg = response.data.data;
+            });
+            // 建立socket连接
+            this.wsMsg = new WebSocket("ws://127.0.0.1:9002/verify_user/" + getUser().id);
+            this.wsMsg.onmessage = (event) => {
+                // 消息提示音
+                document.getElementById("sys_hook").play();
+                this.systemMsg = true;
+            };
+
 
             /**
              * websocket发送消息操作
@@ -697,15 +703,15 @@
                     }
                 });
             },
-			// 跳转到公告信息栏
-			notice() {
-				location.href = "/system_notice"
-			},
+            // 跳转到公告信息栏
+            notice() {
+                location.href = "/system_notice"
+            },
             // 跳转到写动态页面
             writeDynamic() {
                 location.href = "/dynamic";
             },
-		},
+        },
         computed: {
             "isChatingComputed": function () {
                 return this.$store.state.friend.currentNick;
