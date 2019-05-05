@@ -1,5 +1,4 @@
 import request from '../utils/request';
-import user from "./user";
 
 
 export default {

@@ -22,7 +22,7 @@
 				<nuxt-link to="/chat_room">
 					<el-button type="warning" plain>聊天室</el-button>
 				</nuxt-link>
-				<nuxt-link to="/chat_room">
+				<nuxt-link to="/dynamic">
 					<el-button type="danger" plain>动态空间</el-button>
 				</nuxt-link>
 			</div>
